@@ -1,37 +1,37 @@
-import { MessageCircle, FolderOpen } from "lucide-react";
-import Link from "next/link";
+import { FolderOpen } from "lucide-react";
+import PortfolioGrid from "@/components/PortfolioGrid";
 
 export default function PortafolioPage() {
   return (
     <div className="py-16 sm:py-24">
-      <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-        <FolderOpen className="w-16 h-16 text-accent/50 mx-auto mb-6" />
-        <h1 className="font-heading text-4xl sm:text-5xl font-bold text-text mb-4">
-          Portafolio
-        </h1>
-        <p className="text-text-muted text-lg max-w-lg mx-auto mb-8">
-          Esta sección se está preparando. Pronto podrás ver los proyectos
-          y trabajos realizados.
-        </p>
-        <p className="text-text-muted text-sm mb-10 max-w-md mx-auto">
-          Mientras tanto, puedes ver uno de mis proyectos más recientes:
-        </p>
-        <a
-          href="https://superdandi.github.io/vizcoso/"
-          target="_blank"
-          rel="noopener noreferrer"
-          className="inline-flex items-center gap-2 px-6 py-3 rounded-xl glass border border-border text-text hover:bg-white/10 transition-all duration-300 text-sm mb-10"
-        >
-          VIZCOSO Entertainment → Estudio musical
-        </a>
-        <div>
-          <Link
+      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="text-center mb-6">
+          <FolderOpen className="w-12 h-12 text-accent/50 mx-auto mb-4" />
+          <h1 className="font-heading text-4xl sm:text-5xl font-bold text-text mb-4">
+            Proyectos
+          </h1>
+          <p className="text-text-muted text-lg max-w-xl mx-auto">
+            Más de 30 proyectos desarrollados desde 2008 en la Región del Maule y Chile.
+            Sitios web, e-commerce, revistas digitales y más.
+          </p>
+        </div>
+
+        <PortfolioGrid />
+
+        <div className="text-center mt-16 glass-card p-8">
+          <h2 className="font-heading text-2xl font-semibold text-text mb-3">
+            ¿Reconoces tu proyecto aquí?
+          </h2>
+          <p className="text-text-muted max-w-md mx-auto mb-6">
+            Muchos de estos sitios ya no están en línea, pero el trabajo está
+            documentado. Si necesitas recuperar o actualizar alguno, hablemos.
+          </p>
+          <a
             href="/contacto"
             className="inline-flex items-center gap-2 px-8 py-3.5 rounded-xl bg-accent text-bg font-semibold hover:brightness-110 transition-all duration-300"
           >
-            <MessageCircle size={18} />
-            Hablemos de tu proyecto
-          </Link>
+            Conversemos
+          </a>
         </div>
       </div>
     </div>
