@@ -1,0 +1,144 @@
+"use client";
+
+import { useState } from "react";
+import { MessageCircle, Mail, MapPin, Send } from "lucide-react";
+
+export default function ContactoPage() {
+  const [sent, setSent] = useState(false);
+
+  function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
+    e.preventDefault();
+    const form = e.currentTarget;
+    const data = new FormData(form);
+    const name = data.get("name") as string;
+    const email = data.get("email") as string;
+    const message = data.get("message") as string;
+    const text = `Hola INFOCOB,%0A%0ANombre: ${encodeURIComponent(name)}%0AEmail: ${encodeURIComponent(email)}%0A%0A${encodeURIComponent(message)}`;
+    window.open(`https://wa.me/56982864145?text=${text}`, "_blank");
+    setSent(true);
+  }
+
+  return (
+    <div className="py-16 sm:py-24">
+      <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="text-center mb-16">
+          <h1 className="font-heading text-4xl sm:text-5xl font-bold text-text mb-4">
+            Contacto
+          </h1>
+          <p className="text-text-muted text-lg max-w-xl mx-auto">
+            Estoy listo para escuchar tu proyecto. Hablemos.
+          </p>
+        </div>
+
+        <div className="grid grid-cols-1 md:grid-cols-5 gap-8">
+          <div className="md:col-span-2 space-y-6">
+            <div className="glass-card p-6">
+              <div className="flex items-center gap-3 mb-4">
+                <MessageCircle className="w-5 h-5 text-success" />
+                <h3 className="font-heading font-semibold text-text">WhatsApp</h3>
+              </div>
+              <a
+                href="https://wa.me/56982864145"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-text-muted hover:text-text transition-colors text-sm"
+              >
+                +56 9 8286 4145
+              </a>
+              <p className="text-text-muted/60 text-xs mt-1">Respuesta rápida</p>
+            </div>
+
+            <div className="glass-card p-6">
+              <div className="flex items-center gap-3 mb-4">
+                <Mail className="w-5 h-5 text-accent" />
+                <h3 className="font-heading font-semibold text-text">Email</h3>
+              </div>
+              <a
+                href="mailto:dcobosm@gmail.com"
+                className="text-text-muted hover:text-text transition-colors text-sm"
+              >
+                dcobosm@gmail.com
+              </a>
+            </div>
+
+            <div className="glass-card p-6">
+              <div className="flex items-center gap-3 mb-4">
+                <MapPin className="w-5 h-5 text-brand" />
+                <h3 className="font-heading font-semibold text-text">Ubicación</h3>
+              </div>
+              <p className="text-text-muted text-sm">
+                Talca, Región del Maule, Chile
+              </p>
+            </div>
+          </div>
+
+          <div className="md:col-span-3">
+            <div className="glass-card p-6 sm:p-8">
+              <h3 className="font-heading font-semibold text-lg text-text mb-6">
+                Envíame un mensaje
+              </h3>
+              {sent ? (
+                <div className="text-center py-8">
+                  <Send className="w-12 h-12 text-success mx-auto mb-4" />
+                  <p className="text-text font-medium mb-2">¡Mensaje enviado!</p>
+                  <p className="text-text-muted text-sm">
+                    Te redirigimos a WhatsApp para continuar.
+                  </p>
+                </div>
+              ) : (
+                <form onSubmit={handleSubmit} className="space-y-5">
+                  <div>
+                    <label htmlFor="name" className="block text-sm font-medium text-text-muted mb-1.5">
+                      Nombre
+                    </label>
+                    <input
+                      type="text"
+                      id="name"
+                      name="name"
+                      required
+                      className="w-full px-4 py-2.5 rounded-xl bg-white/5 border border-border text-text text-sm placeholder:text-text-muted/40 focus:outline-none focus:border-accent/50 focus:ring-1 focus:ring-accent/20 transition-all"
+                      placeholder="Tu nombre"
+                    />
+                  </div>
+                  <div>
+                    <label htmlFor="email" className="block text-sm font-medium text-text-muted mb-1.5">
+                      Email
+                    </label>
+                    <input
+                      type="email"
+                      id="email"
+                      name="email"
+                      required
+                      className="w-full px-4 py-2.5 rounded-xl bg-white/5 border border-border text-text text-sm placeholder:text-text-muted/40 focus:outline-none focus:border-accent/50 focus:ring-1 focus:ring-accent/20 transition-all"
+                      placeholder="tu@email.com"
+                    />
+                  </div>
+                  <div>
+                    <label htmlFor="message" className="block text-sm font-medium text-text-muted mb-1.5">
+                      Mensaje
+                    </label>
+                    <textarea
+                      id="message"
+                      name="message"
+                      rows={4}
+                      required
+                      className="w-full px-4 py-2.5 rounded-xl bg-white/5 border border-border text-text text-sm placeholder:text-text-muted/40 focus:outline-none focus:border-accent/50 focus:ring-1 focus:ring-accent/20 transition-all resize-none"
+                      placeholder="Cuéntame sobre tu proyecto..."
+                    />
+                  </div>
+                  <button
+                    type="submit"
+                    className="w-full inline-flex items-center justify-center gap-2 px-6 py-3 rounded-xl bg-accent text-bg font-semibold hover:brightness-110 transition-all duration-300 text-sm"
+                  >
+                    <Send size={16} />
+                    Enviar por WhatsApp
+                  </button>
+                </form>
+              )}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
