@@ -32,7 +32,7 @@ export default function Navbar() {
               <img
                 src={asset("/images/infocob-solo.svg")}
                 alt="INFOCOB"
-                className="h-9 w-auto"
+                className="h-7 w-auto"
               />
             </div>
           </Link>
