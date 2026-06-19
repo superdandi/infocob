@@ -6,7 +6,7 @@
   "nav.contacto": "Contact",
 
   "hero.badge": "Since 2008 in Talca, Chile",
-  "hero.h1-1": "artificial intelligence",
+  "hero.h1-1": "artificial intelligence + web development",
   "hero.h1-2": "applied to the design of",
   "hero.h1-3": "new digital products",
   "hero.subtitle": "Modern web development, AI integration, and custom digital products to grow your business.",
@@ -99,5 +99,12 @@
   "servicio-3-item-0": "Software architecture",
   "servicio-3-item-1": "Migration to modern technologies",
   "servicio-3-item-2": "Web performance optimization",
-  "servicio-3-item-3": "Technical SEO and accessibility"
+  "servicio-3-item-3": "Technical SEO and accessibility",
+
+  "servicio-4-title": "Technical Support",
+  "servicio-4-desc": "Maintenance, support and administration of equipment, networks and websites to keep your business running smoothly.",
+  "servicio-4-item-0": "Website and hosting maintenance",
+  "servicio-4-item-1": "On-site and remote IT technical support",
+  "servicio-4-item-2": "Network and server administration",
+  "servicio-4-item-3": "Software installation and configuration"
 }

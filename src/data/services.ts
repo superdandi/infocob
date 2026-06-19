@@ -50,6 +50,17 @@ export const servicios: Service[] = [
       "SEO técnico y accesibilidad",
     ],
   },
+  {
+    title: "Soporte Técnico",
+    description: "Mantención, soporte y administración de equipos, redes y sitios web para que tu negocio funcione sin interrupciones.",
+    icon: "Wrench",
+    items: [
+      "Mantención de sitios web y hosting",
+      "Soporte técnico informático presencial y remoto",
+      "Administración de redes y servidores",
+      "Instalación y configuración de software",
+    ],
+  },
 ];
 
 export const stats = [

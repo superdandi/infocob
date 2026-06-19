@@ -6,7 +6,7 @@
   "nav.contacto": "Contacto",
 
   "hero.badge": "Desde 2008 en Talca, Chile",
-  "hero.h1-1": "inteligencia artificial",
+  "hero.h1-1": "inteligencia artificial + desarrollo web",
   "hero.h1-2": "aplicada al diseño de",
   "hero.h1-3": "nuevos productos digitales",
   "hero.subtitle": "Desarrollo web moderno, integración de inteligencia artificial y productos digitales a medida para potenciar tu negocio.",
@@ -99,5 +99,12 @@
   "servicio-3-item-0": "Arquitectura de software",
   "servicio-3-item-1": "Migración a tecnologías modernas",
   "servicio-3-item-2": "Optimización de rendimiento web",
-  "servicio-3-item-3": "SEO técnico y accesibilidad"
+  "servicio-3-item-3": "SEO técnico y accesibilidad",
+
+  "servicio-4-title": "Soporte Técnico",
+  "servicio-4-desc": "Mantención, soporte y administración de equipos, redes y sitios web para que tu negocio funcione sin interrupciones.",
+  "servicio-4-item-0": "Mantención de sitios web y hosting",
+  "servicio-4-item-1": "Soporte técnico informático presencial y remoto",
+  "servicio-4-item-2": "Administración de redes y servidores",
+  "servicio-4-item-3": "Instalación y configuración de software"
 }
