@@ -39,7 +39,7 @@ export default function ContactoPage() {
               <img
                 src={asset("/images/infocob-computacion-circuito.svg")}
                 alt="INFOCOB"
-                className="h-48 sm:h-56 w-auto"
+                className="h-48 sm:h-56 w-auto dark:brightness-[1.7]"
               />
             </div>
 

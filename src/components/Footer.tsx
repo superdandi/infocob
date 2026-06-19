@@ -25,7 +25,7 @@ export default function Footer() {
               <img
                 src={asset("/images/infocob-circuito.svg")}
                 alt="INFOCOB"
-                className="h-20 w-auto"
+                className="h-20 w-auto dark:brightness-[1.5]"
               />
             </div>
             <p className="text-text-muted text-sm leading-relaxed">

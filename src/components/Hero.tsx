@@ -24,7 +24,7 @@ export default function Hero() {
           <img
             src={asset("/images/infocob-circuito.svg")}
             alt="INFOCOB"
-            className="w-full h-auto"
+            className="w-full h-auto dark:brightness-[1.5]"
           />
         </div>
         <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full glass text-xs text-text-muted mb-8 animate-fade-in">
