@@ -129,3 +129,30 @@ body {
 .light .grid-bg {
   background-image: radial-gradient(rgba(0, 0, 0, 0.05) 1px, transparent 1px);
 }
+
+.nav-logo {
+  position: relative;
+  overflow: hidden;
+}
+
+.nav-logo::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 40%;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(0, 212, 255, 0.12) 50%,
+    transparent 100%
+  );
+  animation: logo-shine 3.5s ease-in-out infinite;
+  pointer-events: none;
+}
+
+@keyframes logo-shine {
+  0% { left: -40%; }
+  50% { left: 140%; }
+  100% { left: 140%; }
+}
