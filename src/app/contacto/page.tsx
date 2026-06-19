@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { MessageCircle, Mail, MapPin, Send } from "lucide-react";
+import { asset } from "@/lib/asset";
 
 export default function ContactoPage() {
   const [sent, setSent] = useState(false);
@@ -32,10 +33,29 @@ export default function ContactoPage() {
 
         <div className="grid grid-cols-1 md:grid-cols-5 gap-8">
           <div className="md:col-span-2 space-y-6">
-            <div className="glass-card p-6">
+            <div className="glass-card overflow-hidden">
+              <div className="aspect-[3/2] overflow-hidden">
+                <img
+                  src={asset("/images/DC.jpg")}
+                  alt="Daniel Cobos"
+                  className="w-full h-full object-cover object-left"
+                />
+              </div>
+              <div className="p-5">
+                <h2 className="font-heading font-bold text-text text-lg">Daniel Cobos</h2>
+                <p className="text-text-muted text-sm">
+                  Técnico en sistemas informáticos · Desarrollador web
+                </p>
+                <p className="text-text-muted/60 text-xs mt-2">
+                  Desde 2008 en Talca, Chile
+                </p>
+              </div>
+            </div>
+
+            <div className="glass-card p-5">
               <div className="flex items-center gap-3 mb-4">
                 <MessageCircle className="w-5 h-5 text-success" />
-                <h3 className="font-heading font-semibold text-text">WhatsApp</h3>
+                <h3 className="font-heading font-semibold text-sm text-text">WhatsApp</h3>
               </div>
               <a
                 href="https://wa.me/56982864145"
@@ -48,10 +68,10 @@ export default function ContactoPage() {
               <p className="text-text-muted/60 text-xs mt-1">Respuesta rápida</p>
             </div>
 
-            <div className="glass-card p-6">
+            <div className="glass-card p-5">
               <div className="flex items-center gap-3 mb-4">
                 <Mail className="w-5 h-5 text-accent" />
-                <h3 className="font-heading font-semibold text-text">Email</h3>
+                <h3 className="font-heading font-semibold text-sm text-text">Email</h3>
               </div>
               <a
                 href="mailto:dcobosm@gmail.com"
@@ -61,10 +81,10 @@ export default function ContactoPage() {
               </a>
             </div>
 
-            <div className="glass-card p-6">
+            <div className="glass-card p-5">
               <div className="flex items-center gap-3 mb-4">
                 <MapPin className="w-5 h-5 text-brand" />
-                <h3 className="font-heading font-semibold text-text">Ubicación</h3>
+                <h3 className="font-heading font-semibold text-sm text-text">Ubicación</h3>
               </div>
               <p className="text-text-muted text-sm">
                 Talca, Región del Maule, Chile
