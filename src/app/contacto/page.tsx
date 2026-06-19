@@ -152,10 +152,8 @@ export default function ContactoPage() {
                 </form>
               )}
             </div>
-          </div>
 
-          <div className="md:col-span-3 md:col-start-3 mt-8">
-            <div className="glass-card overflow-hidden p-2">
+            <div className="glass-card overflow-hidden p-2 mt-6">
               <a
                 href="https://www.google.com/maps/dir//INFOCOB+Computaci%C3%B3n+-+Caletera+Villa+Bicentenario,+21+Ote.,+Talca,+Maule/@-35.4189312,-71.6111872,15493m/"
                 target="_blank"
