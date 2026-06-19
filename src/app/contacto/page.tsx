@@ -77,9 +77,14 @@ export default function ContactoPage() {
                 <MapPin className="w-5 h-5 text-brand" />
                 <h3 className="font-heading font-semibold text-sm text-text">{t("contacto.ubicacion")}</h3>
               </div>
-              <p className="text-text-muted text-sm">
+              <a
+                href="https://maps.google.com/maps?q=Talca,+Maule,+Chile"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-text-muted text-sm hover:text-brand transition-colors"
+              >
                 Talca, Región del Maule, Chile
-              </p>
+              </a>
             </div>
           </div>
 
@@ -146,6 +151,29 @@ export default function ContactoPage() {
                   </button>
                 </form>
               )}
+            </div>
+          </div>
+
+          <div className="md:col-span-5 mt-8">
+            <div className="glass-card overflow-hidden p-2">
+              <a
+                href="https://maps.google.com/maps?q=Talca,+Maule,+Chile"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="block"
+              >
+                <iframe
+                  src="https://maps.google.com/maps?q=Talca,+Maule,+Chile&z=13&output=embed"
+                  width="100%"
+                  height="300"
+                  style={{ border: 0 }}
+                  allowFullScreen
+                  loading="lazy"
+                  referrerPolicy="no-referrer-when-downgrade"
+                  title="Ubicación INFOCOB — Talca, Chile"
+                  className="rounded-xl"
+                />
+              </a>
             </div>
           </div>
         </div>
