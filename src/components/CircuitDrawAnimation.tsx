@@ -112,7 +112,7 @@ export default function CircuitDrawAnimation() {
             fill="currentColor"
             fillRule="evenodd"
             stroke="none"
-            className="opacity-[0.07] dark:opacity-[0.1]"
+            className="opacity-[0.25] dark:opacity-[0.35]"
           >
             {circles.map((d, i) => (
               <path
@@ -133,7 +133,7 @@ export default function CircuitDrawAnimation() {
             strokeWidth="0.7"
             strokeLinecap="round"
             strokeLinejoin="round"
-            className="opacity-[0.07] dark:opacity-[0.1]"
+            className="opacity-[0.1] dark:opacity-[0.14]"
           >
             {circles.map((d, i) => (
               <path
