@@ -209,3 +209,13 @@ body {
   50% { left: 115%; }
   100% { left: 115%; }
 }
+
+@keyframes circuit-draw {
+  0% { stroke-dashoffset: var(--len); }
+  80% { stroke-dashoffset: 0; }
+  100% { stroke-dashoffset: 0; }
+}
+
+.animate-circuit-draw {
+  animation: circuit-draw ease-in-out infinite;
+}
