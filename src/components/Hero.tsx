@@ -11,9 +11,9 @@ export default function Hero() {
       <div className="relative z-10 max-w-4xl mx-auto px-4 sm:px-6 text-center">
         <div className="mb-6 animate-fade-in">
           <img
-            src={asset("/images/infocob-logo.png")}
+            src={asset("/images/infocob-logo.svg")}
             alt="INFOCOB"
-            className="h-16 sm:h-20 w-auto mx-auto"
+            className="h-24 sm:h-32 w-auto mx-auto"
           />
         </div>
 
