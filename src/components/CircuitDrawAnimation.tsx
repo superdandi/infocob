@@ -58,10 +58,10 @@ export default function CircuitDrawAnimation() {
           <g
             fill="none"
             stroke="currentColor"
-            strokeWidth="1.5"
+            strokeWidth="0.8"
             strokeLinecap="round"
             strokeLinejoin="round"
-            className="opacity-[0.06] dark:opacity-[0.08]"
+            className="opacity-[0.08] dark:opacity-[0.12]"
           >
             {paths.map((d, i) => (
               <path
@@ -69,8 +69,8 @@ export default function CircuitDrawAnimation() {
                 className="circuit-draw animate-circuit-draw"
                 d={d}
                 style={{
-                  animationDelay: `${i * 0.6}s`,
-                  animationDuration: "2.5s",
+                  animationDelay: `${i * 0.5}s`,
+                  animationDuration: "24s",
                 }}
               />
             ))}

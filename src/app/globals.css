@@ -211,9 +211,12 @@ body {
 }
 
 @keyframes circuit-draw {
-  0% { stroke-dashoffset: var(--len); }
-  80% { stroke-dashoffset: 0; }
-  100% { stroke-dashoffset: 0; }
+  0% { stroke-dashoffset: var(--len); opacity: 0; }
+  6% { opacity: 0.8; }
+  35% { stroke-dashoffset: 0; opacity: 0.8; }
+  75% { stroke-dashoffset: 0; opacity: 0.8; }
+  88% { opacity: 0; }
+  100% { stroke-dashoffset: var(--len); opacity: 0; }
 }
 
 .animate-circuit-draw {
