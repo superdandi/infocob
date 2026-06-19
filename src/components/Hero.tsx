@@ -8,16 +8,16 @@ export default function Hero() {
 
       <div className="relative z-10 max-w-4xl mx-auto px-4 sm:px-6 text-center">
         <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full glass text-xs text-text-muted mb-8 animate-fade-in">
-          <span className="w-2 h-2 rounded-full bg-success animate-pulse" />
+          <span className="w-2 h-2 rounded-full bg-brand animate-pulse" />
           Desde 2008 en Talca, Chile
         </div>
 
         <h1 className="font-heading text-4xl sm:text-5xl md:text-7xl font-extrabold tracking-tight leading-tight mb-6 animate-fade-up">
-          <span className="text-text">diseño de</span>
+          <span className="text-accent">inteligencia artificial</span>
           <br />
-          <span className="text-accent">nuevos productos</span>
+          <span className="text-text">aplicada al diseño de</span>
           <br />
-          <span className="text-text">digitales</span>
+          <span className="text-text">nuevos productos digitales</span>
         </h1>
 
         <p className="max-w-2xl mx-auto text-text-muted text-lg sm:text-xl leading-relaxed mb-10 animate-fade-up">
