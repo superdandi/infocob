@@ -78,12 +78,12 @@ export default function ContactoPage() {
                 <h3 className="font-heading font-semibold text-sm text-text">{t("contacto.ubicacion")}</h3>
               </div>
               <a
-                href="https://maps.google.com/maps?q=Talca,+Maule,+Chile"
+                href="https://www.google.com/maps/dir//INFOCOB+Computaci%C3%B3n+-+Caletera+Villa+Bicentenario,+21+Ote.,+Talca,+Maule/@-35.4189312,-71.6111872,15493m/"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="text-text-muted text-sm hover:text-brand transition-colors"
               >
-                Talca, Región del Maule, Chile
+                Caletera Villa Bicentenario 21 Ote., Talca
               </a>
             </div>
           </div>
@@ -157,13 +157,13 @@ export default function ContactoPage() {
           <div className="md:col-span-5 mt-8">
             <div className="glass-card overflow-hidden p-2">
               <a
-                href="https://maps.google.com/maps?q=Talca,+Maule,+Chile"
+                href="https://www.google.com/maps/dir//INFOCOB+Computaci%C3%B3n+-+Caletera+Villa+Bicentenario,+21+Ote.,+Talca,+Maule/@-35.4189312,-71.6111872,15493m/"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="block"
               >
                 <iframe
-                  src="https://maps.google.com/maps?q=Talca,+Maule,+Chile&z=13&output=embed"
+                  src="https://maps.google.com/maps?q=-35.4118246,-71.6276807&z=15&output=embed"
                   width="100%"
                   height="300"
                   style={{ border: 0 }}
