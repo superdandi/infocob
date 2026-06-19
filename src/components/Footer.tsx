@@ -1,5 +1,6 @@
 import { Mail } from "lucide-react";
 import Link from "next/link";
+import { asset } from "@/lib/asset";
 
 export default function Footer() {
   return (
@@ -8,7 +9,11 @@ export default function Footer() {
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
           <div>
             <div className="flex items-center gap-2 mb-3">
-              <span className="text-brand font-heading font-bold text-lg">INFOCOB</span>
+              <img
+                src={asset("/images/infocob transparente.png")}
+                alt="INFOCOB"
+                className="h-8 w-auto"
+              />
             </div>
             <p className="text-text-muted text-sm leading-relaxed">
               Diseño de nuevos productos digitales.
