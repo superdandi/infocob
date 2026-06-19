@@ -16,7 +16,6 @@ export default function Navbar() {
   const { t } = useTranslation();
 
   const links = [
-    { href: "/", label: t("nav.inicio") },
     { href: "/servicios", label: t("nav.servicios") },
     { href: "/portafolio", label: t("nav.portafolio") },
     { href: "/sobre-mi", label: t("nav.sobre-mi") },
