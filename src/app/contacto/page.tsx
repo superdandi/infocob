@@ -37,9 +37,9 @@ export default function ContactoPage() {
           <div className="md:col-span-2 space-y-6">
             <div className="glass-card overflow-hidden p-6 flex items-center justify-center">
               <img
-                src={asset("/images/infocob transparente.png")}
+                src={asset("/images/infocob-logo.png")}
                 alt="INFOCOB"
-                className="h-20 sm:h-24 w-auto"
+                className="h-24 sm:h-28 w-auto"
               />
             </div>
 
