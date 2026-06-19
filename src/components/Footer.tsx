@@ -79,7 +79,7 @@ export default function Footer() {
                 </svg>
               </a>
               <a
-                href="https://instagram.com/vizcosoentertainment"
+                href="https://instagram.com/infocobcomputacion"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="p-2 rounded-lg bg-white/5 hover:bg-white/10 text-text-muted hover:text-text transition-all"
