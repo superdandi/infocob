@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { asset } from "@/lib/asset";
 
 export default function Hero() {
   return (
@@ -9,8 +10,12 @@ export default function Hero() {
 
       <div className="relative z-10 max-w-4xl mx-auto px-4 sm:px-6 text-center">
         <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full glass text-xs text-text-muted mb-8 animate-fade-in">
-          <span className="w-2 h-2 rounded-full bg-brand animate-pulse" />
-          INFOCOB — Desde 2008
+          <img
+            src={asset("/images/infocob logo.png")}
+            alt=""
+            className="h-6 w-auto"
+          />
+          Desde 2008 en Talca, Chile
         </div>
 
         <h1 className="font-heading text-4xl sm:text-5xl md:text-7xl font-extrabold tracking-tight leading-tight mb-6 animate-fade-up">
