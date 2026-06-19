@@ -24,7 +24,7 @@ function getInitials(name: string): string {
 function ImagePlaceholder({ name }: { name: string }) {
   const initials = getInitials(name);
   return (
-    <div className="relative h-40 bg-gradient-to-br from-accent/10 via-accent-secondary/5 to-brand/5 flex items-center justify-center overflow-hidden">
+    <div className="relative aspect-square bg-gradient-to-br from-accent/10 via-accent-secondary/5 to-brand/5 flex items-center justify-center overflow-hidden">
       <span className="font-heading text-5xl font-bold text-text/10 select-none">
         {initials}
       </span>
@@ -57,7 +57,7 @@ function ProjectCard({ project }: { project: Project }) {
       )}
     >
       {project.image ? (
-        <div className="relative h-40 overflow-hidden">
+        <div className="relative aspect-square overflow-hidden">
           <img
             src={asset(project.image)}
             alt={project.name}
