@@ -33,23 +33,12 @@ export default function ContactoPage() {
 
         <div className="grid grid-cols-1 md:grid-cols-5 gap-8">
           <div className="md:col-span-2 space-y-6">
-            <div className="glass-card overflow-hidden">
-              <div className="aspect-[3/2] overflow-hidden">
-                <img
-                  src={asset("/images/DC.jpg")}
-                  alt="Daniel Cobos"
-                  className="w-full h-full object-cover object-left"
-                />
-              </div>
-              <div className="p-5">
-                <h2 className="font-heading font-bold text-text text-lg">Daniel Cobos</h2>
-                <p className="text-text-muted text-sm">
-                  Técnico en sistemas informáticos · Desarrollador web
-                </p>
-                <p className="text-text-muted/60 text-xs mt-2">
-                  Desde 2008 en Talca, Chile
-                </p>
-              </div>
+            <div className="glass-card overflow-hidden p-6 flex items-center justify-center">
+              <img
+                src={asset("/images/infocob-logo.svg")}
+                alt="INFOCOB"
+                className="h-28 sm:h-36 w-auto"
+              />
             </div>
 
             <div className="glass-card p-5">

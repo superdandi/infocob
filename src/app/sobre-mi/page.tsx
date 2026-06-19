@@ -1,5 +1,6 @@
 import { Clock, Target, Eye, Heart } from "lucide-react";
 import Link from "next/link";
+import { asset } from "@/lib/asset";
 
 export default function SobreMiPage() {
   return (
@@ -19,27 +20,47 @@ export default function SobreMiPage() {
           </p>
         </div>
 
-        <div className="glass-card p-8 sm:p-10 mb-10">
-          <h2 className="font-heading text-2xl font-bold text-text mb-4 flex items-center gap-3">
-            <Clock className="w-6 h-6 text-brand" />
-            Historia
-          </h2>
-          <p className="text-text-muted leading-relaxed mb-4">
-            INFOCOB Computación nace con el afán de entregar servicios informáticos
-            de una manera integral, personalizada y en terreno, abriendo sus puertas
-            al público el <strong className="text-text">12 de noviembre de 2008</strong>.
-            Con dicho espíritu y compromiso, INFOCOB entrega calidad y cercanía por
-            un precio accesible a la ciudad de Talca.
-          </p>
-          <p className="text-text-muted leading-relaxed">
-            En nuestro tiempo de vida, hemos colaborado en el desarrollo de
-            análisis y programación de software para clientes especializados;
-            creación, diseño, desarrollo y mantención de sitios web para empresas
-            y particulares; desarrollo de aplicaciones multimedia y servicio
-            técnico a usuarios y empresas. Hoy, enfocados en el diseño de nuevos
-            productos digitales, desarrollo web moderno e integración de
-            inteligencia artificial.
-          </p>
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-10">
+          <div className="glass-card overflow-hidden">
+            <div className="aspect-[3/2] overflow-hidden">
+              <img
+                src={asset("/images/DC.jpg")}
+                alt="Daniel Cobos"
+                className="w-full h-full object-cover object-left"
+              />
+            </div>
+            <div className="p-5">
+              <h2 className="font-heading font-bold text-text text-lg">Daniel Cobos</h2>
+              <p className="text-text-muted text-sm">
+                Técnico en sistemas informáticos · Desarrollador web
+              </p>
+              <p className="text-text-muted/60 text-xs mt-2">
+                Desde 2008 en Talca, Chile
+              </p>
+            </div>
+          </div>
+          <div className="md:col-span-2 glass-card p-8 sm:p-10">
+            <h2 className="font-heading text-2xl font-bold text-text mb-4 flex items-center gap-3">
+              <Clock className="w-6 h-6 text-brand" />
+              Historia
+            </h2>
+            <p className="text-text-muted leading-relaxed mb-4">
+              INFOCOB Computación nace con el afán de entregar servicios informáticos
+              de una manera integral, personalizada y en terreno, abriendo sus puertas
+              al público el <strong className="text-text">12 de noviembre de 2008</strong>.
+              Con dicho espíritu y compromiso, INFOCOB entrega calidad y cercanía por
+              un precio accesible a la ciudad de Talca.
+            </p>
+            <p className="text-text-muted leading-relaxed">
+              En nuestro tiempo de vida, hemos colaborado en el desarrollo de
+              análisis y programación de software para clientes especializados;
+              creación, diseño, desarrollo y mantención de sitios web para empresas
+              y particulares; desarrollo de aplicaciones multimedia y servicio
+              técnico a usuarios y empresas. Hoy, enfocados en el diseño de nuevos
+              productos digitales, desarrollo web moderno e integración de
+              inteligencia artificial.
+            </p>
+          </div>
         </div>
 
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 mb-10">

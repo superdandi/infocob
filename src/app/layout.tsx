@@ -29,11 +29,13 @@ export const metadata: Metadata = {
     "Diseño de nuevos productos digitales. Desarrollo web, integración de IA, aplicaciones web y productos digitales en Talca, Chile.",
   icons: { icon: "/favicon.ico" },
   other: { "theme-color": "#0b0d17" },
+  metadataBase: new URL("https://superdandi.github.io"),
   openGraph: {
     title: "INFOCOB — Diseño & Desarrollo Digital",
     description:
       "Diseño de nuevos productos digitales. Desarrollo web, IA y productos digitales en Talca, Chile.",
     type: "website",
+    images: [{ url: "/infocob/images/infocob-logo.svg", width: 380, height: 280 }],
   },
 };
 

@@ -1,24 +1,14 @@
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 import { cn } from "@/lib/utils";
-import { asset } from "@/lib/asset";
-
 export default function Hero() {
   return (
     <section className="relative min-h-[90vh] flex items-center justify-center overflow-hidden">
       <div className="absolute inset-0 bg-gradient-to-b from-accent-secondary/5 via-transparent to-transparent pointer-events-none" />
 
       <div className="relative z-10 max-w-4xl mx-auto px-4 sm:px-6 text-center">
-        <div className="mb-6 animate-fade-in">
-          <img
-            src={asset("/images/infocob-logo.svg")}
-            alt="INFOCOB"
-            className="h-24 sm:h-32 w-auto mx-auto"
-          />
-        </div>
-
         <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full glass text-xs text-text-muted mb-8 animate-fade-in">
-          <span className="w-2 h-2 rounded-full bg-brand animate-pulse" />
+          <span className="w-2 h-2 rounded-full bg-success animate-pulse" />
           Desde 2008 en Talca, Chile
         </div>
 
