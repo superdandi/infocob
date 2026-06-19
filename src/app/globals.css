@@ -16,7 +16,7 @@
   --font-mono: "JetBrains Mono", monospace;
 }
 
-.light {
+:root.light {
   --color-bg: #f8fafc;
   --color-bg-secondary: #f1f5f9;
   --color-card: rgba(255, 255, 255, 0.7);
@@ -73,12 +73,12 @@ body {
   box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
 }
 
-.light input, .light textarea {
+:root.light input, :root.light textarea {
   background: rgba(0, 0, 0, 0.04) !important;
   border-color: rgba(0, 0, 0, 0.2) !important;
 }
 
-.light input::placeholder, .light textarea::placeholder {
+:root.light input::placeholder, :root.light textarea::placeholder {
   color: #94a3b8 !important;
 }
 
@@ -135,7 +135,7 @@ body {
   background-size: 40px 40px;
 }
 
-.light .grid-bg {
+:root.light .grid-bg {
   background-image: radial-gradient(rgba(0, 0, 0, 0.05) 1px, transparent 1px);
 }
 
