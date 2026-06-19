@@ -52,7 +52,7 @@ export default function ContactoPage() {
                 href="https://wa.me/56982864145"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-text-muted hover:text-text transition-colors text-sm"
+                className="text-text-muted hover:text-brand transition-colors text-sm"
               >
                 +56 9 8286 4145
               </a>
