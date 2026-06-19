@@ -20,7 +20,7 @@ export default function Hero() {
     <section className="relative min-h-[90vh] flex items-center justify-center overflow-hidden">
       <div className="absolute inset-0 bg-gradient-to-b from-accent-secondary/5 via-transparent to-transparent pointer-events-none" />
       <div className="relative z-10 max-w-4xl mx-auto px-4 sm:px-6 text-center">
-        <div className="mx-auto max-w-2xl mb-10">
+        <div className="mx-auto w-48 sm:w-56 mb-8">
           <img
             src={asset("/images/infocob-circuito.svg")}
             alt="INFOCOB"
