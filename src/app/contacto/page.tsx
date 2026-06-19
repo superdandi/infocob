@@ -3,9 +3,11 @@
 import { useState } from "react";
 import { MessageCircle, Mail, MapPin, Send } from "lucide-react";
 import { asset } from "@/lib/asset";
+import { useTranslation } from "@/lib/TranslationsProvider";
 
 export default function ContactoPage() {
   const [sent, setSent] = useState(false);
+  const { t } = useTranslation();
 
   function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
@@ -24,10 +26,10 @@ export default function ContactoPage() {
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-16">
           <h1 className="font-heading text-4xl sm:text-5xl font-bold text-text mb-4">
-            Contacto
+            {t("contacto.title")}
           </h1>
           <p className="text-text-muted text-lg max-w-xl mx-auto">
-            Estoy listo para escuchar tu proyecto. Hablemos.
+            {t("contacto.subtitle")}
           </p>
         </div>
 
@@ -35,16 +37,16 @@ export default function ContactoPage() {
           <div className="md:col-span-2 space-y-6">
             <div className="glass-card overflow-hidden p-6 flex items-center justify-center">
               <img
-                src={asset("/images/infocob-logo.svg")}
+                src={asset("/images/infocob transparente.png")}
                 alt="INFOCOB"
-                className="h-28 sm:h-36 w-auto"
+                className="h-20 sm:h-24 w-auto"
               />
             </div>
 
             <div className="glass-card p-5">
               <div className="flex items-center gap-3 mb-4">
                 <MessageCircle className="w-5 h-5 text-success" />
-                <h3 className="font-heading font-semibold text-sm text-text">WhatsApp</h3>
+                <h3 className="font-heading font-semibold text-sm text-text">{t("contacto.whatsapp")}</h3>
               </div>
               <a
                 href="https://wa.me/56982864145"
@@ -54,13 +56,13 @@ export default function ContactoPage() {
               >
                 +56 9 8286 4145
               </a>
-              <p className="text-text-muted/60 text-xs mt-1">Respuesta rápida</p>
+              <p className="text-text-muted/60 text-xs mt-1">{t("contacto.respuesta-rapida")}</p>
             </div>
 
             <div className="glass-card p-5">
               <div className="flex items-center gap-3 mb-4">
                 <Mail className="w-5 h-5 text-accent" />
-                <h3 className="font-heading font-semibold text-sm text-text">Email</h3>
+                <h3 className="font-heading font-semibold text-sm text-text">{t("contacto.email")}</h3>
               </div>
               <a
                 href="mailto:dcobosm@gmail.com"
@@ -73,7 +75,7 @@ export default function ContactoPage() {
             <div className="glass-card p-5">
               <div className="flex items-center gap-3 mb-4">
                 <MapPin className="w-5 h-5 text-brand" />
-                <h3 className="font-heading font-semibold text-sm text-text">Ubicación</h3>
+                <h3 className="font-heading font-semibold text-sm text-text">{t("contacto.ubicacion")}</h3>
               </div>
               <p className="text-text-muted text-sm">
                 Talca, Región del Maule, Chile
@@ -84,21 +86,21 @@ export default function ContactoPage() {
           <div className="md:col-span-3">
             <div className="glass-card p-6 sm:p-8">
               <h3 className="font-heading font-semibold text-lg text-text mb-6">
-                Envíame un mensaje
+                {t("contacto.form-title")}
               </h3>
               {sent ? (
                 <div className="text-center py-8">
                   <Send className="w-12 h-12 text-success mx-auto mb-4" />
-                  <p className="text-text font-medium mb-2">¡Mensaje enviado!</p>
+                  <p className="text-text font-medium mb-2">{t("contacto.form-sent-title")}</p>
                   <p className="text-text-muted text-sm">
-                    Te redirigimos a WhatsApp para continuar.
+                    {t("contacto.form-sent-desc")}
                   </p>
                 </div>
               ) : (
                 <form onSubmit={handleSubmit} className="space-y-5">
                   <div>
                     <label htmlFor="name" className="block text-sm font-medium text-text-muted mb-1.5">
-                      Nombre
+                      {t("contacto.form-name")}
                     </label>
                     <input
                       type="text"
@@ -106,12 +108,12 @@ export default function ContactoPage() {
                       name="name"
                       required
                       className="w-full px-4 py-2.5 rounded-xl bg-white/5 border border-border text-text text-sm placeholder:text-text-muted/40 focus:outline-none focus:border-accent/50 focus:ring-1 focus:ring-accent/20 transition-all"
-                      placeholder="Tu nombre"
+                      placeholder={t("contacto.form-placeholder-name")}
                     />
                   </div>
                   <div>
                     <label htmlFor="email" className="block text-sm font-medium text-text-muted mb-1.5">
-                      Email
+                      {t("contacto.form-email")}
                     </label>
                     <input
                       type="email"
@@ -119,12 +121,12 @@ export default function ContactoPage() {
                       name="email"
                       required
                       className="w-full px-4 py-2.5 rounded-xl bg-white/5 border border-border text-text text-sm placeholder:text-text-muted/40 focus:outline-none focus:border-accent/50 focus:ring-1 focus:ring-accent/20 transition-all"
-                      placeholder="tu@email.com"
+                      placeholder={t("contacto.form-placeholder-email")}
                     />
                   </div>
                   <div>
                     <label htmlFor="message" className="block text-sm font-medium text-text-muted mb-1.5">
-                      Mensaje
+                      {t("contacto.form-message")}
                     </label>
                     <textarea
                       id="message"
@@ -132,7 +134,7 @@ export default function ContactoPage() {
                       rows={4}
                       required
                       className="w-full px-4 py-2.5 rounded-xl bg-white/5 border border-border text-text text-sm placeholder:text-text-muted/40 focus:outline-none focus:border-accent/50 focus:ring-1 focus:ring-accent/20 transition-all resize-none"
-                      placeholder="Cuéntame sobre tu proyecto..."
+                      placeholder={t("contacto.form-placeholder-message")}
                     />
                   </div>
                   <button
@@ -140,7 +142,7 @@ export default function ContactoPage() {
                     className="w-full inline-flex items-center justify-center gap-2 px-6 py-3 rounded-xl bg-accent text-bg font-semibold hover:brightness-110 transition-all duration-300 text-sm"
                   >
                     <Send size={16} />
-                    Enviar por WhatsApp
+                    {t("contacto.form-submit")}
                   </button>
                 </form>
               )}

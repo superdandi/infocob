@@ -5,6 +5,8 @@ import { cn } from "@/lib/utils";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import WhatsAppFloat from "@/components/WhatsAppFloat";
+import { ThemeProvider } from "@/lib/ThemeProvider";
+import { TranslationsProvider } from "@/lib/TranslationsProvider";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -51,14 +53,26 @@ export default function RootLayout({
         inter.variable,
         jakarta.variable,
         jetbrains.variable,
-        "scroll-smooth dark"
+        "scroll-smooth"
       )}
+      suppressHydrationWarning
     >
+      <head>
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `(function(){try{var t=localStorage.getItem("infocob-theme");var d=document.documentElement;if(t==="light"||(!t&&matchMedia("(prefers-color-scheme:light)").matches)){d.classList.add("light")}else{d.classList.add("dark")}}catch(e){document.documentElement.classList.add("dark")}})()`,
+          }}
+        />
+      </head>
       <body className="antialiased bg-bg text-text min-h-screen flex flex-col grid-bg">
-        <Navbar />
-        <main className="flex-1">{children}</main>
-        <Footer />
-        <WhatsAppFloat />
+        <ThemeProvider>
+          <TranslationsProvider>
+            <Navbar />
+            <main className="flex-1">{children}</main>
+            <Footer />
+            <WhatsAppFloat />
+          </TranslationsProvider>
+        </ThemeProvider>
       </body>
     </html>
   );

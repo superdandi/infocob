@@ -6,18 +6,22 @@ import { Menu, X } from "lucide-react";
 import { useState } from "react";
 import { cn } from "@/lib/utils";
 import { asset } from "@/lib/asset";
-
-const links = [
-  { href: "/", label: "Inicio" },
-  { href: "/servicios", label: "Servicios" },
-  { href: "/portafolio", label: "Portafolio" },
-  { href: "/sobre-mi", label: "Sobre mí" },
-  { href: "/contacto", label: "Contacto" },
-];
+import { useTranslation } from "@/lib/TranslationsProvider";
+import ThemeToggle from "./ThemeToggle";
+import LangToggle from "./LangToggle";
 
 export default function Navbar() {
   const pathname = usePathname();
   const [open, setOpen] = useState(false);
+  const { t } = useTranslation();
+
+  const links = [
+    { href: "/", label: t("nav.inicio") },
+    { href: "/servicios", label: t("nav.servicios") },
+    { href: "/portafolio", label: t("nav.portafolio") },
+    { href: "/sobre-mi", label: t("nav.sobre-mi") },
+    { href: "/contacto", label: t("nav.contacto") },
+  ];
 
   return (
     <nav className="sticky top-0 z-50 glass border-b border-border">
@@ -46,14 +50,22 @@ export default function Navbar() {
                 {link.label}
               </Link>
             ))}
+            <div className="ml-2 flex items-center gap-1 border-l border-border pl-2">
+              <ThemeToggle />
+              <LangToggle />
+            </div>
           </div>
 
-          <button
-            className="md:hidden p-2 rounded-lg text-text-muted hover:text-text hover:bg-white/5 transition"
-            onClick={() => setOpen(!open)}
-          >
-            {open ? <X size={24} /> : <Menu size={24} />}
-          </button>
+          <div className="flex md:hidden items-center gap-2">
+            <ThemeToggle />
+            <LangToggle />
+            <button
+              className="p-2 rounded-lg text-text-muted hover:text-text hover:bg-white/5 transition"
+              onClick={() => setOpen(!open)}
+            >
+              {open ? <X size={24} /> : <Menu size={24} />}
+            </button>
+          </div>
         </div>
       </div>
 

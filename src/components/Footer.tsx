@@ -1,8 +1,21 @@
+"use client";
+
 import { Mail } from "lucide-react";
 import Link from "next/link";
 import { asset } from "@/lib/asset";
+import { useTranslation } from "@/lib/TranslationsProvider";
 
 export default function Footer() {
+  const { t } = useTranslation();
+
+  const navLinks = [
+    { href: "/", label: t("nav.inicio") },
+    { href: "/servicios", label: t("nav.servicios") },
+    { href: "/portafolio", label: t("nav.portafolio") },
+    { href: "/sobre-mi", label: t("nav.sobre-mi") },
+    { href: "/contacto", label: t("nav.contacto") },
+  ];
+
   return (
     <footer className="border-t border-border bg-bg-secondary/80">
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
@@ -16,7 +29,7 @@ export default function Footer() {
               />
             </div>
             <p className="text-text-muted text-sm leading-relaxed">
-              Diseño de nuevos productos digitales.
+              {t("footer.tagline")}.
               <br />
               Desarrollo web, IA y productos digitales.
             </p>
@@ -30,13 +43,7 @@ export default function Footer() {
               Navegación
             </h3>
             <ul className="space-y-2">
-              {[
-                { href: "/", label: "Inicio" },
-                { href: "/servicios", label: "Servicios" },
-                { href: "/portafolio", label: "Portafolio" },
-                { href: "/sobre-mi", label: "Sobre mí" },
-                { href: "/contacto", label: "Contacto" },
-              ].map((link) => (
+              {navLinks.map((link) => (
                 <li key={link.href}>
                   <Link
                     href={link.href}
@@ -109,7 +116,7 @@ export default function Footer() {
 
         <div className="mt-10 pt-6 border-t border-border">
           <p className="text-center text-text-muted/60 text-xs">
-            &copy; {new Date().getFullYear()} INFOCOB — Daniel Cobos. Todos los derechos reservados.
+            {t("footer.copyright", { year: new Date().getFullYear() })}
           </p>
         </div>
       </div>
