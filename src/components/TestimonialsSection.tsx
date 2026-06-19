@@ -2,17 +2,20 @@
 
 import { Quote } from "lucide-react";
 import { testimonials } from "@/data/testimonials";
+import { useTranslation } from "@/lib/TranslationsProvider";
 
 export default function TestimonialsSection() {
+  const { t } = useTranslation();
+
   return (
     <section className="py-20 sm:py-28 bg-bg-secondary/80">
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-14">
           <h2 className="font-heading text-3xl sm:text-4xl font-bold text-text mb-4">
-            Lo que dicen nuestros clientes
+            {t("testimonios.title")}
           </h2>
           <p className="text-text-muted text-lg max-w-xl mx-auto">
-            La opinión de quienes ya han trabajado con nosotros.
+            {t("testimonios.subtitle")}
           </p>
         </div>
 

@@ -73,6 +73,14 @@
   "servicios.no-encuentras-desc": "Every project is unique. Let's talk about your idea and I'll propose the best solution.",
   "servicios.hablemos": "Let's talk about your project",
 
+  "servicios-home.cotizar": "Get a quote",
+  "servicios-home.ver-todos": "View all services",
+  "servicios-home.title": "Services",
+  "servicios-home.subtitle": "Complete digital solutions for your business, from idea to final product.",
+
+  "testimonials.title": "What our clients say",
+  "testimonials.subtitle": "The opinion of those who have already worked with us.",
+
   "servicio-0-title": "Web Development",
   "servicio-0-desc": "We build modern, fast, conversion-optimized websites. From landing pages to full web applications.",
   "servicio-0-item-0": "Landing pages and corporate sites",
