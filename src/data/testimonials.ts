@@ -12,7 +12,7 @@ export const testimonials: Testimonial[] = [
   },
   {
     quote: "Daniel entendió exactamente lo que necesitábamos para nuestra tienda online. El resultado superó nuestras expectativas y las ventas online crecieron notablemente.",
-    author: "Acquamar",
+    author: "Marcelo Valdez",
     role: "CEO — Acquamar",
   },
   {
