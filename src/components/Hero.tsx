@@ -5,7 +5,6 @@ import { ArrowRight } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { useTranslation } from "@/lib/TranslationsProvider";
 import LogoImage from "./LogoImage";
-import CircuitDrawAnimation from "./CircuitDrawAnimation";
 
 export default function Hero() {
   const { t } = useTranslation();
@@ -19,7 +18,6 @@ export default function Hero() {
 
   return (
     <section className="relative min-h-[90vh] flex items-center justify-center overflow-hidden">
-      <CircuitDrawAnimation />
       <div className="absolute inset-0 bg-gradient-to-b from-accent-secondary/5 via-transparent to-transparent pointer-events-none" />
       <div className="relative z-10 max-w-4xl mx-auto px-4 sm:px-6 text-center">
         <div className="mx-auto w-48 sm:w-56 mb-8 mt-8 sm:mt-12">

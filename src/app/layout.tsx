@@ -6,6 +6,7 @@ import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import WhatsAppFloat from "@/components/WhatsAppFloat";
 import HoverSound from "@/components/HoverSound";
+import CircuitDrawAnimation from "@/components/CircuitDrawAnimation";
 import { ThemeProvider } from "@/lib/ThemeProvider";
 import { TranslationsProvider } from "@/lib/TranslationsProvider";
 
@@ -69,7 +70,8 @@ export default function RootLayout({
         <ThemeProvider>
           <TranslationsProvider>
             <Navbar />
-            <main className="flex-1">{children}</main>
+            <CircuitDrawAnimation />
+            <main className="flex-1 relative z-10">{children}</main>
             <Footer />
             <WhatsAppFloat />
             <HoverSound />

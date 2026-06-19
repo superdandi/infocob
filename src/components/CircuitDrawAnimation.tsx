@@ -77,7 +77,7 @@ export default function CircuitDrawAnimation() {
   }, []);
 
   return (
-    <div className="absolute inset-0 pointer-events-none overflow-hidden">
+    <div className="fixed inset-0 -z-10 pointer-events-none overflow-hidden">
       <svg
         ref={svgRef}
         viewBox="220.8013 333.9288 168.4381 123.3387"
