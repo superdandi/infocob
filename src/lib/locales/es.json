@@ -42,10 +42,17 @@
   "sobre-mi.badge": "INFOCOB — Desde 2008",
   "sobre-mi.title": "Sobre mí",
   "sobre-mi.subtitle": "Daniel Cobos — Técnico en sistemas informáticos, desarrollador web y creador de productos digitales.",
+  "sobre-mi.desc-cargo": "Técnico en sistemas informáticos · Desarrollador web",
+  "sobre-mi.desc-local": "Desde 2008 en Talca, Chile",
   "sobre-mi.historia": "Historia",
+  "sobre-mi.historia-p1": "INFOCOB Computación nace con el afán de entregar servicios informáticos de una manera integral, personalizada y en terreno, abriendo sus puertas al público el 12 de noviembre de 2008. Con dicho espíritu y compromiso, INFOCOB entrega calidad y cercanía por un precio accesible a la ciudad de Talca.",
+  "sobre-mi.historia-p2": "En nuestro tiempo de vida, hemos colaborado en el desarrollo de análisis y programación de software para clientes especializados; creación, diseño, desarrollo y mantención de sitios web para empresas y particulares; desarrollo de aplicaciones multimedia y servicio técnico a usuarios y empresas. Hoy, enfocados en el diseño de nuevos productos digitales, desarrollo web moderno e integración de inteligencia artificial.",
   "sobre-mi.mision": "Misión",
+  "sobre-mi.mision-desc": "Ofrecer una alternativa económica y competente en la entrega de soluciones técnico-computacionales e informáticas, donde el trato personalizado con el cliente es el elemento diferenciador.",
   "sobre-mi.vision": "Visión",
+  "sobre-mi.vision-desc": "Ser un referente competitivo y original frente al desarrollo de servicios digitales, ampliando el espectro de diseño, desarrollo web y productos digitales con responsabilidad ecológica y social.",
   "sobre-mi.valores": "Valores",
+  "sobre-mi.valores-desc": "Integridad, responsabilidad social y economía. Ofrecer opciones, acercar la tecnología a las personas y estar orientado al cliente.",
   "sobre-mi.cta": "¿Tienes un proyecto en mente? Hablemos.",
   "sobre-mi.cta-contacto": "Contacto",
 
@@ -59,5 +66,38 @@
 
   "servicios.badge": "INFOCOB — Servicios",
   "servicios.title": "Servicios",
-  "servicios.subtitle": "Soluciones digitales a medida para potenciar tu negocio."
+  "servicios.subtitle": "Soluciones digitales completas: desde el diseño y desarrollo web hasta la integración de inteligencia artificial y productos digitales a medida.",
+  "servicios.incluye": "Incluye",
+  "servicios.cotizar": "Cotizar {title}",
+  "servicios.no-encuentras": "¿No encuentras lo que buscas?",
+  "servicios.no-encuentras-desc": "Cada proyecto es único. Conversemos tu idea y te propongo la mejor solución.",
+  "servicios.hablemos": "Hablemos de tu proyecto",
+
+  "servicio-0-title": "Desarrollo Web",
+  "servicio-0-desc": "Creamos sitios web modernos, rápidos y optimizados para conversión. Desde landing pages hasta aplicaciones web completas.",
+  "servicio-0-item-0": "Landing pages y sitios corporativos",
+  "servicio-0-item-1": "Aplicaciones web con Next.js, React",
+  "servicio-0-item-2": "E-commerce con tecnología moderna",
+  "servicio-0-item-3": "Hosting y dominio incluidos",
+
+  "servicio-1-title": "Integración de IA",
+  "servicio-1-desc": "Potenciamos tu negocio con inteligencia artificial: automatización, chatbots, análisis y generación de contenido.",
+  "servicio-1-item-0": "Chatbots y asistentes virtuales",
+  "servicio-1-item-1": "Automatización de procesos",
+  "servicio-1-item-2": "Análisis de datos con IA",
+  "servicio-1-item-3": "Generación de contenido automatizada",
+
+  "servicio-2-title": "Productos Digitales",
+  "servicio-2-desc": "Diseñamos y desarrollamos productos digitales a medida: software, plataformas web y herramientas interactivas.",
+  "servicio-2-item-0": "Plataformas web interactivas",
+  "servicio-2-item-1": "APIs y servicios backend",
+  "servicio-2-item-2": "Sistemas de gestión de contenido",
+  "servicio-2-item-3": "Aplicaciones progresivas (PWA)",
+
+  "servicio-3-title": "Consultoría Técnica",
+  "servicio-3-desc": "Asesoría en arquitectura web, tecnologías modernas, migraciones y optimización de rendimiento.",
+  "servicio-3-item-0": "Arquitectura de software",
+  "servicio-3-item-1": "Migración a tecnologías modernas",
+  "servicio-3-item-2": "Optimización de rendimiento web",
+  "servicio-3-item-3": "SEO técnico y accesibilidad"
 }

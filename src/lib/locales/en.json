@@ -42,10 +42,17 @@
   "sobre-mi.badge": "INFOCOB — Since 2008",
   "sobre-mi.title": "About me",
   "sobre-mi.subtitle": "Daniel Cobos — Computer systems technician, web developer and digital product creator.",
+  "sobre-mi.desc-cargo": "Computer systems technician · Web developer",
+  "sobre-mi.desc-local": "Since 2008 in Talca, Chile",
   "sobre-mi.historia": "History",
+  "sobre-mi.historia-p1": "INFOCOB Computación was born with the goal of providing comprehensive, personalized, on-site IT services, opening its doors on November 12, 2008. With that spirit and commitment, INFOCOB delivers quality and close attention at an affordable price to the city of Talca.",
+  "sobre-mi.historia-p2": "Throughout our history, we have collaborated on software analysis and programming for specialized clients; creation, design, development and maintenance of websites for companies and individuals; multimedia application development and technical support for users and businesses. Today, we focus on new digital product design, modern web development and artificial intelligence integration.",
   "sobre-mi.mision": "Mission",
+  "sobre-mi.mision-desc": "To offer an economical and competent alternative in delivering IT and computing solutions, where personalized treatment of the client is the differentiating element.",
   "sobre-mi.vision": "Vision",
+  "sobre-mi.vision-desc": "To be a competitive and original reference in digital services, expanding the spectrum of design, web development and digital products with ecological and social responsibility.",
   "sobre-mi.valores": "Values",
+  "sobre-mi.valores-desc": "Integrity, social responsibility and economy. Offering options, bringing technology closer to people and being customer-oriented.",
   "sobre-mi.cta": "Have a project in mind? Let's talk.",
   "sobre-mi.cta-contacto": "Contact",
 
@@ -59,5 +66,38 @@
 
   "servicios.badge": "INFOCOB — Services",
   "servicios.title": "Services",
-  "servicios.subtitle": "Custom digital solutions to grow your business."
+  "servicios.subtitle": "Complete digital solutions: from web design and development to AI integration and custom digital products.",
+  "servicios.incluye": "Includes",
+  "servicios.cotizar": "Get a quote for {title}",
+  "servicios.no-encuentras": "Can't find what you're looking for?",
+  "servicios.no-encuentras-desc": "Every project is unique. Let's talk about your idea and I'll propose the best solution.",
+  "servicios.hablemos": "Let's talk about your project",
+
+  "servicio-0-title": "Web Development",
+  "servicio-0-desc": "We build modern, fast, conversion-optimized websites. From landing pages to full web applications.",
+  "servicio-0-item-0": "Landing pages and corporate sites",
+  "servicio-0-item-1": "Web applications with Next.js, React",
+  "servicio-0-item-2": "E-commerce with modern technology",
+  "servicio-0-item-3": "Hosting and domain included",
+
+  "servicio-1-title": "AI Integration",
+  "servicio-1-desc": "Power up your business with artificial intelligence: automation, chatbots, analytics and content generation.",
+  "servicio-1-item-0": "Chatbots and virtual assistants",
+  "servicio-1-item-1": "Process automation",
+  "servicio-1-item-2": "Data analysis with AI",
+  "servicio-1-item-3": "Automated content generation",
+
+  "servicio-2-title": "Digital Products",
+  "servicio-2-desc": "We design and develop custom digital products: software, web platforms and interactive tools.",
+  "servicio-2-item-0": "Interactive web platforms",
+  "servicio-2-item-1": "APIs and backend services",
+  "servicio-2-item-2": "Content management systems",
+  "servicio-2-item-3": "Progressive web apps (PWA)",
+
+  "servicio-3-title": "Technical Consulting",
+  "servicio-3-desc": "Advice on web architecture, modern technologies, migrations and performance optimization.",
+  "servicio-3-item-0": "Software architecture",
+  "servicio-3-item-1": "Migration to modern technologies",
+  "servicio-3-item-2": "Web performance optimization",
+  "servicio-3-item-3": "Technical SEO and accessibility"
 }

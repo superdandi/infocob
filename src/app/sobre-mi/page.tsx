@@ -1,22 +1,26 @@
+"use client";
+
 import { Clock, Target, Eye, Heart } from "lucide-react";
 import Link from "next/link";
 import { asset } from "@/lib/asset";
+import { useTranslation } from "@/lib/TranslationsProvider";
 
 export default function SobreMiPage() {
+  const { t } = useTranslation();
+
   return (
     <div className="py-16 sm:py-24">
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-16">
           <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full glass text-xs text-text-muted mb-6">
             <span className="w-2 h-2 rounded-full bg-brand" />
-            INFOCOB — Desde 2008
+            {t("sobre-mi.badge")}
           </div>
           <h1 className="font-heading text-4xl sm:text-5xl font-bold text-text mb-4">
-            Sobre mí
+            {t("sobre-mi.title")}
           </h1>
           <p className="text-text-muted text-lg max-w-xl mx-auto">
-            Daniel Cobos — Técnico en sistemas informáticos, desarrollador web
-            y creador de productos digitales.
+            {t("sobre-mi.subtitle")}
           </p>
         </div>
 
@@ -32,33 +36,23 @@ export default function SobreMiPage() {
             <div className="p-5">
               <h2 className="font-heading font-bold text-text text-lg">Daniel Cobos</h2>
               <p className="text-text-muted text-sm">
-                Técnico en sistemas informáticos · Desarrollador web
+                {t("sobre-mi.desc-cargo")}
               </p>
               <p className="text-text-muted/60 text-xs mt-2">
-                Desde 2008 en Talca, Chile
+                {t("sobre-mi.desc-local")}
               </p>
             </div>
           </div>
           <div className="md:col-span-2 glass-card p-8 sm:p-10">
             <h2 className="font-heading text-2xl font-bold text-text mb-4 flex items-center gap-3">
               <Clock className="w-6 h-6 text-brand" />
-              Historia
+              {t("sobre-mi.historia")}
             </h2>
             <p className="text-text-muted leading-relaxed mb-4">
-              INFOCOB Computación nace con el afán de entregar servicios informáticos
-              de una manera integral, personalizada y en terreno, abriendo sus puertas
-              al público el <strong className="text-text">12 de noviembre de 2008</strong>.
-              Con dicho espíritu y compromiso, INFOCOB entrega calidad y cercanía por
-              un precio accesible a la ciudad de Talca.
+              {t("sobre-mi.historia-p1")}
             </p>
             <p className="text-text-muted leading-relaxed">
-              En nuestro tiempo de vida, hemos colaborado en el desarrollo de
-              análisis y programación de software para clientes especializados;
-              creación, diseño, desarrollo y mantención de sitios web para empresas
-              y particulares; desarrollo de aplicaciones multimedia y servicio
-              técnico a usuarios y empresas. Hoy, enfocados en el diseño de nuevos
-              productos digitales, desarrollo web moderno e integración de
-              inteligencia artificial.
+              {t("sobre-mi.historia-p2")}
             </p>
           </div>
         </div>
@@ -66,42 +60,37 @@ export default function SobreMiPage() {
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 mb-10">
           <div className="glass-card p-6 text-center">
             <Target className="w-8 h-8 text-accent mx-auto mb-3" />
-            <h3 className="font-heading font-semibold text-text mb-2">Misión</h3>
+            <h3 className="font-heading font-semibold text-text mb-2">{t("sobre-mi.mision")}</h3>
             <p className="text-text-muted text-sm leading-relaxed">
-              Ofrecer una alternativa económica y competente en la entrega de
-              soluciones técnico-computacionales e informáticas, donde el trato
-              personalizado con el cliente es el elemento diferenciador.
+              {t("sobre-mi.mision-desc")}
             </p>
           </div>
           <div className="glass-card p-6 text-center">
             <Eye className="w-8 h-8 text-accent mx-auto mb-3" />
-            <h3 className="font-heading font-semibold text-text mb-2">Visión</h3>
+            <h3 className="font-heading font-semibold text-text mb-2">{t("sobre-mi.vision")}</h3>
             <p className="text-text-muted text-sm leading-relaxed">
-              Ser un referente competitivo y original frente al desarrollo de
-              servicios digitales, ampliando el espectro de diseño, desarrollo
-              web y productos digitales con responsabilidad ecológica y social.
+              {t("sobre-mi.vision-desc")}
             </p>
           </div>
           <div className="glass-card p-6 text-center">
             <Heart className="w-8 h-8 text-brand mx-auto mb-3" />
-            <h3 className="font-heading font-semibold text-text mb-2">Valores</h3>
+            <h3 className="font-heading font-semibold text-text mb-2">{t("sobre-mi.valores")}</h3>
             <p className="text-text-muted text-sm leading-relaxed">
-              Integridad, responsabilidad social y economía. Ofrecer opciones,
-              acercar la tecnología a las personas y estar orientado al cliente.
+              {t("sobre-mi.valores-desc")}
             </p>
           </div>
         </div>
 
         <div className="glass-card p-8 sm:p-10 text-center">
           <p className="text-text-muted text-lg mb-6">
-            ¿Tienes un proyecto en mente? Hablemos.
+            {t("sobre-mi.cta")}
           </p>
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
             <Link
               href="/contacto"
               className="inline-flex items-center gap-2 px-8 py-3.5 rounded-xl bg-accent text-bg font-semibold hover:brightness-110 transition-all duration-300"
             >
-              Contacto
+              {t("sobre-mi.cta-contacto")}
             </Link>
             <a
               href="https://wa.me/56982864145"
