@@ -13,7 +13,7 @@ export default function SobreMiPage() {
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-16">
           <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full glass text-xs text-text-muted mb-6">
-            <span className="w-2 h-2 rounded-full bg-brand" />
+            <span className="w-2 h-2 rounded-full bg-brand animate-pulse" />
             {t("sobre-mi.badge")}
           </div>
           <h1 className="font-heading text-4xl sm:text-5xl font-bold text-text mb-4">
