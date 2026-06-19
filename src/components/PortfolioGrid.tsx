@@ -20,9 +20,30 @@ function getInitials(name: string): string {
     .toUpperCase();
 }
 
+function ImagePlaceholder({ name }: { name: string }) {
+  const initials = getInitials(name);
+  return (
+    <div className="relative h-40 bg-gradient-to-br from-accent/10 via-accent-secondary/5 to-brand/5 flex items-center justify-center overflow-hidden">
+      <span className="font-heading text-5xl font-bold text-text/10 select-none">
+        {initials}
+      </span>
+      <svg className="absolute inset-0 w-full h-full opacity-[0.04]" viewBox="0 0 400 160" preserveAspectRatio="none">
+        <g stroke="#ba112a" strokeWidth="1" fill="none" strokeLinecap="round">
+          <path d="M20 20 L80 20 L80 60 L120 60" />
+          <path d="M280 100 L320 100 L320 60 L380 60" />
+          <path d="M50 120 L100 120 L100 80 L150 80" />
+          <circle cx="20" cy="20" r="3" fill="#ba112a" />
+          <circle cx="120" cy="60" r="2.5" fill="#ba112a" />
+          <circle cx="280" cy="100" r="2" fill="#ba112a" />
+          <circle cx="380" cy="60" r="3" fill="#ba112a" />
+        </g>
+      </svg>
+    </div>
+  );
+}
+
 function ProjectCard({ project }: { project: Project }) {
   const status = statusConfig[project.status];
-  const initials = getInitials(project.name);
   const hasArchive = project.waybackTimestamp && project.domain;
   const isActive = project.status === "active" && project.domain;
 
@@ -34,30 +55,23 @@ function ProjectCard({ project }: { project: Project }) {
         status.hover
       )}
     >
-      {/* Placeholder visual con iniciales */}
-      <div className="relative h-40 bg-gradient-to-br from-accent/10 via-accent-secondary/5 to-brand/5 flex items-center justify-center overflow-hidden">
-        <span className="font-heading text-5xl font-bold text-text/10 select-none">
-          {initials}
-        </span>
-        {/* Circuit decoration */}
-        <svg className="absolute inset-0 w-full h-full opacity-[0.04]" viewBox="0 0 400 160" preserveAspectRatio="none">
-          <g stroke="#ba112a" strokeWidth="1" fill="none" strokeLinecap="round">
-            <path d="M20 20 L80 20 L80 60 L120 60" />
-            <path d="M280 100 L320 100 L320 60 L380 60" />
-            <path d="M50 120 L100 120 L100 80 L150 80" />
-            <circle cx="20" cy="20" r="3" fill="#ba112a" />
-            <circle cx="120" cy="60" r="2.5" fill="#ba112a" />
-            <circle cx="280" cy="100" r="2" fill="#ba112a" />
-            <circle cx="380" cy="60" r="3" fill="#ba112a" />
-          </g>
-        </svg>
-        {isActive && (
-          <div className="absolute top-3 right-3 flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-success/15 text-success text-xs font-medium">
-            <span className="w-1.5 h-1.5 rounded-full bg-success animate-pulse" />
-            En línea
-          </div>
-        )}
-      </div>
+      {project.image ? (
+        <div className="relative h-40 overflow-hidden">
+          <img
+            src={project.image}
+            alt={project.name}
+            className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+          />
+          {isActive && (
+            <div className="absolute top-3 right-3 flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-success/15 text-success text-xs font-medium backdrop-blur-sm">
+              <span className="w-1.5 h-1.5 rounded-full bg-success animate-pulse" />
+              En línea
+            </div>
+          )}
+        </div>
+      ) : (
+        <ImagePlaceholder name={project.name} />
+      )}
 
       <div className="p-5">
         <div className="flex items-start justify-between mb-2">

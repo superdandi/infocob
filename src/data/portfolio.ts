@@ -16,6 +16,7 @@ export interface Project {
   status: ProjectStatus;
   category: ProjectCategory[];
   stack?: string[];
+  image?: string;
   waybackTimestamp?: string;
   year?: string;
 }
@@ -31,6 +32,15 @@ export const categories: { value: ProjectCategory; label: string }[] = [
 ];
 
 export const projects: Project[] = [
+  {
+    name: "Pet Taxi",
+    domain: "pettaxi.cl",
+    rubro: "Taxi de mascotas",
+    description: "Servicio de taxi de mascotas en Talca con más de 10 años de experiencia",
+    status: "unknown",
+    category: ["web-corporativa", "landing"],
+    year: "2015",
+  },
   {
     name: "Revor",
     domain: "revor.cl",
