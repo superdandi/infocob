@@ -28,7 +28,10 @@ export default function Footer() {
                 className="h-20 w-auto"
               />
             </div>
-            <p className="text-text-muted text-xs">
+            <p className="text-text-muted text-sm leading-relaxed">
+              {t("footer.tagline")}.
+            </p>
+            <p className="text-text-muted text-xs mt-3">
               Desde 2008 · Talca, Chile
             </p>
           </div>
