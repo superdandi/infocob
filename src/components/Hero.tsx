@@ -9,12 +9,16 @@ export default function Hero() {
       <div className="absolute inset-0 bg-gradient-to-b from-accent-secondary/5 via-transparent to-transparent pointer-events-none" />
 
       <div className="relative z-10 max-w-4xl mx-auto px-4 sm:px-6 text-center">
-        <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full glass text-xs text-text-muted mb-8 animate-fade-in">
+        <div className="mb-6 animate-fade-in">
           <img
             src={asset("/images/infocob logo.png")}
-            alt=""
-            className="h-6 w-auto"
+            alt="INFOCOB"
+            className="h-16 sm:h-20 w-auto mx-auto"
           />
+        </div>
+
+        <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full glass text-xs text-text-muted mb-8 animate-fade-in">
+          <span className="w-2 h-2 rounded-full bg-brand animate-pulse" />
           Desde 2008 en Talca, Chile
         </div>
 
