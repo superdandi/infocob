@@ -17,24 +17,68 @@
 }
 
 :root.light {
-  --color-bg: #f8fafc;
-  --color-bg-secondary: #f1f5f9;
-  --color-card: rgba(255, 255, 255, 0.7);
-  --color-accent: #006699;
-  --color-accent-secondary: #4f46e5;
-  --color-brand: #ba112a;
-  --color-text: #0f172a;
-  --color-text-muted: #475569;
-  --color-border: rgba(0, 0, 0, 0.18);
-  --color-success: #059669;
-}
-
-:root {
   --background: #f8fafc;
   --foreground: #0f172a;
 }
 
+:root.light .text-text { color: #0f172a; }
+:root.light .text-text-muted { color: #475569; }
+:root.light .text-text-muted\/20 { color: rgba(71, 85, 105, 0.2); }
+:root.light .text-text-muted\/30 { color: rgba(71, 85, 105, 0.3); }
+:root.light .text-text-muted\/40 { color: rgba(71, 85, 105, 0.4); }
+:root.light .text-text-muted\/50 { color: rgba(71, 85, 105, 0.5); }
+:root.light .text-text-muted\/60 { color: rgba(71, 85, 105, 0.6); }
+:root.light .text-text-muted\/80 { color: rgba(71, 85, 105, 0.8); }
+:root.light .text-text\/10 { color: rgba(15, 23, 42, 0.1); }
+:root.light .text-accent { color: #006699; }
+:root.light .text-accent\/50 { color: rgba(0, 102, 153, 0.5); }
+:root.light .text-bg { color: #f8fafc; }
+:root.light .text-brand { color: #ba112a; }
+:root.light .text-success { color: #059669; }
+:root.light .bg-accent { background-color: #006699; }
+:root.light .bg-accent\/10 { background-color: rgba(0, 102, 153, 0.1); }
+:root.light .bg-bg { background-color: #f8fafc; }
+:root.light .bg-bg-secondary\/80 { background-color: rgba(241, 245, 249, 0.8); }
+:root.light .bg-brand { background-color: #ba112a; }
+:root.light .bg-success { background-color: #059669; }
+:root.light .bg-success\/15 { background-color: rgba(5, 150, 105, 0.15); }
+:root.light .bg-white\/5 { background-color: rgba(0, 0, 0, 0.04); }
+:root.light .bg-white\/\[0\.02\] { background-color: rgba(0, 0, 0, 0.02); }
+:root.light .bg-white\/\[0\.03\] { background-color: rgba(0, 0, 0, 0.03); }
+:root.light .border-border { border-color: rgba(0, 0, 0, 0.18); }
+:root.light .border-border\/50 { border-color: rgba(0, 0, 0, 0.09); }
+:root.light .placeholder\:text-text-muted\/30::placeholder { color: rgba(71, 85, 105, 0.3); }
+:root.light .placeholder\:text-text-muted\/40::placeholder { color: rgba(71, 85, 105, 0.4); }
+:root.light .hover\:text-text:hover { color: #0f172a; }
+:root.light .hover\:text-brand:hover { color: #ba112a; }
+:root.light .hover\:bg-white\/5:hover { background-color: rgba(0, 0, 0, 0.04); }
+:root.light .hover\:bg-white\/10:hover { background-color: rgba(0, 0, 0, 0.08); }
+:root.light .hover\:border-text-muted\/20:hover { border-color: rgba(71, 85, 105, 0.2); }
+:root.light .hover\:border-text-muted\/30:hover { border-color: rgba(71, 85, 105, 0.3); }
+:root.light .hover\:border-success\/30:hover { border-color: rgba(5, 150, 105, 0.3); }
+:root.light .shadow-accent\/20 { --tw-shadow-color: rgba(0, 102, 153, 0.2); }
+:root.light .shadow-success\/25 { --tw-shadow-color: rgba(5, 150, 105, 0.25); }
+:root.light .from-accent\/10 { --tw-gradient-from: rgba(0, 102, 153, 0.1); }
+:root.light .from-accent-secondary\/5 { --tw-gradient-from: rgba(79, 70, 229, 0.05); }
+:root.light .via-accent-secondary\/5 { --tw-gradient-via: rgba(79, 70, 229, 0.05); }
+:root.light .to-brand\/5 { --tw-gradient-to: rgba(186, 17, 42, 0.05); }
+:root.light .group-hover\:text-accent:is(:where(.group):hover *) { color: #006699; }
+:root.light .focus\:border-accent\/50:focus { border-color: rgba(0, 102, 153, 0.5); }
+:root.light .focus\:ring-accent\/20:focus { --tw-ring-color: rgba(0, 102, 153, 0.2); }
+:root.light input, :root.light textarea {
+  background: rgba(0, 0, 0, 0.04) !important;
+  border-color: rgba(0, 0, 0, 0.2) !important;
+}
+:root.light input::placeholder, :root.light textarea::placeholder {
+  color: #94a3b8 !important;
+}
+
 .dark {
+  --background: #0b0d17;
+  --foreground: #f1f5f9;
+}
+
+:root {
   --background: #0b0d17;
   --foreground: #f1f5f9;
 }
