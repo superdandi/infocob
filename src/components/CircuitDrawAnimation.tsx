@@ -90,7 +90,7 @@ export default function CircuitDrawAnimation() {
           <g
             fill="none"
             stroke="currentColor"
-            strokeWidth="0.8"
+            strokeWidth="0.5"
             strokeLinecap="round"
             strokeLinejoin="round"
             className="opacity-[0.08] dark:opacity-[0.12]"
@@ -130,7 +130,7 @@ export default function CircuitDrawAnimation() {
           <g
             fill="none"
             stroke="currentColor"
-            strokeWidth="0.7"
+            strokeWidth="0.4"
             strokeLinecap="round"
             strokeLinejoin="round"
             className="opacity-[0.1] dark:opacity-[0.14]"
