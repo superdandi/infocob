@@ -13,7 +13,7 @@ export default function Hero() {
           <img
             src={asset("/images/infocob logo.png")}
             alt="INFOCOB"
-            className="h-16 sm:h-20 w-auto mx-auto"
+            className="h-16 sm:h-20 w-auto mx-auto mix-blend-multiply"
           />
         </div>
 
