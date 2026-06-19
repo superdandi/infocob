@@ -66,7 +66,7 @@ export default function ContactoPage() {
               </div>
               <a
                 href="mailto:dcobosm@gmail.com"
-                className="text-text-muted hover:text-text transition-colors text-sm"
+                className="text-text-muted hover:text-brand transition-colors text-sm"
               >
                 dcobosm@gmail.com
               </a>
