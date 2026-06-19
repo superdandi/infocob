@@ -28,12 +28,7 @@ export default function Footer() {
                 className="h-20 w-auto"
               />
             </div>
-            <p className="text-text-muted text-sm leading-relaxed">
-              {t("footer.tagline")}.
-              <br />
-              Desarrollo web, IA y productos digitales.
-            </p>
-            <p className="text-text-muted text-xs mt-3">
+            <p className="text-text-muted text-xs">
               Desde 2008 · Talca, Chile
             </p>
           </div>
