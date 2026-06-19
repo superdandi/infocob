@@ -19,15 +19,14 @@ export default function Hero() {
   return (
     <section className="relative min-h-[90vh] flex items-center justify-center overflow-hidden">
       <div className="absolute inset-0 bg-gradient-to-b from-accent-secondary/5 via-transparent to-transparent pointer-events-none" />
-      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full max-w-4xl opacity-[0.04] pointer-events-none select-none">
-        <img
-          src={asset("/images/infocob-circuito.svg")}
-          alt=""
-          className="w-full h-auto"
-        />
-      </div>
-
       <div className="relative z-10 max-w-4xl mx-auto px-4 sm:px-6 text-center">
+        <div className="mx-auto max-w-2xl mb-10">
+          <img
+            src={asset("/images/infocob-circuito.svg")}
+            alt="INFOCOB"
+            className="w-full h-auto"
+          />
+        </div>
         <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full glass text-xs text-text-muted mb-8 animate-fade-in">
           <span className="w-2 h-2 rounded-full bg-brand animate-pulse" />
           {t("hero.badge")}
