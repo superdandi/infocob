@@ -14,7 +14,7 @@ export default function SobreMiPage() {
             Sobre mí
           </h1>
           <p className="text-text-muted text-lg max-w-xl mx-auto">
-            Daniel Cobos Mansilla — Técnico en sistemas informáticos, desarrollador web
+            Daniel Cobos — Técnico en sistemas informáticos, desarrollador web
             y creador de productos digitales.
           </p>
         </div>

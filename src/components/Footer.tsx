@@ -104,7 +104,7 @@ export default function Footer() {
 
         <div className="mt-10 pt-6 border-t border-border">
           <p className="text-center text-text-muted/60 text-xs">
-            &copy; {new Date().getFullYear()} INFOCOB — Daniel Cobos Mansilla. Todos los derechos reservados.
+            &copy; {new Date().getFullYear()} INFOCOB — Daniel Cobos. Todos los derechos reservados.
           </p>
         </div>
       </div>

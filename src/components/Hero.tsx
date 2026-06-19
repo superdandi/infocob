@@ -44,7 +44,7 @@ export default function Hero() {
         <div className="mt-16 grid grid-cols-2 sm:grid-cols-4 gap-4 max-w-2xl mx-auto animate-fade-up">
           {[
             { value: "17+", label: "años" },
-            { value: "30+", label: "proyectos" },
+            { value: "45+", label: "proyectos" },
             { value: "2008", label: "desde" },
             { value: "Talca", label: "Chile" },
           ].map((stat) => (

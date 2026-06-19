@@ -54,7 +54,7 @@ export const servicios: Service[] = [
 
 export const stats = [
   { value: "17+", label: "años de experiencia" },
-  { value: "30+", label: "proyectos realizados" },
+  { value: "45+", label: "proyectos realizados" },
   { value: "2008", label: "desde" },
   { value: "Talca", label: "Chile" },
 ];

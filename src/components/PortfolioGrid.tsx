@@ -4,6 +4,7 @@ import { useState } from "react";
 import { ExternalLink, Archive, Globe, Search, X } from "lucide-react";
 import { projects, categories, type Project, type ProjectCategory } from "@/data/portfolio";
 import { cn } from "@/lib/utils";
+import { asset } from "@/lib/asset";
 
 const statusConfig = {
   active: { label: "En línea", dot: "bg-success", hover: "hover:border-success/30" },
@@ -58,7 +59,7 @@ function ProjectCard({ project }: { project: Project }) {
       {project.image ? (
         <div className="relative h-40 overflow-hidden">
           <img
-            src={project.image}
+            src={asset(project.image)}
             alt={project.name}
             className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
           />

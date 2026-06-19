@@ -11,7 +11,7 @@ export default function PortafolioPage() {
             Proyectos
           </h1>
           <p className="text-text-muted text-lg max-w-xl mx-auto">
-            Más de 30 proyectos desarrollados desde 2008 en la Región del Maule y Chile.
+            Más de 45 proyectos desarrollados desde 2008 en la Región del Maule y Chile.
             Sitios web, e-commerce, revistas digitales y más.
           </p>
         </div>
