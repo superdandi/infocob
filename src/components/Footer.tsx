@@ -23,9 +23,9 @@ export default function Footer() {
           <div>
             <div className="flex items-center gap-2 mb-3">
               <img
-                src={asset("/images/infocob transparente.png")}
+                src={asset("/images/infocob-circuito.svg")}
                 alt="INFOCOB"
-                className="h-8 w-auto"
+                className="h-20 w-auto"
               />
             </div>
             <p className="text-text-muted text-sm leading-relaxed">

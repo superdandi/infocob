@@ -30,7 +30,7 @@ export default function Navbar() {
           <Link href="/" className="flex items-center gap-3">
             <div className="nav-logo">
               <img
-                src={asset("/images/infocob transparente.png")}
+                src={asset("/images/infocob-solo.svg")}
                 alt="INFOCOB"
                 className="h-9 w-auto"
               />
