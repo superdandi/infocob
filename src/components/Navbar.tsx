@@ -5,8 +5,8 @@ import { usePathname } from "next/navigation";
 import { Menu, X } from "lucide-react";
 import { useState } from "react";
 import { cn } from "@/lib/utils";
-import { asset } from "@/lib/asset";
 import { useTranslation } from "@/lib/TranslationsProvider";
+import LogoImage from "./LogoImage";
 import ThemeToggle from "./ThemeToggle";
 import LangToggle from "./LangToggle";
 
@@ -28,8 +28,8 @@ export default function Navbar() {
         <div className="flex items-center justify-between h-16">
           <Link href="/" className="flex items-center gap-3">
             <div className="nav-logo">
-              <img
-                src={asset("/images/infocob-solo.svg")}
+              <LogoImage
+                lightSrc="/images/infocob-solo.svg"
                 alt="INFOCOB"
                 className="h-7 w-auto"
               />

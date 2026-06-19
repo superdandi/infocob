@@ -2,8 +2,8 @@
 
 import { Mail } from "lucide-react";
 import Link from "next/link";
-import { asset } from "@/lib/asset";
 import { useTranslation } from "@/lib/TranslationsProvider";
+import LogoImage from "./LogoImage";
 
 export default function Footer() {
   const { t } = useTranslation();
@@ -22,10 +22,10 @@ export default function Footer() {
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
           <div>
             <div className="flex items-center gap-2 mb-3">
-              <img
-                src={asset("/images/infocob-circuito.svg")}
+              <LogoImage
+                lightSrc="/images/infocob-circuito.svg"
                 alt="INFOCOB"
-                className="h-20 w-auto dark:brightness-[1.5]"
+                className="h-20 w-auto"
               />
             </div>
             <p className="text-text-muted text-sm leading-relaxed">

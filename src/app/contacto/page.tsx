@@ -2,8 +2,8 @@
 
 import { useState } from "react";
 import { MessageCircle, Mail, MapPin, Send } from "lucide-react";
-import { asset } from "@/lib/asset";
 import { useTranslation } from "@/lib/TranslationsProvider";
+import LogoImage from "@/components/LogoImage";
 
 export default function ContactoPage() {
   const [sent, setSent] = useState(false);
@@ -36,10 +36,10 @@ export default function ContactoPage() {
         <div className="grid grid-cols-1 md:grid-cols-5 gap-8">
           <div className="md:col-span-2 space-y-6">
             <div className="glass-card overflow-hidden p-6 flex items-center justify-center">
-              <img
-                src={asset("/images/infocob-computacion-circuito.svg")}
+              <LogoImage
+                lightSrc="/images/infocob-computacion-circuito.svg"
                 alt="INFOCOB"
-                className="h-48 sm:h-56 w-auto dark:brightness-[1.7]"
+                className="h-48 sm:h-56 w-auto"
               />
             </div>
 
