@@ -254,6 +254,9 @@ body {
   html:not([data-motion="enabled"]) .nav-logo::after {
     animation: none !important;
   }
+  html:not([data-motion="enabled"]) .opacity-0 {
+    opacity: 1;
+  }
 }
 
 /* Usuario deshabilitó explícitamente las animaciones */

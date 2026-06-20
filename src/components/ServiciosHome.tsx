@@ -6,22 +6,25 @@ import { getIcon } from "@/data/icons";
 import { servicios, type Service } from "@/data/services";
 import { useTranslation } from "@/lib/TranslationsProvider";
 
-function ServiceCard({ service, cotizarLabel }: { service: Service; cotizarLabel: string }) {
+function ServiceCard({ service, index, cotizarLabel }: { service: Service; index: number; cotizarLabel: string }) {
+  const { t } = useTranslation();
   const Icon = getIcon(service.icon);
-  const whatsappUrl = `https://wa.me/56982864145?text=Hola%20INFOCOB%2C%20quiero%20cotizar%20${encodeURIComponent(service.title)}`;
+  const title = t(`servicio-${index}-title`);
+  const desc = t(`servicio-${index}-desc`);
+  const whatsappUrl = `https://wa.me/56982864145?text=Hola%20INFOCOB%2C%20quiero%20cotizar%20${encodeURIComponent(title)}`;
   return (
     <div className="glass-card p-6 sm:p-8 glow-border group transition-all duration-300 hover:translate-y-[-2px]">
       <div className="w-12 h-12 rounded-xl bg-accent/10 flex items-center justify-center mb-5">
         <Icon className="w-6 h-6 text-accent" />
       </div>
-      <h3 className="font-heading font-semibold text-lg text-text mb-3">{service.title}</h3>
-      <p className="text-text-muted text-sm leading-relaxed mb-4">{service.description}</p>
+      <h3 className="font-heading font-semibold text-lg text-text mb-3">{title}</h3>
+      <p className="text-text-muted text-sm leading-relaxed mb-4">{desc}</p>
       {service.items && (
         <ul className="space-y-2 mb-5">
-          {service.items.map((item) => (
-            <li key={item} className="text-text-muted text-sm flex items-start gap-2">
+          {service.items.map((_item, i) => (
+            <li key={i} className="text-text-muted text-sm flex items-start gap-2">
               <span className="text-accent mt-0.5">&#x2022;</span>
-              {item}
+              {t(`servicio-${index}-item-${i}`)}
             </li>
           ))}
         </ul>
@@ -55,8 +58,8 @@ export default function ServiciosHome() {
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          {servicios.map((service) => (
-            <ServiceCard key={service.title} service={service} cotizarLabel={t("servicios-home.cotizar")} />
+          {servicios.map((service, i) => (
+            <ServiceCard key={service.title} service={service} index={i} cotizarLabel={t("servicios-home.cotizar")} />
           ))}
         </div>
 
