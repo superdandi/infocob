@@ -75,7 +75,7 @@ export default function AiChat() {
 
       lastReq.current = Date.now();
       const res = await fetch(
-        `https://generativelanguage.googleapis.com/v1/models/${MODEL}:generateContent?key=${encodeURIComponent(API_KEY!)}`,
+        `https://generativelanguage.googleapis.com/v1beta/models/${MODEL}:generateContent?key=${encodeURIComponent(API_KEY!)}`,
         {
           method: "POST",
           headers: { "Content-Type": "application/json" },
@@ -90,6 +90,7 @@ export default function AiChat() {
         const errBody = await res.text();
         throw new Error(`Error ${res.status}: ${errBody.slice(0, 200)}`);
       }
+
 
       const data = await res.json();
       const reply = data?.candidates?.[0]?.content?.parts?.[0]?.text;
