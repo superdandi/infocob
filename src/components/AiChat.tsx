@@ -4,8 +4,7 @@ import { useState, useRef, useEffect } from "react";
 import { MessageCircle, X, Send, Sparkles } from "lucide-react";
 
 const API_KEY = process.env.NEXT_PUBLIC_GEMINI_API_KEY;
-const MODELS = ["gemini-2.0-flash", "gemini-1.5-flash", "gemini-1.5-pro"];
-const API_VERSIONS = ["v1", "v1beta"];
+const MODEL = "gemini-2.0-flash";
 
 const SYSTEM_PROMPT = `Eres el asistente virtual de INFOCOB Computación, empresa fundada por Daniel Cobos en Talca, Chile, desde 2008. Respondes preguntas sobre sus servicios. Sos directo, amable, y respondés siempre en español. Tu objetivo es ayudar al visitante y convertirlo en lead.
 
@@ -74,38 +73,23 @@ export default function AiChat() {
         }));
       }
 
-      let data: { candidates?: { content?: { parts?: { text?: string }[] } }[] } | null = null;
-      let lastErr: string | null = null;
-      const body = JSON.stringify({ contents, generationConfig: { temperature: 0.7, maxOutputTokens: 512 } });
-
-      for (const version of API_VERSIONS) {
-        for (const model of MODELS) {
-          for (const method of ["generateContent", "streamGenerateContent"]) {
-            lastReq.current = Date.now();
-            const url = `https://generativelanguage.googleapis.com/${version}/models/${model}:${method}?key=${encodeURIComponent(API_KEY!)}`;
-            const res = await fetch(url, { method: "POST", headers: { "Content-Type": "application/json" }, body });
-
-            if (res.ok) {
-              const text = await res.text();
-              try {
-                data = JSON.parse(text);
-              } catch {
-                lastErr = `Modelo "${model}" respondió sin JSON`;
-                continue;
-              }
-              break;
-            }
-            const errBody = await res.text();
-            lastErr = `${version}/${model}:${method} → ${res.status}: ${errBody.slice(0, 150)}`;
-          }
-          if (data) break;
+      lastReq.current = Date.now();
+      const res = await fetch(
+        `https://generativelanguage.googleapis.com/v1beta/models/${MODEL}:generateContent?key=${encodeURIComponent(API_KEY!)}`,
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ contents, generationConfig: { temperature: 0.7, maxOutputTokens: 512 } }),
         }
-        if (data) break;
+      );
+
+      if (!res.ok) {
+        if (res.status === 429) throw new Error("Límite de uso alcanzado. Esperá un minuto.");
+        const errBody = await res.text();
+        throw new Error(`Error ${res.status}: ${errBody.slice(0, 200)}`);
       }
 
-      if (!data) {
-        throw new Error(lastErr ?? "Todos los modelos fallaron");
-      }
+      const data = await res.json();
       const reply = data?.candidates?.[0]?.content?.parts?.[0]?.text;
       if (!reply) throw new Error("Respuesta vacía de Gemini");
       setConversation((prev) => [...prev, { role: "model", text: reply }]);
@@ -115,7 +99,7 @@ export default function AiChat() {
       setError(msg);
       setConversation((prev) => [
         ...prev,
-        { role: "model", text: msg.startsWith("Límite") || msg.startsWith("Error 429")
+        { role: "model", text: msg.startsWith("Límite")
           ? "El servicio está temporalmente sobrecargado. Esperá un momento y probá de nuevo, o contactame directo por WhatsApp."
           : "Ocurrió un error. Probá de nuevo o escribime a WhatsApp al +56 9 8286 4145." },
       ]);
