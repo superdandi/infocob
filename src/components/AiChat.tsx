@@ -103,6 +103,7 @@ export default function AiChat() {
       setConversation((prev) => [...prev, { role: "model", text: reply }]);
     } catch (e) {
       const msg = e instanceof Error ? e.message : "Error desconocido";
+      console.error("[AiChat]", msg);
       setError(msg);
       setConversation((prev) => [
         ...prev,
@@ -186,7 +187,10 @@ export default function AiChat() {
               </button>
             </form>
             {error && (
-              <p className="text-[10px] text-red-400/60 mt-1.5 px-1 truncate">{error}</p>
+              <details className="mt-1.5">
+                <summary className="text-[10px] text-red-400/60 cursor-pointer">Error</summary>
+                <pre className="text-[9px] text-red-400/80 mt-1 px-1 whitespace-pre-wrap break-all max-h-24 overflow-y-auto">{error}</pre>
+              </details>
             )}
           </div>
         </div>
