@@ -4,7 +4,7 @@ import { useState, useRef, useEffect } from "react";
 import { MessageCircle, X, Send, Sparkles } from "lucide-react";
 
 const API_KEY = process.env.NEXT_PUBLIC_GEMINI_API_KEY;
-const MODEL = "gemini-1.5-flash";
+const MODELS = ["gemini-2.0-flash-001", "gemini-1.5-flash-001", "gemini-1.5-flash", "gemini-pro"];
 
 const SYSTEM_PROMPT = `Eres el asistente virtual de INFOCOB Computación, empresa fundada por Daniel Cobos en Talca, Chile, desde 2008. Respondes preguntas sobre sus servicios. Sos directo, amable, y respondés siempre en español. Tu objetivo es ayudar al visitante y convertirlo en lead.
 
@@ -73,26 +73,31 @@ export default function AiChat() {
         }));
       }
 
-      lastReq.current = Date.now();
-      const res = await fetch(
-        `https://generativelanguage.googleapis.com/v1beta/models/${MODEL}:generateContent?key=${encodeURIComponent(API_KEY!)}`,
-        {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ contents, generationConfig: { temperature: 0.7, maxOutputTokens: 512 } }),
+      let data: { candidates?: { content?: { parts?: { text?: string }[] } }[] } | null = null;
+      let lastErr: string | null = null;
+
+      for (const model of MODELS) {
+        lastReq.current = Date.now();
+        const res = await fetch(
+          `https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent?key=${encodeURIComponent(API_KEY!)}`,
+          {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ contents, generationConfig: { temperature: 0.7, maxOutputTokens: 512 } }),
+          }
+        );
+
+        if (res.ok) {
+          data = await res.json();
+          break;
         }
-      );
-
-      if (res.status === 429) {
-        throw new Error("Límite de uso alcanzado. Esperá un minuto y volvé a intentar.");
-      }
-      if (!res.ok) {
         const errBody = await res.text();
-        throw new Error(`Error ${res.status}: ${errBody.slice(0, 200)}`);
+        lastErr = `Modelo "${model}" → ${res.status}: ${errBody.slice(0, 150)}`;
       }
 
-
-      const data = await res.json();
+      if (!data) {
+        throw new Error(lastErr ?? "Todos los modelos fallaron");
+      }
       const reply = data?.candidates?.[0]?.content?.parts?.[0]?.text;
       if (!reply) throw new Error("Respuesta vacía de Gemini");
       setConversation((prev) => [...prev, { role: "model", text: reply }]);
