@@ -4,7 +4,7 @@ import { useState, useRef, useEffect } from "react";
 import { MessageCircle, X, Send, Sparkles } from "lucide-react";
 
 const API_KEY = process.env.NEXT_PUBLIC_GEMINI_API_KEY;
-const MODEL = "gemini-2.0-flash";
+const MODEL = "gemini-1.5-flash";
 
 const SYSTEM_PROMPT = `Eres el asistente virtual de INFOCOB Computación, empresa fundada por Daniel Cobos en Talca, Chile, desde 2008. Respondes preguntas sobre sus servicios. Sos directo, amable, y respondés siempre en español. Tu objetivo es ayudar al visitante y convertirlo en lead.
 
@@ -23,6 +23,8 @@ Si es algo muy específico o quiere contratar, decile que Daniel atiende persona
 
 IMPORTANTE: Respondé solo preguntas relacionadas a INFOCOB y sus servicios. Si algo no lo sabés, decí que se comunique con Daniel directamente.`;
 
+const RATE_LIMIT_MS = 3000;
+
 type Message = {
   role: "user" | "model";
   text: string;
@@ -34,6 +36,7 @@ export default function AiChat() {
   const [input, setInput] = useState("");
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const lastReq = useRef(0);
   const endRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -43,6 +46,11 @@ export default function AiChat() {
   async function sendMessage() {
     const text = input.trim();
     if (!text || loading) return;
+    const now = Date.now();
+    if (now - lastReq.current < RATE_LIMIT_MS) {
+      setError("Esperá un momento antes de enviar otro mensaje.");
+      return;
+    }
     setInput("");
     setError(null);
     const userMsg: Message = { role: "user", text };
@@ -51,31 +59,36 @@ export default function AiChat() {
     setLoading(true);
 
     try {
-      const contents = updatedConv.map((m) => ({
-        role: m.role,
-        parts: [{ text: m.text }],
-      }));
+      const isFirstTurn = conversation.length === 0;
+      let contents: { role: string; parts: { text: string }[] }[];
 
+      if (isFirstTurn) {
+        contents = [
+          { role: "user", parts: [{ text: `${SYSTEM_PROMPT}\n\n---\n\n${text}` }] },
+        ];
+      } else {
+        contents = updatedConv.map((m, i) => ({
+          role: m.role,
+          parts: [{ text: i === 0 ? `${SYSTEM_PROMPT}\n\n---\n\n${m.text}` : m.text }],
+        }));
+      }
+
+      lastReq.current = Date.now();
       const res = await fetch(
         `https://generativelanguage.googleapis.com/v1beta/models/${MODEL}:generateContent?key=${API_KEY}`,
         {
           method: "POST",
           headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({
-            system_instruction: { parts: [{ text: SYSTEM_PROMPT }] },
-            contents,
-            generationConfig: {
-              temperature: 0.7,
-              maxOutputTokens: 512,
-              topP: 0.9,
-            },
-          }),
+          body: JSON.stringify({ contents, generationConfig: { temperature: 0.7, maxOutputTokens: 512 } }),
         }
       );
 
+      if (res.status === 429) {
+        throw new Error("Límite de uso alcanzado. Esperá un minuto y volvé a intentar.");
+      }
       if (!res.ok) {
         const errBody = await res.text();
-        throw new Error(`HTTP ${res.status}: ${errBody.slice(0, 300)}`);
+        throw new Error(`Error ${res.status}: ${errBody.slice(0, 200)}`);
       }
 
       const data = await res.json();
@@ -87,7 +100,9 @@ export default function AiChat() {
       setError(msg);
       setConversation((prev) => [
         ...prev,
-        { role: "model", text: "Ocurrió un error al procesar tu mensaje. Por favor intentá de nuevo o contactame directo por WhatsApp al +56 9 8286 4145." },
+        { role: "model", text: msg.startsWith("Límite") || msg.startsWith("Error 429")
+          ? "El servicio está temporalmente sobrecargado. Esperá un momento y probá de nuevo, o contactame directo por WhatsApp."
+          : "Ocurrió un error. Probá de nuevo o escribime a WhatsApp al +56 9 8286 4145." },
       ]);
     } finally {
       setLoading(false);
