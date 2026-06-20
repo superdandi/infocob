@@ -6,12 +6,13 @@ import { getIcon } from "@/data/icons";
 import { servicios, type Service } from "@/data/services";
 import { useTranslation } from "@/lib/TranslationsProvider";
 
-function ServiceCard({ service, index, cotizarLabel }: { service: Service; index: number; cotizarLabel: string }) {
+function ServiceCard({ service, index }: { service: Service; index: number }) {
   const { t } = useTranslation();
   const Icon = getIcon(service.icon);
   const title = t(`servicio-${index}-title`);
   const desc = t(`servicio-${index}-desc`);
-  const whatsappUrl = `https://wa.me/56982864145?text=Hola%20INFOCOB%2C%20quiero%20cotizar%20${encodeURIComponent(title)}`;
+  const msg = t("whatsapp.cotizar", { title });
+  const whatsappUrl = `https://wa.me/56982864145?text=${encodeURIComponent(msg)}`;
   return (
     <div className="glass-card p-6 sm:p-8 glow-border group transition-all duration-300 hover:translate-y-[-2px] border-t-2 border-t-brand/20">
       <div className="w-12 h-12 rounded-xl bg-accent/10 group-hover:bg-brand/10 flex items-center justify-center mb-5 transition-colors duration-300">
@@ -33,10 +34,10 @@ function ServiceCard({ service, index, cotizarLabel }: { service: Service; index
         href={whatsappUrl}
         target="_blank"
         rel="noopener noreferrer"
-        className="inline-flex items-center gap-1.5 text-sm font-medium text-accent hover:text-brand transition-colors"
+        className="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-accent/10 text-accent font-medium hover:bg-accent hover:text-white transition-all duration-300 text-sm"
       >
         <MessageCircle size={14} />
-        {cotizarLabel}
+        {t("servicios-home.cotizar")}
       </a>
     </div>
   );
@@ -59,7 +60,7 @@ export default function ServiciosHome() {
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           {servicios.slice(0, 4).map((service, i) => (
-            <ServiceCard key={service.title} service={service} index={i} cotizarLabel={t("servicios-home.cotizar")} />
+            <ServiceCard key={service.title} service={service} index={i} />
           ))}
         </div>
 

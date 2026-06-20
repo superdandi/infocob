@@ -26,7 +26,7 @@ export default function CtaSection() {
               <ArrowRight size={18} />
             </Link>
             <a
-              href="https://wa.me/56982864145?text=Hola%20INFOCOB%2C%20quiero%20cotizar%20un%20proyecto"
+              href={`https://wa.me/56982864145?text=${encodeURIComponent(t("whatsapp.general"))}`}
               target="_blank"
               rel="noopener noreferrer"
               className="inline-flex items-center gap-2 px-8 py-3.5 rounded-xl glass border border-border text-text hover:bg-brand/10 hover:border-brand/20 transition-all duration-300"

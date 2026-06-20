@@ -77,6 +77,10 @@
   "servicios-home.title": "Servicios",
   "servicios-home.subtitle": "Soluciones digitales completas para tu negocio, desde la idea hasta el producto final.",
 
+  "whatsapp.cotizar": "Hola INFOCOB, quiero cotizar {title}",
+  "whatsapp.general": "Hola INFOCOB, quiero contarles sobre mi proyecto",
+  "whatsapp.idea": "Hola INFOCOB, tengo una idea que quiero desarrollar",
+
   "testimonios.title": "Lo que dicen nuestros clientes",
   "testimonios.subtitle": "La opinión de quienes ya han trabajado con nosotros.",
 

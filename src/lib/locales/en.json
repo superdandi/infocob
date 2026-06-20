@@ -77,6 +77,10 @@
   "servicios-home.title": "Services",
   "servicios-home.subtitle": "Complete digital solutions for your business, from idea to final product.",
 
+  "whatsapp.cotizar": "Hi INFOCOB, I'd like a quote for {title}",
+  "whatsapp.general": "Hi INFOCOB, I'd like to tell you about my project",
+  "whatsapp.idea": "Hi INFOCOB, I have an idea I'd like to develop",
+
   "testimonios.title": "What our clients say",
   "testimonios.subtitle": "The opinion of those who have already worked with us.",
 

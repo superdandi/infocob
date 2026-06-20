@@ -65,7 +65,7 @@ export default function ServiciosPage() {
                       ))}
                     </ul>
                     <a
-                      href={`https://wa.me/56982864145?text=Hola%20INFOCOB%2C%20quiero%20cotizar%20${encodeURIComponent(title)}`}
+                      href={`https://wa.me/56982864145?text=${encodeURIComponent(t("whatsapp.cotizar", { title }))}`}
                       target="_blank"
                       rel="noopener noreferrer"
                       className="inline-flex items-center gap-2 mt-6 px-6 py-3 rounded-xl bg-accent text-bg font-medium hover:brightness-110 transition-all duration-300 text-sm"
@@ -91,7 +91,7 @@ export default function ServiciosPage() {
               {t("servicios.no-encuentras-desc")}
             </p>
             <a
-              href="https://wa.me/56982864145?text=Hola%20INFOCOB%2C%20tengo%20una%20idea%20que%20quiero%20desarrollar"
+              href={`https://wa.me/56982864145?text=${encodeURIComponent(t("whatsapp.idea"))}`}
               target="_blank"
               rel="noopener noreferrer"
               className="inline-flex items-center gap-2 px-8 py-3.5 rounded-xl glass border border-border text-text hover:bg-brand/10 hover:border-brand/20 transition-all duration-300"
