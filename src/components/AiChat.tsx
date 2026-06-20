@@ -17,13 +17,11 @@ SERVICIOS:
 
 COBERTURA: Talca y Región del Maule. También trabajo remoto para todo Chile.
 
-Si preguntan por precios, d siempre rangos: sitios web desde $250.000, profesionales desde $500.000, e-commerce desde $800.000.
-
+Si preguntan por precios, da siempre rangos: sitios web desde $250.000, profesionales desde $500.000, e-commerce desde $800.000.
 Si preguntan por tiempo de desarrollo: entre 1 y 3 semanas.
-
 Si es algo muy específico o quiere contratar, decile que Daniel atiende personalmente y puede contactarlo por WhatsApp al +56 9 8286 4145 o al email dcobosm@gmail.com.
 
-IMPORTANTE: Respondé solo preguntas relacionadas a INFOCOB y sus servicios. Si algo no lo sabés, decí que te comuniques con Daniel directamente.`;
+IMPORTANTE: Respondé solo preguntas relacionadas a INFOCOB y sus servicios. Si algo no lo sabés, decí que se comunique con Daniel directamente.`;
 
 type Message = {
   role: "user" | "model";
@@ -32,33 +30,31 @@ type Message = {
 
 export default function AiChat() {
   const [open, setOpen] = useState(false);
-  const [messages, setMessages] = useState<Message[]>([
-    { role: "model", text: "👋 ¡Hola! Soy el asistente virtual de INFOCOB. Preguntame sobre desarrollo web, chatbots con IA, productos digitales o cualquier servicio." },
-  ]);
+  const [conversation, setConversation] = useState<Message[]>([]);
   const [input, setInput] = useState("");
   const [loading, setLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
   const endRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     endRef.current?.scrollIntoView({ behavior: "smooth" });
-  }, [messages]);
+  }, [conversation, loading]);
 
   async function sendMessage() {
     const text = input.trim();
     if (!text || loading) return;
     setInput("");
-    setMessages((prev) => [...prev, { role: "user", text }]);
+    setError(null);
+    const userMsg: Message = { role: "user", text };
+    const updatedConv = [...conversation, userMsg];
+    setConversation(updatedConv);
     setLoading(true);
 
     try {
-      const history = [...messages, { role: "user" as const, text }];
-      const contents = [
-        { role: "user" as const, parts: [{ text: SYSTEM_PROMPT }] },
-        ...history.map((m) => ({
-          role: m.role as "user" | "model",
-          parts: [{ text: m.text }],
-        })),
-      ];
+      const contents = updatedConv.map((m) => ({
+        role: m.role,
+        parts: [{ text: m.text }],
+      }));
 
       const res = await fetch(
         `https://generativelanguage.googleapis.com/v1beta/models/${MODEL}:generateContent?key=${API_KEY}`,
@@ -66,6 +62,7 @@ export default function AiChat() {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({
+            system_instruction: { parts: [{ text: SYSTEM_PROMPT }] },
             contents,
             generationConfig: {
               temperature: 0.7,
@@ -78,14 +75,17 @@ export default function AiChat() {
 
       if (!res.ok) {
         const errBody = await res.text();
-        throw new Error(`Gemini API error: ${res.status} — ${errBody}`);
+        throw new Error(`HTTP ${res.status}: ${errBody.slice(0, 300)}`);
       }
 
       const data = await res.json();
-      const reply = data?.candidates?.[0]?.content?.parts?.[0]?.text ?? "Lo siento, no pude procesar tu consulta. ¿Podrías repetirla o contactar directamente a Daniel por WhatsApp?";
-      setMessages((prev) => [...prev, { role: "model", text: reply }]);
-    } catch {
-      setMessages((prev) => [
+      const reply = data?.candidates?.[0]?.content?.parts?.[0]?.text;
+      if (!reply) throw new Error("Respuesta vacía de Gemini");
+      setConversation((prev) => [...prev, { role: "model", text: reply }]);
+    } catch (e) {
+      const msg = e instanceof Error ? e.message : "Error desconocido";
+      setError(msg);
+      setConversation((prev) => [
         ...prev,
         { role: "model", text: "Ocurrió un error al procesar tu mensaje. Por favor intentá de nuevo o contactame directo por WhatsApp al +56 9 8286 4145." },
       ]);
@@ -93,6 +93,11 @@ export default function AiChat() {
       setLoading(false);
     }
   }
+
+  const displayMessages: Message[] = [
+    { role: "model", text: "👋 ¡Hola! Soy el asistente virtual de INFOCOB. Preguntame sobre desarrollo web, chatbots con IA, productos digitales o cualquier servicio." },
+    ...conversation,
+  ];
 
   return (
     <>
@@ -112,7 +117,7 @@ export default function AiChat() {
           </div>
 
           <div className="flex-1 overflow-y-auto p-4 space-y-3" style={{ minHeight: 0 }}>
-            {messages.map((msg, i) => (
+            {displayMessages.map((msg, i) => (
               <div key={i} className={`flex ${msg.role === "user" ? "justify-end" : "justify-start"}`}>
                 <div
                   className={`max-w-[85%] px-3.5 py-2 rounded-xl text-sm leading-relaxed ${
@@ -128,7 +133,7 @@ export default function AiChat() {
             {loading && (
               <div className="flex justify-start">
                 <div className="bg-white/5 border border-border/50 px-3.5 py-2 rounded-xl text-sm text-text-muted">
-                  <span className="animate-pulse">Escribiendo</span>
+                  <span>Escribiendo</span>
                   <span className="animate-pulse" style={{ animationDelay: "0.3s" }}>.</span>
                   <span className="animate-pulse" style={{ animationDelay: "0.6s" }}>.</span>
                   <span className="animate-pulse" style={{ animationDelay: "0.9s" }}>.</span>
@@ -159,6 +164,9 @@ export default function AiChat() {
                 <Send size={16} />
               </button>
             </form>
+            {error && (
+              <p className="text-[10px] text-red-400/60 mt-1.5 px-1 truncate">{error}</p>
+            )}
           </div>
         </div>
       )}
