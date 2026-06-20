@@ -32,7 +32,6 @@ export const metadata: Metadata = {
   description:
     "Diseño de nuevos productos digitales. Desarrollo web, integración de IA, aplicaciones web y productos digitales en Talca, Chile.",
   icons: { icon: "/favicon.ico" },
-  other: { "theme-color": "#0b0d17" },
   metadataBase: new URL("https://superdandi.github.io"),
   openGraph: {
     title: "INFOCOB — Diseño & Desarrollo Digital",
@@ -60,6 +59,7 @@ export default function RootLayout({
       suppressHydrationWarning
     >
       <head>
+        <meta name="theme-color" content="#0b0d17" />
         <script
           dangerouslySetInnerHTML={{
             __html: `(function(){try{var t=localStorage.getItem("infocob-theme");var d=document.documentElement;if(t==="light"||(!t&&matchMedia("(prefers-color-scheme:light)").matches)){d.classList.add("light")}else{d.classList.add("dark")}}catch(e){document.documentElement.classList.add("dark")}})()`,
