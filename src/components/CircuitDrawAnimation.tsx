@@ -59,7 +59,7 @@ const circles = [
 
 const STAGGER = 0.3;
 const TERMINAL_DELAY = 1.5;
-const DURATION = 35;
+const DURATION = 28;
 
 export default function CircuitDrawAnimation() {
   const svgRef = useRef<SVGSVGElement>(null);
@@ -90,7 +90,7 @@ export default function CircuitDrawAnimation() {
           <g
             fill="none"
             stroke="currentColor"
-            strokeWidth="0.5"
+            strokeWidth="0.35"
             strokeLinecap="round"
             strokeLinejoin="round"
             className="opacity-[0.08] dark:opacity-[0.12]"
@@ -130,7 +130,7 @@ export default function CircuitDrawAnimation() {
           <g
             fill="none"
             stroke="currentColor"
-            strokeWidth="0.4"
+            strokeWidth="0.25"
             strokeLinecap="round"
             strokeLinejoin="round"
             className="opacity-[0.1] dark:opacity-[0.14]"
