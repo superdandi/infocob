@@ -35,6 +35,7 @@ type ProviderDef = {
 const providers: ProviderDef[] = [
   { name: "Gemini", key: process.env.NEXT_PUBLIC_GEMINI_API_KEY, model: "gemini-2.0-flash", cooldownUntil: 0 },
   { name: "Groq", key: process.env.NEXT_PUBLIC_GROQ_API_KEY, model: "llama-3.3-70b-versatile", cooldownUntil: 0 },
+  { name: "OpenRouter", key: process.env.NEXT_PUBLIC_OPENROUTER_API_KEY, model: "meta-llama/llama-3.1-8b-instruct:free", cooldownUntil: 0 },
 ];
 
 async function callGemini(messages: { role: string; text: string }[], key: string, model: string) {
@@ -74,7 +75,22 @@ async function callGroq(messages: { role: string; text: string }[], key: string,
   return { ok: true as const, text };
 }
 
-const providerCalls: Record<string, typeof callGemini> = { Gemini: callGemini, Groq: callGroq };
+async function callOpenRouter(messages: { role: string; text: string }[], key: string, model: string) {
+  const msgs = [{ role: "system" as const, content: SYSTEM_PROMPT }, ...messages.map((m) => ({ role: m.role === "model" ? "assistant" : "user", content: m.text }))];
+  const res = await fetch("https://openrouter.ai/api/v1/chat/completions", {
+    method: "POST",
+    headers: { "Authorization": `Bearer ${key}`, "Content-Type": "application/json", "HTTP-Referer": "https://superdandi.github.io", "X-Title": "INFOCOB" },
+    body: JSON.stringify({ model, messages: msgs, temperature: 0.7, max_tokens: 512 }),
+  });
+  if (res.status === 429) return { ok: false as const, rateLimited: true };
+  if (!res.ok) return { ok: false as const, error: `Error ${res.status}: ${(await res.text()).slice(0, 200)}` };
+  const data = await res.json();
+  const text = data?.choices?.[0]?.message?.content;
+  if (!text) return { ok: false as const, error: "Respuesta vacía de OpenRouter" };
+  return { ok: true as const, text };
+}
+
+const providerCalls: Record<string, typeof callGemini> = { Gemini: callGemini, Groq: callGroq, OpenRouter: callOpenRouter };
 
 export default function AiChat() {
   const [open, setOpen] = useState(false);
