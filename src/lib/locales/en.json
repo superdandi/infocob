@@ -4,6 +4,7 @@
   "nav.portafolio": "Portfolio",
   "nav.sobre-mi": "About",
   "nav.contacto": "Contact",
+  "nav.blog": "Blog",
 
   "hero.badge": "Since 2008 in Talca, Chile",
   "hero.h1-1": "Digital products",
@@ -157,5 +158,12 @@
   "meta.sobre-mi": "INFOCOB — About me",
   "meta.sobre-mi-desc": "Daniel Cobos — Computer systems technician, web developer and digital product creator. INFOCOB since 2008 in Talca, Chile.",
   "meta.contacto": "INFOCOB — Contact",
-  "meta.contacto-desc": "Contact INFOCOB for your next digital project. WhatsApp, email and location in Talca, Chile."
+  "meta.contacto-desc": "Contact INFOCOB for your next digital project. WhatsApp, email and location in Talca, Chile.",
+  "meta.blog": "INFOCOB — Blog",
+
+  "blog.title": "Blog",
+  "blog.subtitle": "Articles about web development, chatbots, artificial intelligence and digital marketing for your business.",
+  "blog.leer-mas": "Read more",
+  "blog.volver": "Back to blog",
+  "blog.old-blog-text": "This article was originally published on our previous blog. You can check more content there:"
 }

@@ -12,6 +12,7 @@ export default function Footer() {
     { href: "/", label: t("nav.inicio") },
     { href: "/servicios", label: t("nav.servicios") },
     { href: "/portafolio", label: t("nav.portafolio") },
+    { href: "/blog", label: t("nav.blog") },
     { href: "/sobre-mi", label: t("nav.sobre-mi") },
     { href: "/contacto", label: t("nav.contacto") },
   ];
