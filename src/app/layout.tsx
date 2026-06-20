@@ -7,7 +7,7 @@ import Footer from "@/components/Footer";
 import WhatsAppFloat from "@/components/WhatsAppFloat";
 import HoverSound from "@/components/HoverSound";
 import CircuitDrawAnimation from "@/components/CircuitDrawAnimation";
-import ChatWidget from "@/components/ChatWidget";
+import AiChat from "@/components/AiChat";
 import { ThemeProvider } from "@/lib/ThemeProvider";
 import { TranslationsProvider } from "@/lib/TranslationsProvider";
 
@@ -76,7 +76,7 @@ export default function RootLayout({
             <Footer />
             <WhatsAppFloat />
             <HoverSound />
-            <ChatWidget />
+            <AiChat />
           </TranslationsProvider>
         </ThemeProvider>
       </body>
