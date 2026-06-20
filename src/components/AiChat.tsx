@@ -75,7 +75,7 @@ export default function AiChat() {
 
       lastReq.current = Date.now();
       const res = await fetch(
-        `https://generativelanguage.googleapis.com/v1beta/models/${MODEL}:generateContent?key=${API_KEY}`,
+        `https://generativelanguage.googleapis.com/v1/models/${MODEL}:generateContent?key=${encodeURIComponent(API_KEY!)}`,
         {
           method: "POST",
           headers: { "Content-Type": "application/json" },
