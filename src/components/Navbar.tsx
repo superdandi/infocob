@@ -53,15 +53,15 @@ export default function Navbar() {
               </Link>
             ))}
             <div className="ml-2 flex items-center gap-1 border-l border-border pl-2">
-              <ThemeToggle />
               <LangToggle />
+              <ThemeToggle />
               <AnimationToggle />
             </div>
           </div>
 
           <div className="flex md:hidden items-center gap-2">
-            <ThemeToggle />
             <LangToggle />
+            <ThemeToggle />
             <AnimationToggle />
             <button
               className="p-2 rounded-lg text-text-muted hover:text-text hover:bg-white/5 transition"

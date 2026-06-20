@@ -13,12 +13,17 @@ export default function AnimationToggle() {
     if (stored === "disabled" || stored === "enabled") {
       setMotion(stored);
       document.documentElement.setAttribute("data-motion", stored);
+    } else {
+      setMotion("enabled");
+      localStorage.setItem("infocob-motion", "enabled");
+      document.documentElement.setAttribute("data-motion", "enabled");
     }
   }, []);
 
   function toggle() {
-    const cycle: MotionState[] = ["auto", "disabled", "enabled"];
-    const next = cycle[(cycle.indexOf(motion) + 1) % cycle.length];
+    const cycle: MotionState[] = ["enabled", "disabled", "auto"];
+    const idx = motion === "auto" ? 2 : motion === "disabled" ? 1 : 0;
+    const next = cycle[(idx + 1) % cycle.length];
     setMotion(next);
     if (next === "auto") {
       localStorage.removeItem("infocob-motion");
@@ -48,13 +53,13 @@ export default function AnimationToggle() {
         motion === "disabled"
           ? "Animaciones desactivadas — haz clic para activar"
           : motion === "enabled"
-          ? "Animaciones forzadas — haz clic para auto"
-          : "Animaciones automáticas — haz clic para desactivar"
+          ? "Animaciones forzadas — haz clic para desactivar"
+          : "Animaciones automáticas — haz clic para forzar encendido"
       }
     >
       <Sparkles
         size={18}
-        className={motion === "disabled" ? "opacity-30" : motion === "enabled" ? "" : ""}
+        className={motion === "disabled" ? "opacity-30" : ""}
       />
     </button>
   );
