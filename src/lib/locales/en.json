@@ -78,8 +78,8 @@
   "servicios-home.title": "Services",
   "servicios-home.subtitle": "Complete digital solutions for your business, from idea to final product.",
 
-  "testimonials.title": "What our clients say",
-  "testimonials.subtitle": "The opinion of those who have already worked with us.",
+  "testimonios.title": "What our clients say",
+  "testimonios.subtitle": "The opinion of those who have already worked with us.",
 
   "servicio-0-title": "Web Development",
   "servicio-0-desc": "We build modern, fast, conversion-optimized websites. From landing pages to full web applications.",
@@ -114,5 +114,45 @@
   "servicio-4-item-0": "Website and hosting maintenance",
   "servicio-4-item-1": "On-site and remote IT technical support",
   "servicio-4-item-2": "Network and server administration",
-  "servicio-4-item-3": "Software installation and configuration"
+  "servicio-4-item-3": "Software installation and configuration",
+
+  "cta.title": "Ready for your next digital project?",
+  "cta.desc": "Let's talk about your idea. From a website to an AI-powered platform, I have the experience to make it happen.",
+  "cta.contactame": "Get in touch",
+  "cta.whatsapp": "WhatsApp",
+
+  "portfolio.en-linea": "Online",
+  "portfolio.archivados": "Archived",
+  "portfolio.recuperando": "Unknown",
+  "portfolio.buscar": "Search project...",
+  "portfolio.todos": "All ({count})",
+  "portfolio.visitar": "Visit site",
+  "portfolio.ver-archivo": "View archive",
+  "portfolio.sin-archivo": "No archive available",
+  "portfolio.no-resultados": "No projects found matching that filter.",
+  "portfolio.limpiar": "Clear filters",
+
+  "portfolio.cta-title": "Do you recognize your project here?",
+  "portfolio.cta-desc": "Many of these sites are no longer online, but the work is documented. If you need to recover or update one, let's talk.",
+  "portfolio.cta-btn": "Let's talk",
+
+  "portfolio.title": "Projects",
+  "portfolio.subtitle": "Over 45 projects developed since 2008 in the Maule Region and Chile. Websites, e-commerce, digital magazines and more.",
+
+  "not-found.title": "Page not found",
+  "not-found.desc": "The page you are looking for does not exist, has been moved or is out of service.",
+  "not-found.desc2": "If you think this is an error, contact me on WhatsApp.",
+  "not-found.volver": "Go back home",
+  "not-found.contacto": "Contact",
+
+  "meta.home": "INFOCOB — Digital Design & Development",
+  "meta.home-desc": "Design of new digital products. Web development, AI integration, web applications and digital products in Talca, Chile.",
+  "meta.servicios": "INFOCOB — Services",
+  "meta.servicios-desc": "Complete digital solutions: web development, AI, digital products, consulting and technical support in Talca, Chile.",
+  "meta.portafolio": "INFOCOB — Portfolio",
+  "meta.portafolio-desc": "Over 45 web projects developed since 2008. Websites, e-commerce, digital magazines and more in the Maule Region.",
+  "meta.sobre-mi": "INFOCOB — About me",
+  "meta.sobre-mi-desc": "Daniel Cobos — Computer systems technician, web developer and digital product creator. INFOCOB since 2008 in Talca, Chile.",
+  "meta.contacto": "INFOCOB — Contact",
+  "meta.contacto-desc": "Contact INFOCOB for your next digital project. WhatsApp, email and location in Talca, Chile."
 }

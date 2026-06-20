@@ -237,3 +237,23 @@ body {
   animation: circuit-fill ease-in-out infinite;
   animation-fill-mode: backwards;
 }
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-circuit-draw,
+  .animate-circuit-fill,
+  .animate-fade-up,
+  .animate-fade-in {
+    animation: none !important;
+  }
+  .circuit-draw,
+  .circuit-fill {
+    stroke-dashoffset: 0 !important;
+    opacity: 1 !important;
+  }
+  .opacity-0 {
+    opacity: 1;
+  }
+  .nav-logo::after {
+    animation: none !important;
+  }
+}

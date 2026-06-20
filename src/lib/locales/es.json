@@ -114,5 +114,45 @@
   "servicio-4-item-0": "Mantención de sitios web y hosting",
   "servicio-4-item-1": "Soporte técnico informático presencial y remoto",
   "servicio-4-item-2": "Administración de redes y servidores",
-  "servicio-4-item-3": "Instalación y configuración de software"
+  "servicio-4-item-3": "Instalación y configuración de software",
+
+  "cta.title": "¿Listo para tu próximo proyecto digital?",
+  "cta.desc": "Conversemos sobre tu idea. Desde un sitio web hasta una plataforma con IA, tengo la experiencia para hacerlo realidad.",
+  "cta.contactame": "Contáctame",
+  "cta.whatsapp": "WhatsApp",
+
+  "portfolio.en-linea": "En línea",
+  "portfolio.archivados": "Archivados",
+  "portfolio.recuperando": "Recuperando",
+  "portfolio.buscar": "Buscar proyecto...",
+  "portfolio.todos": "Todos ({count})",
+  "portfolio.visitar": "Visitar sitio",
+  "portfolio.ver-archivo": "Ver archivo",
+  "portfolio.sin-archivo": "Sin archivo disponible",
+  "portfolio.no-resultados": "No se encontraron proyectos con ese filtro.",
+  "portfolio.limpiar": "Limpiar filtros",
+
+  "portfolio.cta-title": "¿Reconoces tu proyecto aquí?",
+  "portfolio.cta-desc": "Muchos de estos sitios ya no están en línea, pero el trabajo está documentado. Si necesitas recuperar o actualizar alguno, hablemos.",
+  "portfolio.cta-btn": "Conversemos",
+
+  "portfolio.title": "Proyectos",
+  "portfolio.subtitle": "Más de 45 proyectos desarrollados desde 2008 en la Región del Maule y Chile. Sitios web, e-commerce, revistas digitales y más.",
+
+  "not-found.title": "Página no encontrada",
+  "not-found.desc": "La página que buscas no existe, fue movida o está fuera de servicio.",
+  "not-found.desc2": "Si crees que esto es un error, contáctame por WhatsApp.",
+  "not-found.volver": "Volver al inicio",
+  "not-found.contacto": "Contacto",
+
+  "meta.home": "INFOCOB — Diseño & Desarrollo Digital",
+  "meta.home-desc": "Diseño de nuevos productos digitales. Desarrollo web, integración de IA, aplicaciones web y productos digitales en Talca, Chile.",
+  "meta.servicios": "INFOCOB — Servicios",
+  "meta.servicios-desc": "Soluciones digitales completas: desarrollo web, IA, productos digitales, consultoría y soporte técnico en Talca, Chile.",
+  "meta.portafolio": "INFOCOB — Portafolio",
+  "meta.portafolio-desc": "Más de 45 proyectos web desarrollados desde 2008. Sitios web, e-commerce, revistas digitales y más en la Región del Maule.",
+  "meta.sobre-mi": "INFOCOB — Sobre mí",
+  "meta.sobre-mi-desc": "Daniel Cobos — Técnico en sistemas informáticos, desarrollador web y creador de productos digitales. INFOCOB desde 2008 en Talca, Chile.",
+  "meta.contacto": "INFOCOB — Contacto",
+  "meta.contacto-desc": "Contacta a INFOCOB para tu próximo proyecto digital. WhatsApp, email y ubicación en Talca, Chile."
 }
