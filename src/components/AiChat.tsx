@@ -6,7 +6,7 @@ import { MessageCircle, X, Send, Sparkles, Trash2 } from "lucide-react";
 const API_KEY = process.env.NEXT_PUBLIC_GEMINI_API_KEY;
 const MODEL = "gemini-2.0-flash";
 const STORAGE_KEY = "infocob-chat";
-const MAX_HISTORY = 5;
+const MAX_HISTORY = 2;
 const RATE_LIMIT_MS = 3000;
 
 const SYSTEM_PROMPT = `Eres el asistente virtual de INFOCOB Computación, empresa fundada por Daniel Cobos en Talca, Chile, desde 2008. Respondes preguntas sobre sus servicios. Sos directo, amable, y respondés siempre en español. Tu objetivo es ayudar al visitante y convertirlo en lead.
