@@ -1,10 +1,13 @@
 "use client";
 
 import { useState, useRef, useEffect } from "react";
-import { MessageCircle, X, Send, Sparkles } from "lucide-react";
+import { MessageCircle, X, Send, Sparkles, Trash2 } from "lucide-react";
 
 const API_KEY = process.env.NEXT_PUBLIC_GEMINI_API_KEY;
 const MODEL = "gemini-2.0-flash";
+const STORAGE_KEY = "infocob-chat";
+const MAX_HISTORY = 5;
+const RATE_LIMIT_MS = 3000;
 
 const SYSTEM_PROMPT = `Eres el asistente virtual de INFOCOB Computación, empresa fundada por Daniel Cobos en Talca, Chile, desde 2008. Respondes preguntas sobre sus servicios. Sos directo, amable, y respondés siempre en español. Tu objetivo es ayudar al visitante y convertirlo en lead.
 
@@ -17,22 +20,16 @@ SERVICIOS:
 
 COBERTURA: Talca y Región del Maule. También trabajo remoto para todo Chile.
 
-Si preguntan por precios, da siempre rangos: sitios web desde $250.000, profesionales desde $500.000, e-commerce desde $800.000.
-Si preguntan por tiempo de desarrollo: entre 1 y 3 semanas.
-Si es algo muy específico o quiere contratar, decile que Daniel atiende personalmente y puede contactarlo por WhatsApp al +56 9 8286 4145 o al email dcobosm@gmail.com.
+Si preguntan por precios, da siempre rangos: sitios web desde $250.000, profesionales desde $500.000, e-commerce desde $800.000. Si preguntan por tiempo de desarrollo: entre 1 y 3 semanas. Si es algo muy específico o quiere contratar, decile que Daniel atiende personalmente y puede contactarlo por WhatsApp al +56 9 8286 4145 o al email dcobosm@gmail.com.
 
 IMPORTANTE: Respondé solo preguntas relacionadas a INFOCOB y sus servicios. Si algo no lo sabés, decí que se comunique con Daniel directamente.`;
 
-const RATE_LIMIT_MS = 3000;
-
-type Message = {
-  role: "user" | "model";
-  text: string;
-};
+type Message = { role: "user" | "model"; text: string };
 
 export default function AiChat() {
   const [open, setOpen] = useState(false);
   const [conversation, setConversation] = useState<Message[]>([]);
+  const [loaded, setLoaded] = useState(false);
   const [input, setInput] = useState("");
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -40,14 +37,32 @@ export default function AiChat() {
   const endRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
+    try {
+      const saved = localStorage.getItem(STORAGE_KEY);
+      if (saved) setConversation(JSON.parse(saved));
+    } catch { /* ignore */ }
+    setLoaded(true);
+  }, []);
+
+  useEffect(() => {
+    if (!loaded) return;
+    try { localStorage.setItem(STORAGE_KEY, JSON.stringify(conversation)); }
+    catch { /* ignore */ }
+  }, [conversation, loaded]);
+
+  useEffect(() => {
     endRef.current?.scrollIntoView({ behavior: "smooth" });
   }, [conversation, loading]);
+
+  function clearChat() {
+    setConversation([]);
+    try { localStorage.removeItem(STORAGE_KEY); } catch { /* ignore */ }
+  }
 
   async function sendMessage() {
     const text = input.trim();
     if (!text || loading) return;
-    const now = Date.now();
-    if (now - lastReq.current < RATE_LIMIT_MS) {
+    if (Date.now() - lastReq.current < RATE_LIMIT_MS) {
       setError("Esperá un momento antes de enviar otro mensaje.");
       return;
     }
@@ -59,19 +74,8 @@ export default function AiChat() {
     setLoading(true);
 
     try {
-      const isFirstTurn = conversation.length === 0;
-      let contents: { role: string; parts: { text: string }[] }[];
-
-      if (isFirstTurn) {
-        contents = [
-          { role: "user", parts: [{ text: `${SYSTEM_PROMPT}\n\n---\n\n${text}` }] },
-        ];
-      } else {
-        contents = updatedConv.map((m, i) => ({
-          role: m.role,
-          parts: [{ text: i === 0 ? `${SYSTEM_PROMPT}\n\n---\n\n${m.text}` : m.text }],
-        }));
-      }
+      const tail = updatedConv.slice(-MAX_HISTORY * 2);
+      const contents = tail.map((m) => ({ role: m.role, parts: [{ text: m.text }] }));
 
       lastReq.current = Date.now();
       const res = await fetch(
@@ -79,7 +83,11 @@ export default function AiChat() {
         {
           method: "POST",
           headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ contents, generationConfig: { temperature: 0.7, maxOutputTokens: 512 } }),
+          body: JSON.stringify({
+            system_instruction: { parts: [{ text: SYSTEM_PROMPT }] },
+            contents,
+            generationConfig: { temperature: 0.7, maxOutputTokens: 512 },
+          }),
         }
       );
 
@@ -122,24 +130,22 @@ export default function AiChat() {
               <Sparkles size={16} className="text-accent" />
               <span className="font-heading font-semibold text-sm text-text">Asistente INFOCOB</span>
             </div>
-            <button
-              onClick={() => setOpen(false)}
-              className="p-1 rounded-lg text-text-muted hover:text-text hover:bg-white/5 transition"
-            >
-              <X size={16} />
-            </button>
+            <div className="flex items-center gap-1">
+              {conversation.length > 0 && (
+                <button onClick={clearChat} className="p-1.5 rounded-lg text-text-muted hover:text-text hover:bg-white/5 transition" title="Limpiar conversación">
+                  <Trash2 size={14} />
+                </button>
+              )}
+              <button onClick={() => setOpen(false)} className="p-1.5 rounded-lg text-text-muted hover:text-text hover:bg-white/5 transition">
+                <X size={16} />
+              </button>
+            </div>
           </div>
 
           <div className="flex-1 overflow-y-auto p-4 space-y-3" style={{ minHeight: 0 }}>
             {displayMessages.map((msg, i) => (
               <div key={i} className={`flex ${msg.role === "user" ? "justify-end" : "justify-start"}`}>
-                <div
-                  className={`max-w-[85%] px-3.5 py-2 rounded-xl text-sm leading-relaxed ${
-                    msg.role === "user"
-                      ? "bg-accent text-bg"
-                      : "bg-white/5 text-text border border-border/50"
-                  }`}
-                >
+                <div className={`max-w-[85%] px-3.5 py-2 rounded-xl text-sm leading-relaxed ${msg.role === "user" ? "bg-accent text-bg" : "bg-white/5 text-text border border-border/50"}`}>
                   {msg.text}
                 </div>
               </div>
@@ -158,10 +164,7 @@ export default function AiChat() {
           </div>
 
           <div className="border-t border-border p-3">
-            <form
-              onSubmit={(e) => { e.preventDefault(); sendMessage(); }}
-              className="flex gap-2"
-            >
+            <form onSubmit={(e) => { e.preventDefault(); sendMessage(); }} className="flex gap-2">
               <input
                 type="text"
                 value={input}
