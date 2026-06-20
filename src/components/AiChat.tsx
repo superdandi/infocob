@@ -34,7 +34,7 @@ type ProviderDef = {
 
 const providers: ProviderDef[] = [
   { name: "Gemini", key: process.env.NEXT_PUBLIC_GEMINI_API_KEY, model: "gemini-2.0-flash", cooldownUntil: 0 },
-  { name: "Groq", key: process.env.NEXT_PUBLIC_GROQ_API_KEY, model: "llama3-70b-8192", cooldownUntil: 0 },
+  { name: "Groq", key: process.env.NEXT_PUBLIC_GROQ_API_KEY, model: "llama-3.3-70b-versatile", cooldownUntil: 0 },
 ];
 
 async function callGemini(messages: { role: string; text: string }[], key: string, model: string) {
