@@ -60,6 +60,7 @@ const circles = [
 const STAGGER = 0.3;
 const TERMINAL_DELAY = 1.5;
 const DURATION = 28;
+const TERMINAL_DURATION = DURATION * 0.8;
 
 export default function CircuitDrawAnimation() {
   const svgRef = useRef<SVGSVGElement>(null);
@@ -121,7 +122,7 @@ export default function CircuitDrawAnimation() {
                 d={d}
                 style={{
                   animationDelay: `${i * STAGGER + TERMINAL_DELAY}s`,
-                  animationDuration: `${DURATION}s`,
+                  animationDuration: `${TERMINAL_DURATION}s`,
                 }}
               />
             ))}
@@ -142,7 +143,7 @@ export default function CircuitDrawAnimation() {
                 d={d}
                 style={{
                   animationDelay: `${i * STAGGER + TERMINAL_DELAY}s`,
-                  animationDuration: `${DURATION}s`,
+                  animationDuration: `${TERMINAL_DURATION}s`,
                 }}
               />
             ))}
