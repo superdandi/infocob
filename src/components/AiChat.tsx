@@ -84,8 +84,21 @@ export default function AiChat() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [activeProvider, setActiveProvider] = useState<string | null>(null);
+  const [cooldowns, setCooldowns] = useState<Record<string, number>>({});
   const lastReq = useRef(0);
   const endRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const tick = setInterval(() => {
+      const now = Date.now();
+      const next: Record<string, number> = {};
+      for (const p of providers) {
+        if (p.key && p.cooldownUntil > now) next[p.name] = p.cooldownUntil - now;
+      }
+      setCooldowns(next);
+    }, 1000);
+    return () => clearInterval(tick);
+  }, []);
 
   useEffect(() => {
     try {
@@ -188,6 +201,21 @@ export default function AiChat() {
                 <X size={16} />
               </button>
             </div>
+          </div>
+          <div className="flex items-center gap-3 px-4 py-1.5 border-b border-border/30 bg-white/[0.02]">
+            {providers.filter((p) => p.key).map((p) => {
+              const cd = cooldowns[p.name];
+              const isActive = activeProvider === p.name;
+              const available = !cd;
+              return (
+                <div key={p.name} className="flex items-center gap-1.5 text-[10px]">
+                  <span className={`w-1.5 h-1.5 rounded-full ${isActive ? "bg-accent animate-pulse" : available ? "bg-green-400" : "bg-red-400"}`} />
+                  <span className={`font-medium ${isActive ? "text-accent" : available ? "text-green-300/70" : "text-red-300/60"}`}>{p.name}</span>
+                  <span className="text-text-muted/40">{p.model.split("-").slice(0, 2).join(".")}</span>
+                  {!!cd && <span className="text-red-300/50">{Math.ceil(cd / 1000)}s</span>}
+                </div>
+              );
+            })}
           </div>
 
           <div className="flex-1 overflow-y-auto p-4 space-y-3" style={{ minHeight: 0 }}>
