@@ -238,22 +238,39 @@ body {
   animation-fill-mode: backwards;
 }
 
+/* Cuando el OS pide reducir movimiento Y el usuario no forzó "enabled" */
 @media (prefers-reduced-motion: reduce) {
-  .animate-circuit-draw,
-  .animate-circuit-fill,
-  .animate-fade-up,
-  .animate-fade-in {
+  html:not([data-motion="enabled"]) .animate-circuit-draw,
+  html:not([data-motion="enabled"]) .animate-circuit-fill,
+  html:not([data-motion="enabled"]) .animate-fade-up,
+  html:not([data-motion="enabled"]) .animate-fade-in {
     animation: none !important;
   }
-  .circuit-draw,
-  .circuit-fill {
+  html:not([data-motion="enabled"]) .circuit-draw,
+  html:not([data-motion="enabled"]) .circuit-fill {
     stroke-dashoffset: 0 !important;
     opacity: 1 !important;
   }
-  .opacity-0 {
-    opacity: 1;
-  }
-  .nav-logo::after {
+  html:not([data-motion="enabled"]) .nav-logo::after {
     animation: none !important;
   }
+}
+
+/* Usuario deshabilitó explícitamente las animaciones */
+html[data-motion="disabled"] .animate-circuit-draw,
+html[data-motion="disabled"] .animate-circuit-fill,
+html[data-motion="disabled"] .animate-fade-up,
+html[data-motion="disabled"] .animate-fade-in {
+  animation: none !important;
+}
+html[data-motion="disabled"] .circuit-draw,
+html[data-motion="disabled"] .circuit-fill {
+  stroke-dashoffset: 0 !important;
+  opacity: 1 !important;
+}
+html[data-motion="disabled"] .opacity-0 {
+  opacity: 1;
+}
+html[data-motion="disabled"] .nav-logo::after {
+  animation: none !important;
 }

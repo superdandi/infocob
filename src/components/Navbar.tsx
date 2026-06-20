@@ -9,6 +9,7 @@ import { useTranslation } from "@/lib/TranslationsProvider";
 import LogoImage from "./LogoImage";
 import ThemeToggle from "./ThemeToggle";
 import LangToggle from "./LangToggle";
+import AnimationToggle from "./AnimationToggle";
 
 export default function Navbar() {
   const pathname = usePathname();
@@ -54,12 +55,14 @@ export default function Navbar() {
             <div className="ml-2 flex items-center gap-1 border-l border-border pl-2">
               <ThemeToggle />
               <LangToggle />
+              <AnimationToggle />
             </div>
           </div>
 
           <div className="flex md:hidden items-center gap-2">
             <ThemeToggle />
             <LangToggle />
+            <AnimationToggle />
             <button
               className="p-2 rounded-lg text-text-muted hover:text-text hover:bg-white/5 transition"
               onClick={() => setOpen(!open)}
