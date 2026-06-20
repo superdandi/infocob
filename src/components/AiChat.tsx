@@ -1,13 +1,12 @@
 "use client";
 
-import { useState, useRef, useEffect } from "react";
+import { useState, useRef, useEffect, useCallback } from "react";
 import { MessageCircle, X, Send, Sparkles, Trash2 } from "lucide-react";
 
-const API_KEY = process.env.NEXT_PUBLIC_GEMINI_API_KEY;
-const MODEL = "gemini-2.0-flash";
 const STORAGE_KEY = "infocob-chat";
 const MAX_HISTORY = 2;
 const RATE_LIMIT_MS = 3000;
+const COOLDOWN_MS = 60000;
 
 const SYSTEM_PROMPT = `Eres el asistente virtual de INFOCOB Computación, empresa fundada por Daniel Cobos en Talca, Chile, desde 2008. Respondes preguntas sobre sus servicios. Sos directo, amable, y respondés siempre en español. Tu objetivo es ayudar al visitante y convertirlo en lead.
 
@@ -26,6 +25,57 @@ IMPORTANTE: Respondé solo preguntas relacionadas a INFOCOB y sus servicios. Si 
 
 type Message = { role: "user" | "model"; text: string };
 
+type ProviderDef = {
+  name: string;
+  key: string | undefined;
+  model: string;
+  cooldownUntil: number;
+};
+
+const providers: ProviderDef[] = [
+  { name: "Gemini", key: process.env.NEXT_PUBLIC_GEMINI_API_KEY, model: "gemini-2.0-flash", cooldownUntil: 0 },
+  { name: "Groq", key: process.env.NEXT_PUBLIC_GROQ_API_KEY, model: "llama3-70b-8192", cooldownUntil: 0 },
+];
+
+async function callGemini(messages: { role: string; text: string }[], key: string, model: string) {
+  const contents = messages.map((m) => ({ role: m.role, parts: [{ text: m.text }] }));
+  const res = await fetch(
+    `https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent?key=${encodeURIComponent(key)}`,
+    {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        system_instruction: { parts: [{ text: SYSTEM_PROMPT }] },
+        contents,
+        generationConfig: { temperature: 0.7, maxOutputTokens: 512 },
+      }),
+    }
+  );
+  if (res.status === 429) return { ok: false as const, rateLimited: true };
+  if (!res.ok) return { ok: false as const, error: `Error ${res.status}: ${(await res.text()).slice(0, 200)}` };
+  const data = await res.json();
+  const text = data?.candidates?.[0]?.content?.parts?.[0]?.text;
+  if (!text) return { ok: false as const, error: "Respuesta vacía de Gemini" };
+  return { ok: true as const, text };
+}
+
+async function callGroq(messages: { role: string; text: string }[], key: string, model: string) {
+  const msgs = [{ role: "system" as const, content: SYSTEM_PROMPT }, ...messages.map((m) => ({ role: m.role === "model" ? "assistant" : "user", content: m.text }))];
+  const res = await fetch("https://api.groq.com/openai/v1/chat/completions", {
+    method: "POST",
+    headers: { "Authorization": `Bearer ${key}`, "Content-Type": "application/json" },
+    body: JSON.stringify({ model, messages: msgs, temperature: 0.7, max_tokens: 512 }),
+  });
+  if (res.status === 429) return { ok: false as const, rateLimited: true };
+  if (!res.ok) return { ok: false as const, error: `Error ${res.status}: ${(await res.text()).slice(0, 200)}` };
+  const data = await res.json();
+  const text = data?.choices?.[0]?.message?.content;
+  if (!text) return { ok: false as const, error: "Respuesta vacía de Groq" };
+  return { ok: true as const, text };
+}
+
+const providerCalls: Record<string, typeof callGemini> = { Gemini: callGemini, Groq: callGroq };
+
 export default function AiChat() {
   const [open, setOpen] = useState(false);
   const [conversation, setConversation] = useState<Message[]>([]);
@@ -33,6 +83,7 @@ export default function AiChat() {
   const [input, setInput] = useState("");
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [activeProvider, setActiveProvider] = useState<string | null>(null);
   const lastReq = useRef(0);
   const endRef = useRef<HTMLDivElement>(null);
 
@@ -46,8 +97,7 @@ export default function AiChat() {
 
   useEffect(() => {
     if (!loaded) return;
-    try { localStorage.setItem(STORAGE_KEY, JSON.stringify(conversation)); }
-    catch { /* ignore */ }
+    try { localStorage.setItem(STORAGE_KEY, JSON.stringify(conversation)); } catch { /* ignore */ }
   }, [conversation, loaded]);
 
   useEffect(() => {
@@ -59,7 +109,7 @@ export default function AiChat() {
     try { localStorage.removeItem(STORAGE_KEY); } catch { /* ignore */ }
   }
 
-  async function sendMessage() {
+  const sendMessage = useCallback(async () => {
     const text = input.trim();
     if (!text || loading) return;
     if (Date.now() - lastReq.current < RATE_LIMIT_MS) {
@@ -68,58 +118,56 @@ export default function AiChat() {
     }
     setInput("");
     setError(null);
+    setActiveProvider(null);
     const userMsg: Message = { role: "user", text };
     const updatedConv = [...conversation, userMsg];
     setConversation(updatedConv);
     setLoading(true);
 
-    try {
-      const tail = updatedConv.slice(-MAX_HISTORY * 2);
-      const contents = tail.map((m) => ({ role: m.role, parts: [{ text: m.text }] }));
+    const tail = updatedConv.slice(-MAX_HISTORY * 2);
+    const msgs = tail.map((m) => ({ role: m.role, text: m.text }));
 
-      lastReq.current = Date.now();
-      const res = await fetch(
-        `https://generativelanguage.googleapis.com/v1beta/models/${MODEL}:generateContent?key=${encodeURIComponent(API_KEY!)}`,
-        {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({
-            system_instruction: { parts: [{ text: SYSTEM_PROMPT }] },
-            contents,
-            generationConfig: { temperature: 0.7, maxOutputTokens: 512 },
-          }),
-        }
-      );
+    const now = Date.now();
+    const active = providers.filter((p) => p.key && now >= p.cooldownUntil);
 
-      if (!res.ok) {
-        if (res.status === 429) throw new Error("Límite de uso alcanzado. Esperá un minuto.");
-        const errBody = await res.text();
-        throw new Error(`Error ${res.status}: ${errBody.slice(0, 200)}`);
-      }
-
-      const data = await res.json();
-      const reply = data?.candidates?.[0]?.content?.parts?.[0]?.text;
-      if (!reply) throw new Error("Respuesta vacía de Gemini");
-      setConversation((prev) => [...prev, { role: "model", text: reply }]);
-    } catch (e) {
-      const msg = e instanceof Error ? e.message : "Error desconocido";
-      console.error("[AiChat]", msg);
-      setError(msg);
-      setConversation((prev) => [
-        ...prev,
-        { role: "model", text: msg.startsWith("Límite")
-          ? "El servicio está temporalmente sobrecargado. Esperá un momento y probá de nuevo, o contactame directo por WhatsApp."
-          : "Ocurrió un error. Probá de nuevo o escribime a WhatsApp al +56 9 8286 4145." },
-      ]);
-    } finally {
+    if (active.length === 0) {
+      setError("Todos los proveedores están en enfriamiento. Esperá un momento.");
+      setConversation((prev) => [...prev, { role: "model", text: "Todos los servicios están temporalmente sobrecargados. Esperá un minuto o contactame directo por WhatsApp." }]);
       setLoading(false);
+      return;
     }
-  }
+
+    lastReq.current = now;
+    let reply: string | null = null;
+
+    for (const prov of active) {
+      setActiveProvider(prov.name);
+      const call = providerCalls[prov.name];
+      const result = await call(msgs, prov.key!, prov.model);
+      if (result.ok) { reply = result.text; break; }
+      if (result.rateLimited) {
+        prov.cooldownUntil = now + COOLDOWN_MS;
+        continue;
+      }
+      setError(result.error ?? `Error en ${prov.name}`);
+      prov.cooldownUntil = now + COOLDOWN_MS;
+    }
+
+    if (reply) {
+      setConversation((prev) => [...prev, { role: "model", text: reply }]);
+    } else {
+      setConversation((prev) => [...prev, { role: "model", text: "Los servicios están temporalmente sobrecargados. Esperá un momento o contactame directo por WhatsApp." }]);
+    }
+    setActiveProvider(null);
+    setLoading(false);
+  }, [input, loading, conversation]);
 
   const displayMessages: Message[] = [
     { role: "model", text: "👋 ¡Hola! Soy el asistente virtual de INFOCOB. Preguntame sobre desarrollo web, chatbots con IA, productos digitales o cualquier servicio." },
     ...conversation,
   ];
+
+  const hasKey = providers.some((p) => p.key);
 
   return (
     <>
@@ -152,8 +200,8 @@ export default function AiChat() {
             ))}
             {loading && (
               <div className="flex justify-start">
-                <div className="bg-white/5 border border-border/50 px-3.5 py-2 rounded-xl text-sm text-text-muted">
-                  <span>Escribiendo</span>
+                <div className="bg-white/5 border border-border/50 px-3.5 py-2 rounded-xl text-sm">
+                  <span className="text-text-muted">{activeProvider ? `${activeProvider}: ` : ""}Escribiendo</span>
                   <span className="animate-pulse" style={{ animationDelay: "0.3s" }}>.</span>
                   <span className="animate-pulse" style={{ animationDelay: "0.6s" }}>.</span>
                   <span className="animate-pulse" style={{ animationDelay: "0.9s" }}>.</span>
@@ -169,13 +217,13 @@ export default function AiChat() {
                 type="text"
                 value={input}
                 onChange={(e) => setInput(e.target.value)}
-                placeholder={API_KEY ? "Escribí tu mensaje..." : "API key no configurada"}
-                disabled={!API_KEY}
+                placeholder={hasKey ? "Escribí tu mensaje..." : "API key no configurada"}
+                disabled={!hasKey}
                 className="flex-1 px-3 py-2 rounded-xl bg-white/5 border border-border text-text placeholder:text-text-muted/40 text-sm focus:outline-none focus:ring-2 focus:ring-accent/30 disabled:opacity-40"
               />
               <button
                 type="submit"
-                disabled={loading || !input.trim() || !API_KEY}
+                disabled={loading || !input.trim() || !hasKey}
                 className="p-2 rounded-xl bg-accent text-bg hover:brightness-110 disabled:opacity-40 transition-all"
               >
                 <Send size={16} />
