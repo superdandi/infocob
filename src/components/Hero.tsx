@@ -28,8 +28,6 @@ export default function Hero() {
           <span className="text-accent">{t("hero.h1-1")}</span>
           <br />
           <span className="text-text">{t("hero.h1-2")}</span>
-          <br />
-          <span className="text-text">{t("hero.h1-3")}</span>
         </h1>
 
         <p className="max-w-2xl mx-auto text-text-muted text-lg sm:text-xl leading-relaxed mb-10 animate-fade-up">
