@@ -4,7 +4,6 @@ import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { useTranslation } from "@/lib/TranslationsProvider";
-import LogoImage from "./LogoImage";
 
 export default function Hero() {
   const { t } = useTranslation();
@@ -20,13 +19,6 @@ export default function Hero() {
     <section className="relative min-h-[90vh] flex items-center justify-center overflow-hidden">
       <div className="absolute inset-0 bg-gradient-to-b from-accent-secondary/5 via-transparent to-transparent pointer-events-none" />
       <div className="relative z-10 max-w-4xl mx-auto px-4 sm:px-6 text-center">
-        <div className="mx-auto w-48 sm:w-56 mb-8 mt-8 sm:mt-12">
-          <LogoImage
-            lightSrc="/images/infocob-circuito.svg"
-            alt="INFOCOB"
-            className="w-full h-auto"
-          />
-        </div>
         <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full glass text-xs text-text-muted mb-8 animate-fade-in">
           <span className="w-2 h-2 rounded-full bg-brand animate-pulse" />
           {t("hero.badge")}
