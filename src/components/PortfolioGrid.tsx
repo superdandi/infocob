@@ -54,7 +54,7 @@ function ProjectCard({ project }: { project: Project }) {
     <div
       className={cn(
         "glass-card overflow-hidden group transition-all duration-300",
-        "hover:translate-y-[-2px]",
+        "hover:translate-y-[-2px] hover:shadow-brand/10",
         status.hover
       )}
     >
@@ -90,10 +90,15 @@ function ProjectCard({ project }: { project: Project }) {
         )}
 
         <div className="flex flex-wrap gap-1.5 mb-4">
-          {project.category.map((cat) => (
+          {project.category.map((cat, ci) => (
             <span
               key={cat}
-              className="px-2 py-0.5 rounded-md bg-white/5 text-text-muted text-[10px] font-medium"
+              className={cn(
+                "px-2 py-0.5 rounded-md text-[10px] font-medium",
+                ci === 0
+                  ? "bg-brand/10 text-brand/80"
+                  : "bg-white/5 text-text-muted"
+              )}
             >
               {categories.find((c) => c.value === cat)?.label || cat}
             </span>
@@ -119,7 +124,7 @@ function ProjectCard({ project }: { project: Project }) {
               href={`https://${project.domain}`}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-1 text-xs font-medium text-accent hover:text-white transition-colors"
+              className="inline-flex items-center gap-1 text-xs font-medium text-accent hover:text-brand transition-colors"
             >
               <Globe size={12} />
               {t("portfolio.visitar")}

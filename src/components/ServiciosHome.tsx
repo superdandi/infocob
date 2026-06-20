@@ -13,9 +13,9 @@ function ServiceCard({ service, index, cotizarLabel }: { service: Service; index
   const desc = t(`servicio-${index}-desc`);
   const whatsappUrl = `https://wa.me/56982864145?text=Hola%20INFOCOB%2C%20quiero%20cotizar%20${encodeURIComponent(title)}`;
   return (
-    <div className="glass-card p-6 sm:p-8 glow-border group transition-all duration-300 hover:translate-y-[-2px]">
-      <div className="w-12 h-12 rounded-xl bg-accent/10 flex items-center justify-center mb-5">
-        <Icon className="w-6 h-6 text-accent" />
+    <div className="glass-card p-6 sm:p-8 glow-border group transition-all duration-300 hover:translate-y-[-2px] border-t-2 border-t-brand/20">
+      <div className="w-12 h-12 rounded-xl bg-accent/10 group-hover:bg-brand/10 flex items-center justify-center mb-5 transition-colors duration-300">
+        <Icon className="w-6 h-6 text-accent group-hover:text-brand transition-colors duration-300" />
       </div>
       <h3 className="font-heading font-semibold text-lg text-text mb-3">{title}</h3>
       <p className="text-text-muted text-sm leading-relaxed mb-4">{desc}</p>
@@ -23,7 +23,7 @@ function ServiceCard({ service, index, cotizarLabel }: { service: Service; index
         <ul className="space-y-2 mb-5">
           {service.items.map((_item, i) => (
             <li key={i} className="text-text-muted text-sm flex items-start gap-2">
-              <span className="text-accent mt-0.5">&#x2022;</span>
+              <span className="text-brand/60 mt-0.5">&#x2022;</span>
               {t(`servicio-${index}-item-${i}`)}
             </li>
           ))}
@@ -33,7 +33,7 @@ function ServiceCard({ service, index, cotizarLabel }: { service: Service; index
         href={whatsappUrl}
         target="_blank"
         rel="noopener noreferrer"
-        className="inline-flex items-center gap-1.5 text-sm font-medium text-accent hover:text-white transition-colors"
+        className="inline-flex items-center gap-1.5 text-sm font-medium text-accent hover:text-brand transition-colors"
       >
         <MessageCircle size={14} />
         {cotizarLabel}

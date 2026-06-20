@@ -29,7 +29,7 @@ export default function CtaSection() {
               href="https://wa.me/56982864145?text=Hola%20INFOCOB%2C%20quiero%20cotizar%20un%20proyecto"
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 px-8 py-3.5 rounded-xl glass border border-border text-text hover:bg-white/10 transition-all duration-300"
+              className="inline-flex items-center gap-2 px-8 py-3.5 rounded-xl glass border border-border text-text hover:bg-brand/10 hover:border-brand/20 transition-all duration-300"
             >
               <MessageCircle size={18} />
               {t("cta.whatsapp")}

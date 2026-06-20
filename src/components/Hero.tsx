@@ -46,7 +46,7 @@ export default function Hero() {
           </Link>
           <Link
             href="/contacto"
-            className="inline-flex items-center gap-2 px-8 py-3.5 rounded-xl glass border border-border text-text hover:bg-white/10 transition-all duration-300"
+            className="inline-flex items-center gap-2 px-8 py-3.5 rounded-xl glass border border-border text-text hover:bg-brand/10 hover:border-brand/20 transition-all duration-300"
           >
             {t("hero.cta-contacto")}
           </Link>

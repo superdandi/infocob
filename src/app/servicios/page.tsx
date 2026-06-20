@@ -36,11 +36,11 @@ export default function ServiciosPage() {
             return (
               <AnimateOnScroll key={service.title}>
                 <div
-                  className="glass-card p-8 sm:p-10 grid grid-cols-1 md:grid-cols-5 gap-8"
+                  className="glass-card p-8 sm:p-10 grid grid-cols-1 md:grid-cols-5 gap-8 border-t-2 border-t-brand/20 group"
                 >
                   <div className="md:col-span-2">
-                    <div className="w-14 h-14 rounded-xl bg-accent/10 flex items-center justify-center mb-5">
-                      <Icon className="w-7 h-7 text-accent" />
+                    <div className="w-14 h-14 rounded-xl bg-accent/10 group-hover:bg-brand/10 flex items-center justify-center mb-5 transition-colors duration-300">
+                      <Icon className="w-7 h-7 text-accent group-hover:text-brand transition-colors duration-300" />
                     </div>
                     <h2 className="font-heading text-2xl font-bold text-text mb-3">
                       {title}
@@ -59,7 +59,7 @@ export default function ServiciosPage() {
                           key={idx}
                           className="flex items-start gap-3 p-3 rounded-lg bg-white/[0.02] border border-border/50"
                         >
-                          <span className="text-accent mt-0.5 shrink-0">&#x2713;</span>
+                          <span className="text-brand/60 mt-0.5 shrink-0">&#x2713;</span>
                           <span className="text-text-muted text-sm">{t(`servicio-${i}-item-${idx}`)}</span>
                         </li>
                       ))}
@@ -80,6 +80,8 @@ export default function ServiciosPage() {
           })}
         </div>
 
+        <hr className="section-divider my-16" />
+
         <AnimateOnScroll>
           <div className="mt-16 glass-card p-8 sm:p-10 text-center">
             <h2 className="font-heading text-2xl font-bold text-text mb-3">
@@ -92,7 +94,7 @@ export default function ServiciosPage() {
               href="https://wa.me/56982864145?text=Hola%20INFOCOB%2C%20tengo%20una%20idea%20que%20quiero%20desarrollar"
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 px-8 py-3.5 rounded-xl glass border border-border text-text hover:bg-white/10 transition-all duration-300"
+              className="inline-flex items-center gap-2 px-8 py-3.5 rounded-xl glass border border-border text-text hover:bg-brand/10 hover:border-brand/20 transition-all duration-300"
             >
               <MessageCircle size={18} />
               {t("servicios.hablemos")}

@@ -43,10 +43,10 @@ export default function Navbar() {
                 key={link.href}
                 href={link.href}
                 className={cn(
-                  "px-4 py-2 rounded-lg text-sm font-medium transition-all duration-200",
+                  "px-4 py-2 rounded-lg text-sm font-medium transition-all duration-200 hover:border-brand/20",
                   pathname === link.href
-                    ? "text-accent bg-accent/10"
-                    : "text-text-muted hover:text-text hover:bg-white/5"
+                    ? "text-accent bg-accent/10 border-l-2 border-brand/30"
+                    : "text-text-muted hover:text-text hover:bg-white/5 border-l-2 border-transparent"
                 )}
               >
                 {link.label}
@@ -84,8 +84,8 @@ export default function Navbar() {
                 className={cn(
                   "block px-4 py-3 rounded-lg text-sm font-medium transition-all",
                   pathname === link.href
-                    ? "text-accent bg-accent/10"
-                    : "text-text-muted hover:text-text hover:bg-white/5"
+                    ? "text-accent bg-accent/10 border-l-2 border-brand/30"
+                    : "text-text-muted hover:text-text hover:bg-white/5 border-l-2 border-transparent"
                 )}
               >
                 {link.label}

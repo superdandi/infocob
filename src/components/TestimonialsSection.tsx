@@ -23,13 +23,13 @@ export default function TestimonialsSection() {
           {testimonials.map((t) => (
             <div
               key={t.author}
-              className="glass-card p-6 sm:p-8 flex flex-col"
+              className="glass-card p-6 sm:p-8 flex flex-col border-l-2 border-l-brand/20"
             >
-              <Quote className="w-8 h-8 text-accent/30 mb-4 shrink-0" />
+              <Quote className="w-8 h-8 text-brand/30 mb-4 shrink-0" />
               <p className="text-text-muted text-sm leading-relaxed mb-6 flex-1">
                 &ldquo;{t.quote}&rdquo;
               </p>
-              <div className="border-t border-border pt-4">
+              <div className="border-t border-brand/10 pt-4">
                 <p className="text-text text-sm font-semibold">{t.author}</p>
                 <p className="text-text-muted/60 text-xs">{t.role}</p>
               </div>

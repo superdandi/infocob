@@ -128,7 +128,7 @@ export default function ContactoPage() {
                         id="name"
                         name="name"
                         required
-                        className="w-full px-4 py-2.5 rounded-xl bg-white/5 border border-border text-text text-sm placeholder:text-text-muted/40 focus:outline-none focus:border-accent/50 focus:ring-1 focus:ring-accent/20 transition-all"
+                        className="w-full px-4 py-2.5 rounded-xl bg-white/5 border border-border text-text text-sm placeholder:text-text-muted/40 focus:outline-none focus:border-brand/30 focus:ring-1 focus:ring-brand/20 transition-all"
                         placeholder={t("contacto.form-placeholder-name")}
                       />
                     </div>
@@ -141,7 +141,7 @@ export default function ContactoPage() {
                         id="email"
                         name="email"
                         required
-                        className="w-full px-4 py-2.5 rounded-xl bg-white/5 border border-border text-text text-sm placeholder:text-text-muted/40 focus:outline-none focus:border-accent/50 focus:ring-1 focus:ring-accent/20 transition-all"
+                        className="w-full px-4 py-2.5 rounded-xl bg-white/5 border border-border text-text text-sm placeholder:text-text-muted/40 focus:outline-none focus:border-brand/30 focus:ring-1 focus:ring-brand/20 transition-all"
                         placeholder={t("contacto.form-placeholder-email")}
                       />
                     </div>
@@ -154,7 +154,7 @@ export default function ContactoPage() {
                         name="message"
                         rows={4}
                         required
-                        className="w-full px-4 py-2.5 rounded-xl bg-white/5 border border-border text-text text-sm placeholder:text-text-muted/40 focus:outline-none focus:border-accent/50 focus:ring-1 focus:ring-accent/20 transition-all resize-none"
+                        className="w-full px-4 py-2.5 rounded-xl bg-white/5 border border-border text-text text-sm placeholder:text-text-muted/40 focus:outline-none focus:border-brand/30 focus:ring-1 focus:ring-brand/20 transition-all resize-none"
                         placeholder={t("contacto.form-placeholder-message")}
                       />
                     </div>

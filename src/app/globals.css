@@ -63,8 +63,19 @@
 :root.light .via-accent-secondary\/5 { --tw-gradient-via: rgba(79, 70, 229, 0.05); }
 :root.light .to-brand\/5 { --tw-gradient-to: rgba(186, 17, 42, 0.05); }
 :root.light .group-hover\:text-accent:is(:where(.group):hover *) { color: #006699; }
+:root.light .group-hover\:text-brand:is(:where(.group):hover *) { color: #ba112a; }
 :root.light .focus\:border-accent\/50:focus { border-color: rgba(0, 102, 153, 0.5); }
 :root.light .focus\:ring-accent\/20:focus { --tw-ring-color: rgba(0, 102, 153, 0.2); }
+:root.light .focus\:border-brand\/30:focus { border-color: rgba(186, 17, 42, 0.3); }
+:root.light .focus\:ring-brand\/20:focus { --tw-ring-color: rgba(186, 17, 42, 0.2); }
+:root.light .hover\:border-brand\/20:hover { border-color: rgba(186, 17, 42, 0.2); }
+:root.light .hover\:border-brand\/30:hover { border-color: rgba(186, 17, 42, 0.3); }
+:root.light .border-brand\/10 { border-color: rgba(186, 17, 42, 0.1); }
+:root.light .border-brand\/20 { border-color: rgba(186, 17, 42, 0.2); }
+:root.light .border-brand\/30 { border-color: rgba(186, 17, 42, 0.3); }
+:root.light .bg-brand\/5 { background-color: rgba(186, 17, 42, 0.05); }
+:root.light .bg-brand\/10 { background-color: rgba(186, 17, 42, 0.1); }
+:root.light .shadow-brand\/10 { --tw-shadow-color: rgba(186, 17, 42, 0.1); }
 :root.light input, :root.light textarea {
   background: rgba(0, 0, 0, 0.04) !important;
   border-color: rgba(0, 0, 0, 0.2) !important;
@@ -83,10 +94,26 @@
   --foreground: #f1f5f9;
 }
 
+::selection {
+  background: rgba(186, 17, 42, 0.15);
+}
+
 body {
   background: var(--background);
   color: var(--foreground);
   font-family: var(--font-sans);
+}
+
+.section-divider {
+  border: none;
+  height: 1px;
+  background: linear-gradient(
+    to right,
+    transparent,
+    rgba(186, 17, 42, 0.12),
+    transparent
+  );
+  margin: 0;
 }
 
 .glass {
