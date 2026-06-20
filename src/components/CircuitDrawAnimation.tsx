@@ -58,7 +58,7 @@ const circles = [
 ];
 
 const STAGGER = 0.3;
-const TERMINAL_DELAY = 1.5;
+const TERMINAL_DELAY = 0.8;
 const DURATION = 28;
 const TERMINAL_DURATION = DURATION * 0.8;
 
@@ -84,7 +84,7 @@ export default function CircuitDrawAnimation() {
         viewBox="-29.9950 314.3423 626.7890 507.3820"
         className="w-full h-full transition-opacity duration-700"
         style={{ opacity: ready ? 1 : 0 }}
-        preserveAspectRatio="xMidYMid slice"
+        preserveAspectRatio="xMidYMid meet"
       >
         <g transform="translate(0, 791.1963) scale(1, -1)">
           {/* Circuit traces */}
@@ -134,7 +134,7 @@ export default function CircuitDrawAnimation() {
             strokeWidth="0.25"
             strokeLinecap="round"
             strokeLinejoin="round"
-            className="opacity-[0.1] dark:opacity-[0.14]"
+            className="opacity-[0.08] dark:opacity-[0.12]"
           >
             {circles.map((d, i) => (
               <path
