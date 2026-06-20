@@ -4,7 +4,8 @@ import { useState, useRef, useEffect } from "react";
 import { MessageCircle, X, Send, Sparkles } from "lucide-react";
 
 const API_KEY = process.env.NEXT_PUBLIC_GEMINI_API_KEY;
-const MODELS = ["gemini-2.0-flash-001", "gemini-1.5-flash-001", "gemini-1.5-flash", "gemini-pro"];
+const MODELS = ["gemini-2.0-flash", "gemini-1.5-flash", "gemini-1.5-pro"];
+const API_VERSIONS = ["v1", "v1beta"];
 
 const SYSTEM_PROMPT = `Eres el asistente virtual de INFOCOB Computación, empresa fundada por Daniel Cobos en Talca, Chile, desde 2008. Respondes preguntas sobre sus servicios. Sos directo, amable, y respondés siempre en español. Tu objetivo es ayudar al visitante y convertirlo en lead.
 
@@ -75,24 +76,31 @@ export default function AiChat() {
 
       let data: { candidates?: { content?: { parts?: { text?: string }[] } }[] } | null = null;
       let lastErr: string | null = null;
+      const body = JSON.stringify({ contents, generationConfig: { temperature: 0.7, maxOutputTokens: 512 } });
 
-      for (const model of MODELS) {
-        lastReq.current = Date.now();
-        const res = await fetch(
-          `https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent?key=${encodeURIComponent(API_KEY!)}`,
-          {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ contents, generationConfig: { temperature: 0.7, maxOutputTokens: 512 } }),
+      for (const version of API_VERSIONS) {
+        for (const model of MODELS) {
+          for (const method of ["generateContent", "streamGenerateContent"]) {
+            lastReq.current = Date.now();
+            const url = `https://generativelanguage.googleapis.com/${version}/models/${model}:${method}?key=${encodeURIComponent(API_KEY!)}`;
+            const res = await fetch(url, { method: "POST", headers: { "Content-Type": "application/json" }, body });
+
+            if (res.ok) {
+              const text = await res.text();
+              try {
+                data = JSON.parse(text);
+              } catch {
+                lastErr = `Modelo "${model}" respondió sin JSON`;
+                continue;
+              }
+              break;
+            }
+            const errBody = await res.text();
+            lastErr = `${version}/${model}:${method} → ${res.status}: ${errBody.slice(0, 150)}`;
           }
-        );
-
-        if (res.ok) {
-          data = await res.json();
-          break;
+          if (data) break;
         }
-        const errBody = await res.text();
-        lastErr = `Modelo "${model}" → ${res.status}: ${errBody.slice(0, 150)}`;
+        if (data) break;
       }
 
       if (!data) {
