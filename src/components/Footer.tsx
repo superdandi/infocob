@@ -21,7 +21,7 @@ export default function Footer() {
   return (
     <footer className="border-t border-border bg-bg-secondary/80">
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
           <div>
             <div className="flex items-center gap-2 mb-3">
               <LogoImage
@@ -53,6 +53,34 @@ export default function Footer() {
                   </Link>
                 </li>
               ))}
+            </ul>
+          </div>
+
+          <div>
+            <h3 className="font-heading font-semibold text-sm text-text mb-4 uppercase tracking-wider">
+              Zonas
+            </h3>
+            <ul className="space-y-2">
+              <li>
+                <Link href="/zona/diseno-web-talca" className="text-text-muted text-sm hover:text-brand transition-colors">
+                  Diseño web Talca
+                </Link>
+              </li>
+              <li>
+                <Link href="/zona/desarrollo-web-talca" className="text-text-muted text-sm hover:text-brand transition-colors">
+                  Desarrollo web Talca
+                </Link>
+              </li>
+              <li>
+                <Link href="/zona/pagina-web-maule" className="text-text-muted text-sm hover:text-brand transition-colors">
+                  Página web Maule
+                </Link>
+              </li>
+              <li>
+                <Link href="/zona/crear-sitio-web-chile" className="text-text-muted text-sm hover:text-brand transition-colors">
+                  Crear sitio web Chile
+                </Link>
+              </li>
             </ul>
           </div>
 
