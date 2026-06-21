@@ -35,7 +35,8 @@ Sí. El Hero dice «Productos digitales / impulsados por IA» con subtítulo «S
 |---|---|---|
 | Casos de éxito con métricas | Alto | ❌ «Cliente X: pasó de 100 a 500 visitas/día». Resultados venden. |
 | Analytics | Alto | ❌ Sin tracking. No sabemos qué funciona ni de dónde vienen los leads. |
-| Formulario → email directo | Alto | ❌ El form de /contacto enruta a WhatsApp. Leads fríos que no quieren WhatsApp se pierden. |
+| Formulario → email directo | Alto | ✅ Web3Forms integrado. Form POSTea a email + botón WhatsApp secundario. Leads fríos capturados. |
+| Lead de auditoría → email | Alto | ✅ Al descargar PDF, lead (nombre, email, score, desglose) enviado a Web3Forms. |
 | Pricing page / planes | Medio | ❌ Los precios están solo en el chatbot. Una página «Planes» filtraría mejor. |
 | Prueba social con fotos | Medio | ❌ Testimonios genéricos. Fotos de clientes reales darían mucha más confianza. |
 | SEO local más agresivo | Bajo | ⚠️ Blog ayuda, pero faltan landing pages por keyword tipo «diseño web Talca». |
@@ -65,29 +66,24 @@ Todavía:
 
 - ❌ **Sin analytics** → volamos a ciegas
 - ❌ **Sin casos de éxito con números** → falta prueba social contundente
-- ❌ **Formulario no envía email directo** → leads fríos que no usan WhatsApp se pierden
 - ❌ **Sin pricing page** → leads sin presupuesto claro requieren más fricción
 
 ---
 
 ## Próximas mejoras recomendadas (por orden)
 
-### 1. Formulario → email directo (Formspree o similar)
-El form de /contacto actualmente redirige a WhatsApp. Agregar envío por email (Formspree, Web3Forms, o un serverless function) para capturar leads fríos. El WhatsApp queda como canal secundario.
-
-### 2. Casos de éxito con métricas
+### 1. Casos de éxito con métricas
 Agregar 2-3 casos al portafolio con formato: logo + nombre + resultado numérico. Ej: «Clínica X: +40% consultas vía web en 3 meses».
 
-### 3. Analytics
-Google Analytics 4 o Plausible. Entender qué canales traen leads, qué páginas convierten, cuánto usa la gente el chatbot y la auditoría.
+### 2. Analytics
 
-### 4. Pricing page
+### 3. Pricing page
 Página «Planes» con 3 tiers (Básico/Profesional/E-commerce) con precios y qué incluye cada uno. Filtra leads y acelera el cierre.
 
-### 5. Testimonios con foto
+### 4. Testimonios con foto
 Pedir a 3-5 clientes una foto selfie + frase. Ponerlas en la sección testimonios con nombre y rubro real.
 
-### 6. SEO local dedicado
+### 5. SEO local dedicado
 Landing pages por keyword: «diseño web Talca», «página web Maule», «crear sitio web Chile». Cada una con contenido único y CTA local.
 
 ---
@@ -96,4 +92,4 @@ Landing pages por keyword: «diseño web Talca», «página web Maule», «crear
 
 El sitio está **sólido como portafolio corporativo y mejorando como máquina de ventas**. La auditoría fue el cambio más impactante de esta ronda: es un lead magnet funcional que califica prospectos sin fricción. El chatbot multi-proveedor garantiza disponibilidad 24/7.
 
-**Nota global: 8/10 como sitio web corporativo. 7.5/10 como máquina de ventas.** Los siguientes pasos (formulario email directo, casos de éxito, analytics) son los que van a mover la aguja en conversión.
+**Nota global: 8/10 como sitio web corporativo. 8/10 como máquina de ventas.** Los siguientes pasos (casos de éxito, analytics, pricing page) son los que van a mover la aguja en conversión.
