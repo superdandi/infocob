@@ -10,6 +10,7 @@ import CircuitDrawAnimation from "@/components/CircuitDrawAnimation";
 import AiChat from "@/components/AiChat";
 import { ThemeProvider } from "@/lib/ThemeProvider";
 import { TranslationsProvider } from "@/lib/TranslationsProvider";
+import { ChatProvider } from "@/lib/ChatContext";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -70,13 +71,15 @@ export default function RootLayout({
       <body className="antialiased bg-bg text-text min-h-screen flex flex-col grid-bg">
         <ThemeProvider>
           <TranslationsProvider>
-            <Navbar />
-            <CircuitDrawAnimation />
-            <main className="flex-1 relative z-10">{children}</main>
-            <Footer />
-            <WhatsAppFloat />
-            <HoverSound />
-            <AiChat />
+            <ChatProvider>
+              <Navbar />
+              <CircuitDrawAnimation />
+              <main className="flex-1 relative z-10">{children}</main>
+              <Footer />
+              <WhatsAppFloat />
+              <HoverSound />
+              <AiChat />
+            </ChatProvider>
           </TranslationsProvider>
         </ThemeProvider>
       </body>

@@ -6,6 +6,7 @@ import { Menu, X } from "lucide-react";
 import { useState } from "react";
 import { cn } from "@/lib/utils";
 import { useTranslation } from "@/lib/TranslationsProvider";
+import { useChat } from "@/lib/ChatContext";
 import LogoImage from "./LogoImage";
 import ThemeToggle from "./ThemeToggle";
 import LangToggle from "./LangToggle";
@@ -15,6 +16,7 @@ export default function Navbar() {
   const pathname = usePathname();
   const [open, setOpen] = useState(false);
   const { t } = useTranslation();
+  const { setOpen: setChatOpen } = useChat();
 
   const links = [
     { href: "/servicios", label: t("nav.servicios") },
@@ -23,6 +25,8 @@ export default function Navbar() {
     { href: "/sobre-mi", label: t("nav.sobre-mi") },
     { href: "/contacto", label: t("nav.contacto") },
   ];
+
+  const chatLink = { label: t("nav.chat") };
 
   return (
     <nav className="sticky top-0 z-50 glass border-b border-border">
@@ -53,6 +57,12 @@ export default function Navbar() {
                 {link.label}
               </Link>
             ))}
+            <button
+              onClick={() => setChatOpen(true)}
+              className="px-4 py-2 rounded-lg text-sm font-medium text-text-muted hover:text-text hover:bg-white/5 transition-all duration-200 border-l-2 border-transparent"
+            >
+              {chatLink.label}
+            </button>
             <div className="ml-2 flex items-center gap-1 border-l border-border pl-2">
               <LangToggle />
               <ThemeToggle />
@@ -92,6 +102,12 @@ export default function Navbar() {
                 {link.label}
               </Link>
             ))}
+            <button
+              onClick={() => { setOpen(false); setChatOpen(true); }}
+              className="w-full text-left px-4 py-3 rounded-lg text-sm font-medium text-text-muted hover:text-text hover:bg-white/5 border-l-2 border-transparent transition-all"
+            >
+              {chatLink.label}
+            </button>
           </div>
         </div>
       )}

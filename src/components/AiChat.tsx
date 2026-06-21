@@ -1,7 +1,8 @@
 "use client";
 
 import { useState, useRef, useEffect, useCallback } from "react";
-import { MessageCircle, X, Send, Sparkles, Trash2 } from "lucide-react";
+import { X, Send, Sparkles, Trash2 } from "lucide-react";
+import { useChat } from "@/lib/ChatContext";
 
 const STORAGE_KEY = "infocob-chat";
 const MAX_HISTORY = 6;
@@ -22,7 +23,7 @@ CHALLENGER SALE: Si el cliente no sabe lo que necesita, enseñale. ("Mirá, la m
 
 SNAP: Simple. Valioso. Alineado. Prioritario. ("Dame 5 minutos y te explico en simple qué opciones tenés.")
 
-UPSELLING + CROSS-SELLING: Si te piden sitio web, ofrecé hosting + dominio incluido (va en el precio). Si te preguntan por chatbot, preguntales si el sitio web también necesitan actualizarlo. Si piden plan básico, tirales: "por 50 lucas más al mes te llevás el profesional con SEO y prioridad". Siempre ofrecé la mejora como un paso lógico, no como加压.
+UPSELLING + CROSS-SELLING: Si te piden sitio web, ofrecé hosting + dominio incluido (va en el precio). Si te preguntan por chatbot, preguntales si el sitio web también necesitan actualizarlo. Si piden plan básico, tirales: "por 50 lucas más al mes te llevás el profesional con SEO y prioridad". Siempre ofrecé la mejora como un paso lógico, no como presión.
 
 YES SET: Meté preguntas de acuerdo natural. ("¿Te interesa que tu negocio aparezca en Google? ¿Te gustaría recibir consultas desde la web sin tener que contestar cada una?") Una vez que dice sí tres veces, el cuarto sí es más fácil.
 
@@ -108,7 +109,7 @@ async function callOpenRouter(messages: { role: string; text: string }[], key: s
 const providerCalls: Record<string, typeof callGemini> = { Gemini: callGemini, Groq: callGroq, OpenRouter: callOpenRouter };
 
 export default function AiChat() {
-  const [open, setOpen] = useState(false);
+  const { open, setOpen } = useChat();
   const [conversation, setConversation] = useState<Message[]>([]);
   const [loaded, setLoaded] = useState(false);
   const [input, setInput] = useState("");
@@ -119,6 +120,7 @@ export default function AiChat() {
   const lastReq = useRef(0);
   const endRef = useRef<HTMLDivElement>(null);
   const visitorTimestamps = useRef<number[]>([]);
+  const panelRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const tick = setInterval(() => {
@@ -148,6 +150,19 @@ export default function AiChat() {
   useEffect(() => {
     endRef.current?.scrollIntoView({ behavior: "smooth" });
   }, [conversation, loading]);
+
+  useEffect(() => {
+    if (!open) return;
+    setTimeout(() => endRef.current?.scrollIntoView({ behavior: "smooth" }), 100);
+  }, [open]);
+
+  useEffect(() => {
+    function handleKey(e: KeyboardEvent) {
+      if (e.key === "Escape" && open) setOpen(false);
+    }
+    window.addEventListener("keydown", handleKey);
+    return () => window.removeEventListener("keydown", handleKey);
+  }, [open, setOpen]);
 
   function clearChat() {
     setConversation([]);
@@ -222,98 +237,102 @@ export default function AiChat() {
 
   const hasKey = providers.some((p) => p.key);
 
+  if (!open) return null;
+
   return (
-    <>
-      {open && (
-        <div className="fixed bottom-24 right-6 z-[100] w-[360px] max-[400px]:right-2 max-[400px]:w-[calc(100%-16px)] glass-card shadow-2xl shadow-black/30 animate-fade-in overflow-hidden flex flex-col" style={{ maxHeight: "calc(100vh - 120px)" }}>
-          <div className="flex items-center justify-between px-4 py-3 border-b border-border">
-            <div className="flex items-center gap-2">
+    <div
+      className="fixed inset-0 z-[200] flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm animate-fade-in"
+      onClick={(e) => { if (e.target === e.currentTarget) setOpen(false); }}
+    >
+      <div
+        ref={panelRef}
+        className="w-[640px] max-w-[92vw] h-[85vh] max-h-[750px] glass-card border border-border/50 shadow-2xl shadow-black/40 rounded-2xl flex flex-col overflow-hidden animate-scale-in"
+      >
+        <div className="flex items-center justify-between px-5 py-4 border-b border-border">
+          <div className="flex items-center gap-2.5">
+            <div className="w-8 h-8 rounded-lg bg-accent/15 flex items-center justify-center">
               <Sparkles size={16} className="text-accent" />
+            </div>
+            <div>
               <span className="font-heading font-semibold text-sm text-text">Asistente INFOCOB</span>
-            </div>
-            <div className="flex items-center gap-1">
-              {conversation.length > 0 && (
-                <button onClick={clearChat} className="p-1.5 rounded-lg text-text-muted hover:text-text hover:bg-white/5 transition" title="Limpiar conversación">
-                  <Trash2 size={14} />
-                </button>
-              )}
-              <button onClick={() => setOpen(false)} className="p-1.5 rounded-lg text-text-muted hover:text-text hover:bg-white/5 transition">
-                <X size={16} />
-              </button>
+              <div className="text-[10px] text-text-muted/50 leading-tight">Impulsado por IA · Daniel Cobos</div>
             </div>
           </div>
-          <div className="flex items-center gap-3 px-4 py-1.5 border-b border-border/30 bg-white/[0.02]">
-            {providers.filter((p) => p.key).map((p) => {
-              const cd = cooldowns[p.name];
-              const isActive = activeProvider === p.name;
-              const available = !cd;
-              return (
-                <div key={p.name} className="flex items-center gap-1.5 text-[10px]">
-                  <span className={`w-1.5 h-1.5 rounded-full ${isActive ? "bg-accent animate-pulse" : available ? "bg-green-400" : "bg-red-400"}`} />
-                  <span className={`font-medium ${isActive ? "text-accent" : available ? "text-green-300/70" : "text-red-300/60"}`}>{p.name}</span>
-                  <span className="text-text-muted/40">{p.model.split("-").slice(0, 2).join(".")}</span>
-                  {!!cd && <span className="text-red-300/50">{Math.ceil(cd / 1000)}s</span>}
-                </div>
-              );
-            })}
-          </div>
-
-          <div className="flex-1 overflow-y-auto p-4 space-y-3" style={{ minHeight: 0 }}>
-            {displayMessages.map((msg, i) => (
-              <div key={i} className={`flex ${msg.role === "user" ? "justify-end" : "justify-start"}`}>
-                <div className={`max-w-[85%] px-3.5 py-2 rounded-xl text-sm leading-relaxed ${msg.role === "user" ? "bg-accent text-bg" : "bg-white/5 text-text border border-border/50"}`}>
-                  {msg.text}
-                </div>
-              </div>
-            ))}
-            {loading && (
-              <div className="flex justify-start">
-                <div className="bg-white/5 border border-border/50 px-3.5 py-2 rounded-xl text-sm">
-                  <span className="text-text-muted">{activeProvider ? `${activeProvider}: ` : ""}Escribiendo</span>
-                  <span className="animate-pulse" style={{ animationDelay: "0.3s" }}>.</span>
-                  <span className="animate-pulse" style={{ animationDelay: "0.6s" }}>.</span>
-                  <span className="animate-pulse" style={{ animationDelay: "0.9s" }}>.</span>
-                </div>
-              </div>
-            )}
-            <div ref={endRef} />
-          </div>
-
-          <div className="border-t border-border p-3">
-            <form onSubmit={(e) => { e.preventDefault(); sendMessage(); }} className="flex gap-2">
-              <input
-                type="text"
-                value={input}
-                onChange={(e) => setInput(e.target.value)}
-                placeholder={hasKey ? "Escribí tu mensaje..." : "API key no configurada"}
-                disabled={!hasKey}
-                className="flex-1 px-3 py-2 rounded-xl bg-white/5 border border-border text-text placeholder:text-text-muted/40 text-sm focus:outline-none focus:ring-2 focus:ring-accent/30 disabled:opacity-40"
-              />
-              <button
-                type="submit"
-                disabled={loading || !input.trim() || !hasKey}
-                className="p-2 rounded-xl bg-accent text-bg hover:brightness-110 disabled:opacity-40 transition-all"
-              >
-                <Send size={16} />
+          <div className="flex items-center gap-1">
+            {conversation.length > 0 && (
+              <button onClick={clearChat} className="p-2 rounded-lg text-text-muted hover:text-text hover:bg-white/5 transition" title="Limpiar conversación">
+                <Trash2 size={15} />
               </button>
-            </form>
-            {error && (
-              <details className="mt-1.5">
-                <summary className="text-[10px] text-red-400/60 cursor-pointer">Error</summary>
-                <pre className="text-[9px] text-red-400/80 mt-1 px-1 whitespace-pre-wrap break-all max-h-24 overflow-y-auto">{error}</pre>
-              </details>
             )}
+            <button onClick={() => setOpen(false)} className="p-2 rounded-lg text-text-muted hover:text-text hover:bg-white/5 transition">
+              <X size={18} />
+            </button>
           </div>
         </div>
-      )}
 
-      <button
-        onClick={() => setOpen(true)}
-        className="fixed bottom-6 right-6 z-[100] flex items-center justify-center w-14 h-14 rounded-full bg-accent text-bg shadow-lg shadow-accent/25 hover:scale-110 hover:shadow-xl hover:shadow-accent/30 transition-all duration-300 animate-fade-in"
-        aria-label="Abrir chat"
-      >
-        <MessageCircle size={24} />
-      </button>
-    </>
+        <div className="flex items-center gap-3 px-5 py-2 border-b border-border/30 bg-white/[0.02]">
+          {providers.filter((p) => p.key).map((p) => {
+            const cd = cooldowns[p.name];
+            const isActive = activeProvider === p.name;
+            const available = !cd;
+            return (
+              <div key={p.name} className="flex items-center gap-1.5 text-[10px]">
+                <span className={`w-1.5 h-1.5 rounded-full ${isActive ? "bg-accent animate-pulse" : available ? "bg-green-400" : "bg-red-400"}`} />
+                <span className={`font-medium ${isActive ? "text-accent" : available ? "text-green-300/70" : "text-red-300/60"}`}>{p.name}</span>
+                <span className="text-text-muted/40">{p.model.split("-").slice(0, 2).join(".")}</span>
+                {!!cd && <span className="text-red-300/50">{Math.ceil(cd / 1000)}s</span>}
+              </div>
+            );
+          })}
+        </div>
+
+        <div className="flex-1 overflow-y-auto p-5 space-y-4" style={{ minHeight: 0 }}>
+          {displayMessages.map((msg, i) => (
+            <div key={i} className={`flex ${msg.role === "user" ? "justify-end" : "justify-start"}`}>
+              <div className={`max-w-[75%] px-4 py-2.5 rounded-2xl text-sm leading-relaxed ${msg.role === "user" ? "bg-accent text-bg" : "bg-white/5 text-text border border-border/30"}`}>
+                {msg.text}
+              </div>
+            </div>
+          ))}
+          {loading && (
+            <div className="flex justify-start">
+              <div className="bg-white/5 border border-border/30 px-4 py-2.5 rounded-2xl text-sm">
+                <span className="text-text-muted">{activeProvider ? `${activeProvider}: ` : ""}Escribiendo</span>
+                <span className="animate-pulse" style={{ animationDelay: "0.3s" }}>.</span>
+                <span className="animate-pulse" style={{ animationDelay: "0.6s" }}>.</span>
+                <span className="animate-pulse" style={{ animationDelay: "0.9s" }}>.</span>
+              </div>
+            </div>
+          )}
+          <div ref={endRef} />
+        </div>
+
+        <div className="border-t border-border/50 p-4">
+          <form onSubmit={(e) => { e.preventDefault(); sendMessage(); }} className="flex gap-2">
+            <input
+              type="text"
+              value={input}
+              onChange={(e) => setInput(e.target.value)}
+              placeholder={hasKey ? "Escribí tu mensaje..." : "API key no configurada"}
+              disabled={!hasKey}
+              className="flex-1 px-4 py-2.5 rounded-xl bg-white/5 border border-border text-text placeholder:text-text-muted/30 text-sm focus:outline-none focus:ring-2 focus:ring-accent/30 disabled:opacity-40"
+            />
+            <button
+              type="submit"
+              disabled={loading || !input.trim() || !hasKey}
+              className="px-4 py-2.5 rounded-xl bg-accent text-bg hover:brightness-110 disabled:opacity-40 transition-all"
+            >
+              <Send size={16} />
+            </button>
+          </form>
+          {error && (
+            <details className="mt-2">
+              <summary className="text-[10px] text-red-400/60 cursor-pointer">Error</summary>
+              <pre className="text-[9px] text-red-400/80 mt-1 px-1 whitespace-pre-wrap break-all max-h-24 overflow-y-auto">{error}</pre>
+            </details>
+          )}
+        </div>
+      </div>
+    </div>
   );
 }

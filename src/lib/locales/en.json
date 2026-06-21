@@ -5,11 +5,13 @@
   "nav.sobre-mi": "About",
   "nav.contacto": "Contact",
   "nav.blog": "Blog",
+  "nav.chat": "AI Chat",
 
   "hero.badge": "Since 2008 in Talca, Chile",
   "hero.h1-1": "Digital products",
   "hero.h1-2": "powered by AI",
   "hero.subtitle": "Websites and digital solutions at your service",
+  "hero.cta-chat": "Talk to our AI assistant",
   "hero.cta-servicios": "Quote your project",
   "hero.cta-contacto": "Message me on WhatsApp",
 

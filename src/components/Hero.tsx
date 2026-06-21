@@ -1,12 +1,14 @@
 "use client";
 
 import Link from "next/link";
-import { ArrowRight } from "lucide-react";
+import { MessageCircle, ArrowRight } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { useTranslation } from "@/lib/TranslationsProvider";
+import { useChat } from "@/lib/ChatContext";
 
 export default function Hero() {
   const { t } = useTranslation();
+  const { setOpen } = useChat();
 
   const stats = [
     { value: "17+", label: t("hero.stat-anios"), color: "text-accent" },
@@ -35,18 +37,19 @@ export default function Hero() {
         </p>
 
         <div className="flex flex-col sm:flex-row items-center justify-center gap-4 animate-fade-up">
+          <button
+            onClick={() => setOpen(true)}
+            className="inline-flex items-center gap-2 px-8 py-3.5 rounded-xl bg-accent text-bg font-semibold hover:brightness-110 transition-all duration-300 shadow-lg shadow-accent/20"
+          >
+            <MessageCircle size={18} />
+            {t("hero.cta-chat")}
+          </button>
           <Link
             href="/servicios"
-            className="inline-flex items-center gap-2 px-8 py-3.5 rounded-xl bg-accent text-bg font-semibold hover:brightness-110 transition-all duration-300 shadow-lg shadow-accent/20"
+            className="inline-flex items-center gap-2 px-8 py-3.5 rounded-xl glass border border-border text-text hover:bg-brand/10 hover:border-brand/20 transition-all duration-300"
           >
             {t("hero.cta-servicios")}
             <ArrowRight size={18} />
-          </Link>
-          <Link
-            href="/contacto"
-            className="inline-flex items-center gap-2 px-8 py-3.5 rounded-xl glass border border-border text-text hover:bg-brand/10 hover:border-brand/20 transition-all duration-300"
-          >
-            {t("hero.cta-contacto")}
           </Link>
         </div>
 
