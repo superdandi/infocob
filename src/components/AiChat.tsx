@@ -33,6 +33,13 @@ URGENCIA + PRUEBA SOCIAL: "Tengo cupo para un proyecto más este mes". "17 años
 
 PRECIOS: Sitio web desde $500.000 (profesional) o $250.000 (básico). E-commerce desde $800.000. IA chatbot desde $300.000. Tiempo: 1 a 3 semanas. Hosting + dominio gratis primer año en todos los planes.
 
+PLANES DETALLADOS:
+- Básico ($250.000 - $350.000): Landing page 1 página, responsive, SEO básico, formulario + WhatsApp, hosting + dominio 1 año. Ideal para emprendedores. Entrega 5-7 días. Mantención $10.000/mes.
+- Profesional ($450.000 - $600.000): Sitio multi-página, responsive premium, SEO completo, blog, chatbot IA básico, hosting + dominio 1 año. Ideal para PyMEs. Entrega 10-14 días. Mantención $15.000/mes.
+- E-commerce ($700.000 - $1.200.000): Tienda online completa, pasarela de pago, carrito, inventario, chatbot IA avanzado, panel administrador, hosting + dominio 1 año. Entrega 2-4 semanas. Mantención $25.000/mes.
+
+COTIZACIÓN AUTOMÁTICA: Cuando el cliente acepte un plan, ofrecé enviarle el presupuesto por email o WhatsApp. Si elige email, pedí su correo y decí "Te lo envío al tiro". No generás el presupuesto vos — el sistema lo manda automáticamente. Si elige WhatsApp, mandale el link wa.me/56982864145 con el mensaje listo.
+
 COBERTURA: Talca, Maule, remoto todo Chile.
 
 WhatsApp: +56 9 8286 4145. Email: dcobosm@gmail.com.
@@ -225,6 +232,22 @@ export default function AiChat() {
 
     if (reply) {
       setConversation((prev) => [...prev, { role: "model", text: reply }]);
+      // detect email in user message + quote in AI reply → send quote via Web3Forms
+      const emailMatch = text.match(/\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}\b/);
+      if (emailMatch && /presupuesto|cotización|envíame|mandame|quote|budget/i.test(reply)) {
+        const key = process.env.NEXT_PUBLIC_WEB3FORMS_KEY;
+        if (key) {
+          const fd = new FormData();
+          fd.append("access_key", key);
+          fd.append("subject", "Solicitud de presupuesto desde el chat INFOCOB");
+          fd.append("from_name", "Chat INFOCOB");
+          fd.append("email", emailMatch[0]);
+          fd.append("name", text.replace(emailMatch[0], "").trim() || "Visitante");
+          fd.append("message", `El cliente solicita presupuesto.\n\nMensaje: ${text}\n\nRespuesta del asistente:\n${reply}`);
+          fd.append("botcheck", "");
+          fetch("https://api.web3forms.com/submit", { method: "POST", body: fd }).catch(() => {});
+        }
+      }
     } else {
       setConversation((prev) => [...prev, { role: "model", text: "Los servicios están temporalmente sobrecargados. Esperá un momento o contactame directo por WhatsApp." }]);
     }

@@ -6,6 +6,7 @@
   "nav.contacto": "Contact",
   "nav.blog": "Blog",
   "nav.chat": "AI Chat",
+  "nav.planes": "Plans",
 
   "hero.badge": "Since 2008 in Talca, Chile",
   "hero.h1-1": "Digital products",
@@ -202,6 +203,18 @@
   "auditoria.descargar-reintentar": "There was an error generating the PDF. Try again.",
 
   "auditoria.reiniciar": "Restart evaluation",
+
+  "planes.badge": "Plans",
+  "planes.title": "Plans & Pricing",
+  "planes.subtitle": "Choose the plan that best fits your project. All include hosting and .cl domain for the first year.",
+  "planes.popular": "Most popular",
+  "planes.entrega": "Delivery",
+  "planes.mantenimiento": "Monthly maintenance",
+  "planes.cta-chat": "Get a quote with AI assistant",
+  "planes.cta-whatsapp": "Ask via WhatsApp",
+  "planes.cta-personalizado": "I need a custom plan",
+  "planes.no-encuentras": "Can't find the right plan?",
+  "planes.no-encuentras-desc": "Every project is unique. Let's talk and build something tailored to you.",
 
   "cat-diseno": "Design & first impression",
   "cat-velocidad": "Speed & performance",
