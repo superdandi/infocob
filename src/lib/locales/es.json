@@ -228,5 +228,13 @@
   "blog.subtitle": "Artículos sobre desarrollo web, chatbots, inteligencia artificial y marketing digital para tu negocio.",
   "blog.leer-mas": "Leer más",
   "blog.volver": "Volver al blog",
-  "blog.old-blog-text": "Este artículo fue publicado originalmente en nuestro blog anterior. Puedes revisar más contenido allí:"
+  "blog.old-blog-text": "Este artículo fue publicado originalmente en nuestro blog anterior. Puedes revisar más contenido allí:",
+
+  "casos-exito.badge": "INFOCOB — Casos de éxito",
+  "casos-exito.title": "Resultados que hablan",
+  "casos-exito.subtitle": "Conocé el trabajo que hemos hecho para nuestros clientes. Cada proyecto es único, los resultados son reales.",
+  "casos-exito.desafio": "Desafío",
+  "casos-exito.solucion": "Solución",
+  "casos-exito.resultados": "Resultados",
+  "casos-exito.ver-mas": "Ver todos los proyectos →"
 }
