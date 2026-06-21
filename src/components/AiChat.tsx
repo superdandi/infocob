@@ -208,12 +208,12 @@ export default function AiChat() {
     const updatedConv = [...conversation, userMsg];
     setConversation(updatedConv);
     setLoading(true);
-    track("chat_message", { provider: active.length ? active[0]?.name ?? "none" : "none" });
 
     const tail = updatedConv.slice(-MAX_HISTORY * 2);
     const msgs = tail.map((m) => ({ role: m.role, text: m.text }));
 
     const active = providers.filter((p) => p.key && now >= p.cooldownUntil);
+    track("chat_message", { provider: active.length ? active[0]?.name ?? "none" : "none" });
 
     if (active.length === 0) {
       setError("Todos los proveedores están en enfriamiento. Esperá un momento.");
