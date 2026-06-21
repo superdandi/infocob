@@ -7,6 +7,8 @@ const STORAGE_KEY = "infocob-chat";
 const MAX_HISTORY = 2;
 const RATE_LIMIT_MS = 3000;
 const COOLDOWN_MS = 60000;
+const VISITOR_MAX_REQUESTS = 12;
+const VISITOR_WINDOW_MS = 60000;
 
 const SYSTEM_PROMPT = `Eres el asistente virtual de INFOCOB Computación, empresa fundada por Daniel Cobos en Talca, Chile, desde 2008. Respondes preguntas sobre sus servicios. Sos directo, amable, y respondés siempre en español. Tu objetivo es ayudar al visitante y convertirlo en lead.
 
@@ -103,6 +105,7 @@ export default function AiChat() {
   const [cooldowns, setCooldowns] = useState<Record<string, number>>({});
   const lastReq = useRef(0);
   const endRef = useRef<HTMLDivElement>(null);
+  const visitorTimestamps = useRef<number[]>([]);
 
   useEffect(() => {
     const tick = setInterval(() => {
@@ -145,6 +148,15 @@ export default function AiChat() {
       setError("Esperá un momento antes de enviar otro mensaje.");
       return;
     }
+
+    const now = Date.now();
+    visitorTimestamps.current = visitorTimestamps.current.filter((t) => now - t < VISITOR_WINDOW_MS);
+    if (visitorTimestamps.current.length >= VISITOR_MAX_REQUESTS) {
+      setError(`Límite de ${VISITOR_MAX_REQUESTS} mensajes por minuto. Esperá o recargá la página.`);
+      setConversation((prev) => [...prev, { role: "model", text: `Enviaste muchos mensajes seguidos. Esperá un momento o recargá la página para seguir.` }]);
+      return;
+    }
+    visitorTimestamps.current.push(now);
     setInput("");
     setError(null);
     setActiveProvider(null);
@@ -156,7 +168,6 @@ export default function AiChat() {
     const tail = updatedConv.slice(-MAX_HISTORY * 2);
     const msgs = tail.map((m) => ({ role: m.role, text: m.text }));
 
-    const now = Date.now();
     const active = providers.filter((p) => p.key && now >= p.cooldownUntil);
 
     if (active.length === 0) {
