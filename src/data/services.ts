@@ -14,18 +14,16 @@ export const servicios: Service[] = [
       "Landing pages y sitios corporativos",
       "Aplicaciones web con Next.js, React",
       "E-commerce con tecnología moderna",
-      "Hosting y dominio incluidos",
     ],
   },
   {
     title: "Integración de IA",
-    description: "Potenciamos tu negocio con inteligencia artificial: automatización, chatbots, análisis y generación de contenido.",
+    description: "Potenciamos tu negocio con inteligencia artificial: chatbots como el de este sitio, automatización y análisis de datos.",
     icon: "Brain",
     items: [
-      "Chatbots y asistentes virtuales",
-      "Automatización de procesos",
-      "Análisis de datos con IA",
-      "Generación de contenido automatizada",
+      "Chatbots con IA (como el asistente de este sitio)",
+      "Automatización de procesos con IA",
+      "Análisis de datos e informes inteligentes",
     ],
   },
   {
@@ -35,7 +33,6 @@ export const servicios: Service[] = [
     items: [
       "Plataformas web interactivas",
       "APIs y servicios backend",
-      "Sistemas de gestión de contenido",
       "Aplicaciones progresivas (PWA)",
     ],
   },
@@ -47,7 +44,6 @@ export const servicios: Service[] = [
       "Arquitectura de software",
       "Migración a tecnologías modernas",
       "Optimización de rendimiento web",
-      "SEO técnico y accesibilidad",
     ],
   },
   {
@@ -57,7 +53,6 @@ export const servicios: Service[] = [
     items: [
       "Mantención de sitios web y hosting",
       "Soporte técnico informático presencial y remoto",
-      "Administración de redes y servidores",
       "Instalación y configuración de software",
     ],
   },

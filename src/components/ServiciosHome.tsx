@@ -22,7 +22,7 @@ function ServiceCard({ service, index }: { service: Service; index: number }) {
       <p className="text-text-muted text-sm leading-relaxed mb-4">{desc}</p>
       {service.items && (
         <ul className="space-y-2 mb-5">
-          {service.items.map((_item, i) => (
+          {service.items.slice(0, 3).map((_item, i) => (
             <li key={i} className="text-text-muted text-sm flex items-start gap-2">
               <span className="text-brand/60 mt-0.5">&#x2022;</span>
               {t(`servicio-${index}-item-${i}`)}
