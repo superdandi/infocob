@@ -4,7 +4,7 @@ import { useState, useRef, useEffect, useCallback } from "react";
 import { MessageCircle, X, Send, Sparkles, Trash2 } from "lucide-react";
 
 const STORAGE_KEY = "infocob-chat";
-const MAX_HISTORY = 2;
+const MAX_HISTORY = 6;
 const RATE_LIMIT_MS = 3000;
 const COOLDOWN_MS = 60000;
 const VISITOR_MAX_REQUESTS = 12;
