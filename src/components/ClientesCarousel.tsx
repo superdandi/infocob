@@ -10,7 +10,7 @@ export default function ClientesCarousel() {
   const items = [...logosClientes, ...logosClientes];
 
   return (
-    <section className="py-16 sm:py-20 bg-bg-secondary/80 overflow-hidden">
+    <section className="pt-8 sm:pt-20 pb-16 sm:pb-20 bg-bg-secondary/80 overflow-hidden">
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-10">
           <p className="text-sm font-medium text-text-muted/60 uppercase tracking-widest">

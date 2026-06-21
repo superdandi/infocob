@@ -34,7 +34,7 @@ export default function CookieConsent() {
 
   return (
     <div className="fixed bottom-0 left-0 right-0 z-[60] p-4 sm:p-6">
-      <div className="max-w-3xl mx-auto glass-card p-4 sm:p-5 flex flex-col sm:flex-row items-start sm:items-center gap-4 shadow-xl">
+      <div className="max-w-3xl mx-auto rounded-2xl shadow-xl p-4 sm:p-5 flex flex-col sm:flex-row items-start sm:items-center gap-4 border border-border/80 sm:border-border/40 bg-white/95 dark:bg-[#0f172a]/90 sm:bg-white/85 sm:dark:bg-card backdrop-blur-md">
         <p className="text-sm text-text-muted flex-1 leading-relaxed">
           Usamos cookies de Google Analytics para entender cómo se usa el sitio y mejorar.
           No recolectamos datos personales. Podés aceptar o rechazar.
