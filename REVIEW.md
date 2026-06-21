@@ -2,130 +2,86 @@
 
 ## ¿Se entiende bien qué vendemos?
 
-En general sí, pero el orden del mensaje importa. Tu core real son **sitios web** (17+ años, 45+ proyectos). Los chatbots con IA son una línea nueva que ofreces como otro servicio más, sin hacerles un pedestal especial.
+Sí. El Hero ahora dice «Productos digitales / impulsados por IA» con subtítulo «Sitios web y soluciones digitales a tu servicio». Sitios web primero, chatbots como complemento natural. La navegación, servicios y CTA refuerzan el catálogo completo.
 
-El Hero actual dice «Productos digitales / impulsados por IA» (título) y «Chatbots y sitios web a tu servicio» (subtítulo). El título es genérico y el subtítulo pone chatbots primero, cuando la prioridad real son los sitios web. Ajustando el subtítulo a «Sitios web y soluciones digitales a tu servicio» se equilibra el mensaje: el sitio web es el pilar, lo digital (incluyendo chatbots) envuelve el resto.
+## Estado actual vs review anterior
 
-Los servicios, portafolio y CTA ya refuerzan bien el catálogo completo.
+### Cosas que atacamos y están resueltas
 
----
+| Item | Estado | Detalle |
+|---|---|---|
+| Chatbot en el sitio | ✅ | Gemini + Groq + OpenRouter con fallback automático. Modal premium centrado (640px, estilo ChatGPT). Trigger desde Hero y Navbar. |
+| Blog / SEO | ✅ | 4 artículos: guía Talca, web vs redes, precios Chile, chatbot WhatsApp. SEO-focused con slugs y tags. |
+| CTA más agresivo | ✅ | Hero: "Habla con nuestro asistente IA" (primario), "Cotiza tu proyecto" (secundario). |
+| Precios visibles | ✅ | En chatbot: rangos $250.000-$800.000. En servicios: "desde $X" en descripciones. |
+| WhatsApp diferenciado | ✅ | Cada servicio tiene mensaje de cotización único via `t("whatsapp.cotizar", {title})`. |
+| Chatbot como demo viva | ✅ | El asistente IA es prueba tecnológica funcionando en producción. |
+| i18n completo | ✅ | ES/EN con ~55 translation keys. |
+| Circuit animation | ✅ | 24 traces + 25 donuts, viewBox corregido, opacidades unificadas. |
+| Reduced motion | ✅ | Toggle 3 estados (enabled/disabled/auto). |
+| Brand red audit | ✅ | 10 oportunidades implementadas en 13 archivos. |
+| Hero title/subtitle | ✅ | Corregido a 2 líneas, sitios web primero. |
 
-## Lo que más me gusta
+### Lo que sigue pendiente (por impacto)
 
-1. **Circuit animation** — es hipnótico sin robar atención. Le da identidad única.
-2. **Paleta de colores** — el brand red como acento secundario funciona bien como sello, no compite con el cyan.
-3. **Glass-morphism** — los glass cards dejan ver el circuito atrás, se siente premium.
-4. **Animaciones sutiles** — fade-up en scroll, el shine del logo... dan vida sin ser molestas.
-5. **i18n completo** — Español e Inglés bien implementados, nada hardcodeado.
-6. **Reduced motion** — toggle y prefers-reduced-motion, accesibilidad bien pensada.
-7. **Portfolio con filtros y Wayback Machine links** — muestra expertise real y cuidado por el detalle.
-8. **WhatsApp como canal principal** — directo, sin fricción, ideal para el público objetivo.
-
-## Lo que menos me gusta
-
-1. **Hero title/subtitle inconsistentes** — título vende "productos digitales IA", subtitle vende "chatbots y sitios". Suena a dos versiones distintas.
-2. **Falta de prueba social evidente** — los testimonios están, pero son genéricos y sin foto/empresa real. La gente confía más en caras conocidas.
-3. **CTA del hero** — "Ver servicios" es informativo, no de ventas. Debería ser algo como "Cotiza tu sitio web" o "Hablemos de tu proyecto".
-4. **No hay precios ni indicios** — un rango o "desde $X" ayuda a calificar leads antes del WhatsApp.
-5. **El logo en el footer y contacto es enorme** — ocupa espacio que podría ser contenido conversional.
-6. **No hay captura de leads (email)** — si alguien no quiere escribir por WhatsApp, no hay alternativa.
-
----
-
-## Puntos fuertes (+)
-
-- Diseño visual memorable y coherente
-- Performance buena (animaciones CSS, lazy loading)
-- Mobile-first, responsive
-- Stack moderno (Next.js, Tailwind v4)
-- Portfolio real con 20+ proyectos
-- Circuito como background diferencia de cualquier competidor
-- Toggle de idioma, tema y animaciones
-
-## Puntos débiles (-)
-
-- Sin analytics implementados (¿cuánta gente llega a WhatsApp?)
-- Sin formulario que no sea WhatsApp (pérdida de leads fríos)
-- Sin blog / contenido SEO (la gente no llega orgánicamente)
-- Sin casos de éxito detallados (más allá del listado de portfolio)
-- Sin chat en vivo / chatbot en el sitio
-- El botón "Cotizar" de los servicios manda directo a WhatsApp sin trackear el servicio específico (falta UTM o mensaje diferenciado)
+| Item | Impacto | Estado |
+|---|---|---|
+| Casos de éxito con métricas | Alto | ❌ «Cliente X: pasó de 100 a 500 visitas/día». Resultados venden. |
+| Lead magnet + captura de email | Alto | ❌ Guía gratuita a cambio de email. Permite follow-up y nutrición. |
+| Formulario de contacto (no WhatsApp) | Alto | ❌ Hay leads fríos que no quieren WhatsApp. Un form simple ayuda. |
+| Analytics | Medio | ❌ Sin tracking. No sabemos qué funciona ni de dónde vienen los leads. |
+| Pricing page / planes | Medio | ❌ Los precios están solo en el chatbot. Una página «Planes» filtraría mejor. |
+| Prueba social con fotos | Medio | ❌ Testimonios genéricos. Fotos de clientes reales darían mucha más confianza. |
+| SEO local más agresivo | Bajo | ⚠️ Blog ayuda, pero faltan landing pages por keyword tipo «diseño web Talca». |
 
 ---
 
-## Capacidad de convertir / lograr ventas: 5/10
+## Lo que más me gusta hoy
 
-Puntaje medio. El sitio se ve profesional y genera confianza visual, pero:
-
-- No hay **urgencia** ni **escasez** (ofertas, tiempo limitado, etc.)
-- No hay **prueba social fuerte** (logos de clientes, casos de éxito con métricas)
-- No hay **lead magnet** (guía gratis, checklist, descargable)
-- El CTA principal es débil ("Ver servicios" → informativo, no transaccional)
-- El funnel es plano: Hero → Servicios → WhatsApp. No hay nutrición.
+1. **Chatbot modal premium** — eliminamos el floating widget barato. Ahora es un modal centrado que se siente parte del diseño, no un accesorio.
+2. **Fallback 3 proveedores** — Gemini → Groq → OpenRouter con cooldown individual. El sistema no se cae aunque uno esté rate-limited.
+3. **Vendedor senior en el prompt** — el tono cambió de asistente genérico a vendedor directo con SPIN, FAB, Challenger, upsell y cierre.
+4. **Per-visitor rate limit** — 12 msg/min como capa extra antes de tocar los proveedores.
+5. **Circuit animation + glass cards** — identidad única. Premium.
+6. **Servicios limpiados a 3 items** — más escaneables, menos ruido.
 
 ---
 
-## ¿Qué le falta? (por orden de impacto)
+## Capacidad de convertir / lograr ventas: 6.5/10
 
-### 1. Chatbot en el sitio
-Un chatbot en tu web (aunque sea prototipo) demuestra que sabes lo que haces. Tus competidores no tienen eso.
+Subió de 5/10 a 6.5/10. Mejoró significativamente por el chatbot (genera leads 24/7, demuestra expertise en IA, cierra con paso concreto). Pero todavía:
+
+- ❌ **No hay captura de email** → leads fríos se pierden
+- ❌ **No hay casos de éxito con números** → falta prueba social contundente
+- ❌ **No hay analytics** → volamos a ciegas
+- ❌ **No hay lead magnet** → nada a cambio del contacto
+
+---
+
+## Próximas mejoras recomendadas (por orden)
+
+### 1. Lead magnet + formulario email
+Una guía gratuita "Cómo elegir el sitio web ideal para tu negocio" a cambio del email. Implementar con un modal simple en Hero + página de contacto. Data en localStorage o servicio gratuito como Formspree.
 
 ### 2. Casos de éxito con métricas
-"Cliente X: su sitio web pasó de 100 a 500 visitas/día" o "chatbot Y resolvió 300 consultas en un mes". La gente compra resultados.
+Agregar 2-3 casos al portafolio con formato: logo + nombre + resultado numérico. Ej: «Clínica X: +40% consultas vía web en 3 meses».
 
-### 3. Lead magnet
-Algo como *"Guía gratuita: Cómo elegir el sitio web ideal para tu negocio"* a cambio del email. Te permite hacer follow-up.
+### 3. Analytics
+Google Analytics 4 o Plausible. Entender qué canales traen leads, qué páginas convierten, cuánto usa la gente el chatbot.
 
-### 4. Call-to-action más agresivo
-Cambiar "Ver servicios" por "Cotiza gratis" o "Quiero mi sitio web".
+### 4. Pricing page
+Página «Planes» con 3 tiers (Básico/Profesional/E-commerce) con precios y qué incluye cada uno. Filtra leads y acelera el cierre.
 
-### 5. Precios o transparencia
-Un "Planes" o "Desde $XXX" filtra clientes y evita perder tiempo con quienes no pueden pagar.
+### 5. SEO local dedicado
+Landing pages por keyword: «diseño web Talca», «página web Maule», «crear sitio web Chile». Cada una con contenido único y CTA local.
 
-### 6. Blog / SEO
-Artículos como "Cómo crear una página web para tu negocio en Talca" atraen tráfico orgánico de gente que busca exactamente eso.
-
----
-
-## ¿Estamos aprovechando bien el hype de la IA?
-
-Hay que tener cuidado aquí. Tu negocio real son **sitios web**. La IA es un añadido, no el core. El sitio no debe parecer una agencia de IA que también hace sitios, sino una **empresa de desarrollo web que además ofrece chatbots con IA**.
-
-El título actual «Productos digitales impulsados por IA» es aceptable como posicionamiento general (muestra que estás al día), pero no debería ser más específico que el subtítulo que lo aterriza en servicios concretos.
-
----
-
-## Enfoque que le daría para maximizar ventas
-
-### Estrategia
-
-1. **Hero centrado en sitios web, con chatbots como complemento natural** — un titular tipo:
-   > «Sitios web modernos + chatbots con IA»
-   > Subtítulo: «17 años creando sitios web en Talca. También chatbots inteligentes.»
-   > CTA: «Quiero mi sitio web»
-
-2. **Chatbot en el sitio → vitrina tecnológica.** No como producto estrella, sino como demo viva de que sabes hacerlo.
-
-3. **Pricing page simple** — tres planes o "desde $XXX". La gente que ve precios convierte más.
-
-4. **Casos de éxito** — logo + resultado numérico. Alternar entre sitios web y chatbots.
-
-5. **Lead capture + email** — guía gratuita de sitios web a cambio del email.
-
-6. **SEO local** — "diseño web Talca", "página web Maule", "crear sitio web Chile".
-
-### Canales de adquisición
-
-1. **Google (SEO + Ads)** — "crear pagina web", "diseño web talca", "desarrollo web chile"
-2. **WhatsApp Business** — catálogo, respuestas automáticas, difusión a contactos
-3. **Instagram** — reels de sitios entregados, tips de tecnología
-4. **Referidos** — cada cliente feliz → descuento por referido
-5. **Ferias / networking local** — Talca es ciudad chica, el boca a boca pesa
+### 6. Testimonios con foto
+Pedir a 3-5 clientes una foto selfie + frase. Ponerlas en la sección testimonios con nombre y rubro real.
 
 ---
 
 ## Conclusión
 
-El sitio está **visualmente muy sólido**, con una identidad única y ejecución técnica limpia. El talón de Aquiles es **conversión y captación**: no hay lead magnet, los CTA son débiles, no hay chatbot demo, y no hay captura de emails.
+El sitio está **mucho más sólido que en la primera revisión**. El chatbot es el cambio más impactante: no solo genera leads, sino que es una vitrina tecnológica funcionando. La limpieza de servicios, el modal premium y el prompt de ventas cerraron brechas importantes.
 
-**Nota global: 7/10 como sitio web corporativo. 5/10 como máquina de ventas.** Los cambios de mayor impacto son pequeños, concretos y no requieren rehacer nada.
+**Nota global: 8/10 como sitio web corporativo. 6.5/10 como máquina de ventas.** Los siguientes pasos (lead magnet, casos de éxito, analytics) son los que realmente van a mover la aguja en conversión.
