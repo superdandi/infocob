@@ -39,131 +39,89 @@ async function generatePdf(
   nombre: string,
   email: string
 ) {
-  const { default: jsPDF } = await import("jspdf");
-  const doc = new jsPDF({ unit: "mm", format: "a4" });
-  const brand = "#ba112a";
-  const accent = "#6ee7b7";
-  const dark = "#111827";
-
-  doc.setFillColor(11, 13, 23);
-  doc.rect(0, 0, 210, 297, "F");
-
-  doc.setFont("helvetica", "bold");
-  doc.setTextColor(255, 255, 255);
-  doc.setFontSize(24);
-  doc.text("INFOCOB", 20, 30);
-
-  doc.setFont("helvetica", "normal");
-  doc.setFontSize(10);
-  doc.setTextColor(200, 200, 200);
-  doc.text("Auditoría de sitio web", 20, 38);
-
-  doc.setFont("helvetica", "bold");
-  doc.setFontSize(18);
-  doc.setTextColor(...accent.match(/\w\w/g)!.map((h) => parseInt(h, 16)));
-  doc.text(`Puntaje: ${score}/${max}`, 20, 55);
-
   const pct = score / max;
   const label = getScoreLabel(score, max, t);
-  doc.setFontSize(14);
-  doc.setTextColor(255, 255, 255);
-  doc.text(label, 20, 65);
-
-  const barW = 170;
-  const barH = 6;
-  doc.setFillColor(55, 65, 81);
-  doc.roundedRect(20, 72, barW, barH, 2, 2, "F");
-  let barColor: [number, number, number] = [239, 68, 68];
-  if (pct >= 0.35) barColor = [249, 115, 22];
-  if (pct >= 0.6) barColor = [234, 179, 8];
-  if (pct >= 0.85) barColor = [34, 197, 94];
-  doc.setFillColor(...barColor);
-  doc.roundedRect(20, 72, barW * pct, barH, 2, 2, "F");
-
-  let y = 90;
-  doc.setFont("helvetica", "bold");
-  doc.setFontSize(12);
-  doc.setTextColor(255, 255, 255);
-  doc.text("Desglose por categoría", 20, y);
-  y += 8;
-
-  for (const cs of categoryScores) {
-    const catLabel = t(`cat-${cs.id}`);
-    doc.setFont("helvetica", "normal");
-    doc.setFontSize(9);
-    doc.setTextColor(200, 200, 200);
-    doc.text(catLabel, 20, y);
-
-    doc.setFillColor(55, 65, 81);
-    doc.roundedRect(80, y - 3, 110, 4, 1, 1, "F");
-    let cb: [number, number, number] = [239, 68, 68];
-    if (cs.pct >= 0.35) cb = [249, 115, 22];
-    if (cs.pct >= 0.6) cb = [234, 179, 8];
-    if (cs.pct >= 0.85) cb = [34, 197, 94];
-    doc.setFillColor(...cb);
-    doc.roundedRect(80, y - 3, 110 * cs.pct, 4, 1, 1, "F");
-
-    doc.setFont("helvetica", "bold");
-    doc.setFontSize(9);
-    doc.setTextColor(...cb);
-    doc.text(`${Math.round(cs.pct * 100)}%`, 195, y);
-    y += 7;
-  }
-
-  y += 5;
-  doc.setFont("helvetica", "bold");
-  doc.setFontSize(12);
-  doc.setTextColor(255, 255, 255);
-  doc.text("Áreas de mejora", 20, y);
-  y += 8;
-
   const weak = categoryScores.filter((cs) => cs.pct < 0.6);
-  if (weak.length === 0) {
-    doc.setFont("helvetica", "normal");
-    doc.setFontSize(10);
-    doc.setTextColor(34, 197, 94);
-    doc.text("¡Tu sitio está en excelente estado!", 20, y);
-  } else {
-    for (const w of weak) {
-      const catLabel = t(`cat-${w.id}`);
-      const cat = auditCategories.find((c) => c.id === w.id);
-      const service = cat ? servicios[cat.serviceIdx] : null;
-      doc.setFont("helvetica", "bold");
-      doc.setFontSize(10);
-      doc.setTextColor(...brand.match(/\w\w/g)!.map((h) => parseInt(h, 16)));
-      doc.text(`• ${catLabel}`, 20, y);
-      y += 5;
-      if (service) {
-        doc.setFont("helvetica", "normal");
-        doc.setFontSize(9);
-        doc.setTextColor(200, 200, 200);
-        doc.text(`Solución: ${service.title}`, 25, y);
-        y += 5;
-      }
-      y += 2;
-    }
-  }
 
-  y += 5;
-  if (y > 220) { doc.addPage(); y = 20; }
-  doc.setFont("helvetica", "bold");
-  doc.setFontSize(12);
-  doc.setTextColor(255, 255, 255);
-  doc.text("¿Querés mejorar tu sitio?", 20, y);
-  y += 7;
-  doc.setFont("helvetica", "normal");
-  doc.setFontSize(10);
-  doc.setTextColor(200, 200, 200);
-  doc.text("Daniel Cobos — INFOCOB Computación", 20, y); y += 5;
-  doc.text("WhatsApp: +56 9 8286 4145", 20, y); y += 5;
-  doc.text("Email: dcobosm@gmail.com", 20, y); y += 5;
-  doc.text("Talca, Chile", 20, y);
+  const bar = (p: number, color: string) =>
+    `<div style="width:100%;height:8px;background:#374151;border-radius:4px;overflow:hidden;margin:4px 0">
+      <div style="width:${p * 100}%;height:100%;background:${color};border-radius:4px"></div>
+    </div>`;
 
-  doc.setFontSize(8);
-  doc.setTextColor(100, 100, 100);
-  doc.text("Este diagnóstico es una evaluación general. Para un plan detallado con presupuesto, contactá a Daniel.", 20, 280);
+  const barColor = (p: number) =>
+    p < 0.35 ? "#ef4444" : p < 0.6 ? "#f97316" : p < 0.85 ? "#eab308" : "#22c55e";
 
-  doc.save("auditoria-infocob.pdf");
+  const weakHtml = weak.length === 0
+    ? `<p style="color:#22c55e">¡Tu sitio está en excelente estado!</p>`
+    : weak.map((w) => {
+        const cat = auditCategories.find((c) => c.id === w.id);
+        const svc = cat ? servicios[cat.serviceIdx] : null;
+        return `<div style="margin-bottom:8px">
+          <p style="color:#ba112a;font-weight:700;margin:0">• ${t(`cat-${w.id}`)}</p>
+          ${svc ? `<p style="color:#9ca3af;font-size:13px;margin:2px 0 0 24px">Solución: ${svc.title}</p>` : ""}
+        </div>`;
+      }).join("");
+
+  const catRows = categoryScores.map((cs) =>
+    `<tr>
+      <td style="padding:4px 8px;color:#9ca3af;font-size:13px">${t(`cat-${cs.id}`)}</td>
+      <td style="padding:4px 8px;width:60%">${bar(cs.pct, barColor(cs.pct))}</td>
+      <td style="padding:4px 8px;color:${barColor(cs.pct)};font-weight:700;font-size:13px;text-align:right">${Math.round(cs.pct * 100)}%</td>
+    </tr>`
+  ).join("");
+
+  const html = `<!DOCTYPE html>
+<html lang="es">
+<head><meta charset="utf-8"><title>Auditoría INFOCOB</title>
+<style>
+  *{margin:0;padding:0;box-sizing:border-box}
+  body{font-family:Helvetica,Arial,sans-serif;background:#0b0d17;color:#fff;padding:40px;max-width:210mm}
+  h1{font-size:28px;margin-bottom:4px}
+  h2{font-size:16px;margin-bottom:4px;color:#9ca3af;font-weight:400}
+  .score{font-size:22px;font-weight:700;color:#6ee7b7;margin:20px 0 4px}
+  .bar-wrap{width:100%;height:10px;background:#374151;border-radius:5px;overflow:hidden;margin:8px 0 24px}
+  .bar-fill{height:100%;border-radius:5px}
+  table{width:100%;border-collapse:collapse;margin:16px 0 24px}
+  .section-title{font-size:15px;font-weight:700;margin:20px 0 8px}
+  hr{border:none;border-top:1px solid rgba(255,255,255,.08);margin:24px 0}
+  .cta{font-size:15px;font-weight:700;margin:24px 0 8px}
+  .footer{color:#9ca3af;font-size:13px;line-height:1.6}
+  .disclaimer{color:#6b7280;font-size:10px;margin-top:32px}
+</style></head>
+<body>
+  <h1>INFOCOB</h1>
+  <h2>Auditoría de sitio web</h2>
+  <div class="score">Puntaje: ${score}/${max}</div>
+  <p style="font-size:15px;margin-bottom:4px">${label}</p>
+  <div class="bar-wrap"><div class="bar-fill" style="width:${pct * 100}%;background:${barColor(pct)}"></div></div>
+
+  <div class="section-title">Desglose por categoría</div>
+  <table>${catRows}</table>
+
+  <hr>
+  <div class="section-title">Áreas de mejora</div>
+  ${weakHtml}
+
+  <hr>
+  <div class="cta">¿Querés mejorar tu sitio?</div>
+  <div class="footer">
+    Daniel Cobos — INFOCOB Computación<br>
+    WhatsApp: +56 9 8286 4145<br>
+    Email: dcobosm@gmail.com<br>
+    Talca, Chile
+  </div>
+  <div class="disclaimer">Este diagnóstico es una evaluación general. Para un plan detallado con presupuesto, contactá a Daniel.</div>
+</body></html>`;
+
+  const blob = new Blob([html], { type: "text/html" });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement("a");
+  a.href = url;
+  a.download = "auditoria-infocob.html";
+  document.body.appendChild(a);
+  a.click();
+  document.body.removeChild(a);
+  URL.revokeObjectURL(url);
 }
 
 export default function SiteAudit() {
@@ -428,7 +386,7 @@ export default function SiteAudit() {
                 ) : pdfStatus === "success" ? (
                   <div className="text-center">
                     <div className="text-green-400 font-heading text-lg font-bold mb-2">{t("auditoria.descargar-exito")}</div>
-                    <p className="text-xs text-text-muted mb-4">auditoria-infocob.pdf</p>
+                    <p className="text-xs text-text-muted mb-4">auditoria-infocob.html</p>
                   </div>
                 ) : (
                   <>
