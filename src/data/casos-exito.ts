@@ -46,7 +46,7 @@ export const casosExito: CasoExito[] = [
     metricas: [
       { valor: "+40%", label: "Leads calificados vía web" },
       { valor: "B2B", label: "Catálogo industrial completo" },
-      { valor: "WooCommerce", label: "Integración de ventas online" },
+      { valor: "WooCommerce", label: "Ventas online integradas" },
     ],
     desafio: "Una empresa química industrial necesitaba un sitio que no solo mostrara su catálogo de productos sino que permitiera a clientes corporativos consultar disponibilidad y realizar pedidos online, algo poco común en el rubro B2B.",
     solucion: "Creamos un sitio en WordPress con WooCommerce orientado a ventas B2B, con catálogo completo de productos químicos para tratamiento de aguas, carro de compras y sistema de consultas técnicas integrado.",
@@ -69,7 +69,7 @@ export const casosExito: CasoExito[] = [
     metricas: [
       { valor: "5+ años", label: "De operación y mantención continua" },
       { valor: "Catálogo", label: "Productos visibles 24/7" },
-      { valor: "WordPress", label: "Plataforma estable y escalable" },
+      { valor: "WordPress", label: "Estable y escalable" },
     ],
     desafio: "Un growshop local necesitaba un sitio e-commerce funcional que le permitiera mostrar su catálogo de productos, gestionar stock y recibir pedidos online, con mantención continua para mantenerlo siempre actualizado.",
     solucion: "Implementamos un e-commerce en WordPress con catálogo de productos, gestión de stock y carro de compras. Desde entonces realizamos mantención periódica del sitio, actualización de productos y soporte técnico continuo.",
