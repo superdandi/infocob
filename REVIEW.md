@@ -30,24 +30,25 @@ Sí. El Hero dice «Productos digitales / impulsados por IA» con subtítulo «S
 | **Chatbot quoting** | ✅ | Prompt integra planes. Ofrece presupuesto por email (Web3Forms) o WhatsApp. |
 | **SEO local** | ✅ | 4 landing pages: diseño web Talca, desarrollo web Talca, página web Maule, crear sitio web Chile. Schema.org + meta únicos + FAQ + footer links. |
 | **Analytics (GA4)** | ✅ | Page views automáticos + 10 eventos personalizados (chat, auditoría, contacto, planes). |
+| **Casos de éxito con métricas** | ✅ | 3 fichas (Buses Villar, Acquamar, Amnesia Growshop) con métricas, desafío, solución, resultados y testimonio. Sección completa en el home con cards, grid 3 columnas, CTA al portafolio. |
 
 ### Pendiente (por impacto)
 
 | Item | Impacto | Estado |
 |---|---|---|
-| Casos de éxito con métricas | Alto | ❌ Resultados numéricos de clientes reales. Lo que más peso da en conversión. |
 | Testimonios con foto | Medio | ❌ Fotos de clientes reales con nombre y rubro. |
 
 ---
 
 ## Lo que más me gusta hoy
 
-1. **Ecosistema de captura completo** — auditoría → email + nombre → Web3Forms → tu bandeja. El lead llega calificado (respondió 30 preguntas, sabe su score, quiere mejorar).
-2. **Pricing page + chatbot quoting** — el usuario ve los planes, clickea "Cotizar con IA", el chatbot ya conoce los precios y puede recomendar el plan ideal. Si da el email, el presupuesto te llega automáticamente.
-3. **Dual-channel en formularios** — email vía Web3Forms + WhatsApp como alternativa. Nadie se pierde por falta de canal.
-4. **SEO local** — 4 landing pages con contenido único, Schema LocalBusiness, y footer links. Empiezan a sumar presencia en búsquedas locales.
-5. **GA4 tracking** — ya medimos qué funciona. Eventos en chatbot, auditoría, formulario y planes.
-6. **Chatbot multi-proveedor + prompt senior** — el sistema no se cae y el tono de ventas es consistente.
+1. **Casos de éxito con métricas** — 3 fichas completas en el home con métricas destacadas (+95% consultas, +40% leads, 5+ años), desafío, solución, resultados y testimonio integrado. Prueba social con números.
+2. **Ecosistema de captura completo** — auditoría → email + nombre → Web3Forms → tu bandeja. El lead llega calificado (respondió 30 preguntas, sabe su score, quiere mejorar).
+3. **Pricing page + chatbot quoting** — el usuario ve los planes, clickea "Cotizar con IA", el chatbot ya conoce los precios y puede recomendar el plan ideal. Si da el email, el presupuesto te llega automáticamente.
+4. **Dual-channel en formularios** — email vía Web3Forms + WhatsApp como alternativa. Nadie se pierde por falta de canal.
+5. **SEO local** — 4 landing pages con contenido único, Schema LocalBusiness, y footer links. Empiezan a sumar presencia en búsquedas locales.
+6. **GA4 tracking** — ya medimos qué funciona. Eventos en chatbot, auditoría, formulario y planes.
+7. **Chatbot multi-proveedor + prompt senior** — el sistema no se cae y el tono de ventas es consistente.
 
 ---
 
@@ -55,26 +56,18 @@ Sí. El Hero dice «Productos digitales / impulsados por IA» con subtítulo «S
 
 Subió de 7.5/10 a 9/10. Lo que cambió:
 
+- ✅ **Casos de éxito con métricas** — 3 fichas con números concretos (+95%, +40%, 5+ años)
 - ✅ **Lead capture integrado** — auditoría + Web3Forms cubren el gap de leads fríos
-- ✅ **Pricing page visible** — /planes con 3 tiers, precios, features y CTAs claros
-- ✅ **Chatbot quoting automático** — detecta plan, genera quote, lo envía por email
-- ✅ **Dual-channel en contacto** — email para leads fríos, WhatsApp para urgentes
-- ✅ **GA4 tracking** — datos para optimizar
-- ✅ **SEO local** — presencia en búsquedas locales (Talca, Maule, Chile)
 
 Todavía:
 
-- ❌ **Sin casos de éxito con números** — la prueba social más potente
 - ❌ **Sin testimonios con foto** — credibilidad visual
 
 ---
 
 ## Próximas mejoras recomendadas
 
-### 1. Casos de éxito con métricas
-Agregar 2-3 casos al portafolio con formato: logo + nombre + resultado numérico. Ej: «Clínica X: +40% consultas vía web en 3 meses». Es lo que más impacto daría hoy en conversión.
-
-### 2. Testimonios con foto
+### 1. Testimonios con foto
 Pedir a 3-5 clientes una foto selfie + frase. Ponerlas en la sección testimonios con nombre y rubro real.
 
 ---
