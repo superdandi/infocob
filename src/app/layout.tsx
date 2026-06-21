@@ -12,6 +12,7 @@ import CircuitDrawAnimation from "@/components/CircuitDrawAnimation";
 import AiChat from "@/components/AiChat";
 import Analytics from "@/components/Analytics";
 import CookieConsent from "@/components/CookieConsent";
+import ExitPopup from "@/components/ExitPopup";
 import { ThemeProvider } from "@/lib/ThemeProvider";
 import { TranslationsProvider } from "@/lib/TranslationsProvider";
 import { ChatProvider } from "@/lib/ChatContext";
@@ -88,6 +89,7 @@ export default function RootLayout({
                 <Analytics />
               </Suspense>
               <CookieConsent />
+              <ExitPopup />
             </ChatProvider>
           </TranslationsProvider>
         </ThemeProvider>

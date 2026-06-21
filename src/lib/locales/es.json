@@ -232,6 +232,14 @@
 
   "logos-clientes.title": "Empresas que confían en INFOCOB",
 
+  "exit-popup.title": "¿Te vas sin evaluar tu sitio?",
+  "exit-popup.desc": "Respondé 30 preguntas rápidas y obtené un diagnóstico completo de tu sitio web, con áreas de mejora y recomendaciones personalizadas. Gratis.",
+  "exit-popup.name": "Tu nombre",
+  "exit-popup.email": "Tu email",
+  "exit-popup.cta": "Recibir diagnóstico gratis",
+  "exit-popup.privacy": "Tus datos están seguros. No hacemos spam.",
+  "exit-popup.sent": "¡Listo! Te enviamos el diagnóstico por email.",
+
   "casos-exito.badge": "INFOCOB — Casos de éxito",
   "casos-exito.title": "Resultados que hablan",
   "casos-exito.subtitle": "Conocé el trabajo que hemos hecho para nuestros clientes. Cada proyecto es único, los resultados son reales.",

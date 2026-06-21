@@ -232,6 +232,14 @@
 
   "logos-clientes.title": "Companies that trust INFOCOB",
 
+  "exit-popup.title": "Leaving without evaluating your site?",
+  "exit-popup.desc": "Answer 30 quick questions and get a complete diagnosis of your website, with areas for improvement and personalized recommendations. Free.",
+  "exit-popup.name": "Your name",
+  "exit-popup.email": "Your email",
+  "exit-popup.cta": "Get free diagnosis",
+  "exit-popup.privacy": "Your data is safe. We don't spam.",
+  "exit-popup.sent": "Done! We'll send the diagnosis to your email.",
+
   "casos-exito.badge": "INFOCOB — Success stories",
   "casos-exito.title": "Results that speak",
   "casos-exito.subtitle": "See the work we've done for our clients. Every project is unique, the results are real.",
