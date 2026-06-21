@@ -159,9 +159,35 @@ export default function SiteAudit() {
     return { id: cat.id, pct: catTotal > 0 ? catScore / catTotal : 0 };
   });
 
+  async function sendLead() {
+    const key = process.env.NEXT_PUBLIC_WEB3FORMS_KEY;
+    if (!key || !downloadEmail) return;
+    const catBreakdown = categoryScores
+      .map((cs) => `${t(`cat-${cs.id}`)}: ${Math.round(cs.pct * 100)}%`)
+      .join("\n");
+    const weakAreas = categoryScores
+      .filter((cs) => cs.pct < 0.6)
+      .map((cs) => t(`cat-${cs.id}`))
+      .join(", ");
+    const formData = new FormData();
+    formData.append("access_key", key);
+    formData.append("subject", "Nuevo lead desde Auditoría INFOCOB");
+    formData.append("from_name", "Auditoría INFOCOB");
+    formData.append("name", downloadName);
+    formData.append("email", downloadEmail);
+    formData.append("message", `Score: ${score}/${totalPeso} (${Math.round(score / totalPeso * 100)}%)\n\nDesglose:\n${catBreakdown}\n\nÁreas débiles: ${weakAreas}`);
+    formData.append("botcheck", "");
+    try {
+      await fetch("https://api.web3forms.com/submit", { method: "POST", body: formData });
+    } catch {
+      // silent — PDF descargado es lo principal
+    }
+  }
+
   async function handleDownload() {
     try {
       await generatePdf(answers, score, totalPeso, categoryScores, t, downloadName, downloadEmail);
+      await sendLead();
       setPdfStatus("success");
     } catch {
       setPdfStatus("error");

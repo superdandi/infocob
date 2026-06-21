@@ -1,29 +1,55 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { MessageCircle, Mail, MapPin, Send } from "lucide-react";
+import { MessageCircle, Mail, MapPin, Send, Loader2 } from "lucide-react";
 import { useTranslation } from "@/lib/TranslationsProvider";
 import LogoImage from "@/components/LogoImage";
 import AnimateOnScroll from "@/components/AnimateOnScroll";
 
 export default function ContactoPage() {
   const [sent, setSent] = useState(false);
+  const [sending, setSending] = useState(false);
+  const [error, setError] = useState("");
   const { t } = useTranslation();
 
   useEffect(() => {
     document.title = t("meta.contacto");
   }, [t]);
 
-  function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
+  async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
     const form = e.currentTarget;
     const data = new FormData(form);
-    const name = data.get("name") as string;
-    const email = data.get("email") as string;
-    const message = data.get("message") as string;
+    setSending(true);
+    setError("");
+
+    try {
+      const res = await fetch("https://api.web3forms.com/submit", {
+        method: "POST",
+        body: data,
+      });
+      if (res.ok) {
+        setSent(true);
+      } else {
+        const text = await res.text().catch(() => "");
+        setError(text || "Error al enviar. Intenta de nuevo.");
+      }
+    } catch {
+      setError("Error de conexión. Intenta de nuevo.");
+    } finally {
+      setSending(false);
+    }
+  }
+
+  function handleWhatsApp(e: React.MouseEvent) {
+    e.preventDefault();
+    const form = document.getElementById("contacto-form") as HTMLFormElement;
+    const data = new FormData(form);
+    const name = (data.get("name") as string) || "";
+    const email = (data.get("email") as string) || "";
+    const message = (data.get("message") as string) || "";
     const text = `Hola INFOCOB,%0A%0ANombre: ${encodeURIComponent(name)}%0AEmail: ${encodeURIComponent(email)}%0A%0A${encodeURIComponent(message)}`;
     window.open(`https://wa.me/56982864145?text=${text}`, "_blank");
-    setSent(true);
   }
 
   return (
@@ -113,12 +139,26 @@ export default function ContactoPage() {
                   <div className="text-center py-8">
                     <Send className="w-12 h-12 text-success mx-auto mb-4" />
                     <p className="text-text font-medium mb-2">{t("contacto.form-sent-title")}</p>
-                    <p className="text-text-muted text-sm">
+                    <p className="text-text-muted text-sm mb-6">
                       {t("contacto.form-sent-desc")}
                     </p>
+                    <a
+                      href={`https://wa.me/56982864145?text=${encodeURIComponent("Hola INFOCOB, te escribí por el formulario de contacto")}`}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-accent/10 text-accent hover:bg-accent hover:text-white transition text-sm font-medium"
+                    >
+                      <MessageCircle size={16} />
+                      {t("contacto.form-urgent")}
+                    </a>
                   </div>
                 ) : (
-                  <form onSubmit={handleSubmit} className="space-y-5">
+                  <form id="contacto-form" onSubmit={handleSubmit} className="space-y-5">
+                    <input type="hidden" name="access_key" value={process.env.NEXT_PUBLIC_WEB3FORMS_KEY || ""} />
+                    <input type="hidden" name="subject" value="Nuevo mensaje desde infocob.cl" />
+                    <input type="hidden" name="from_name" value="Formulario Contacto INFOCOB" />
+                    <input type="checkbox" name="botcheck" className="hidden" style={{ display: "none" }} />
+
                     <div>
                       <label htmlFor="name" className="block text-sm font-medium text-text-muted mb-1.5">
                         {t("contacto.form-name")}
@@ -158,13 +198,33 @@ export default function ContactoPage() {
                         placeholder={t("contacto.form-placeholder-message")}
                       />
                     </div>
-                    <button
-                      type="submit"
-                      className="w-full inline-flex items-center justify-center gap-2 px-6 py-3 rounded-xl bg-accent text-bg font-semibold hover:brightness-110 transition-all duration-300 text-sm"
-                    >
-                      <Send size={16} />
-                      {t("contacto.form-submit")}
-                    </button>
+
+                    {error && (
+                      <p className="text-[11px] text-red-400">{error}</p>
+                    )}
+
+                    <div className="flex flex-col sm:flex-row gap-3">
+                      <button
+                        type="submit"
+                        disabled={sending}
+                        className="flex-1 inline-flex items-center justify-center gap-2 px-6 py-3 rounded-xl bg-accent text-bg font-semibold hover:brightness-110 disabled:opacity-50 transition-all duration-300 text-sm"
+                      >
+                        {sending ? (
+                          <Loader2 size={16} className="animate-spin" />
+                        ) : (
+                          <Send size={16} />
+                        )}
+                        {sending ? t("contacto.form-sending") : t("contacto.form-submit")}
+                      </button>
+                      <button
+                        type="button"
+                        onClick={handleWhatsApp}
+                        className="inline-flex items-center justify-center gap-2 px-6 py-3 rounded-xl glass border border-border text-text hover:bg-brand/10 hover:border-brand/20 transition-all duration-300 text-sm"
+                      >
+                        <MessageCircle size={16} />
+                        {t("contacto.form-enviar-whatsapp")}
+                      </button>
+                    </div>
                   </form>
                 )}
               </div>
