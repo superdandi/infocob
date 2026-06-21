@@ -28,7 +28,7 @@ export default function Analytics() {
       script.async = true;
       document.head.appendChild(script);
 
-      window.dataLayer = window.dataLayer || [];
+      (window as any).dataLayer = (window as any).dataLayer || [];
       function gtagInit(...args: unknown[]) { (window as any).dataLayer.push(args); }
       gtagInit("js", new Date());
       gtagInit("config", GA_ID, { send_page_view: false });
