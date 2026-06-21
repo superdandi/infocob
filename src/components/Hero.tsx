@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { MessageCircle, ArrowRight } from "lucide-react";
+import { MessageCircle, ArrowRight, BarChart3 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { useTranslation } from "@/lib/TranslationsProvider";
 import { useChat } from "@/lib/ChatContext";
@@ -45,11 +45,18 @@ export default function Hero() {
             {t("hero.cta-chat")}
           </button>
           <Link
-            href="/servicios"
+            href="/auditoria"
             className="inline-flex items-center gap-2 px-8 py-3.5 rounded-xl glass border border-border text-text hover:bg-brand/10 hover:border-brand/20 transition-all duration-300"
           >
+            <BarChart3 size={18} />
+            {t("hero.cta-auditar")}
+          </Link>
+          <Link
+            href="/servicios"
+            className="inline-flex items-center gap-2 px-8 py-3.5 rounded-xl glass border border-border text-text hover:bg-white/10 transition-all duration-300 text-sm"
+          >
             {t("hero.cta-servicios")}
-            <ArrowRight size={18} />
+            <ArrowRight size={16} />
           </Link>
         </div>
 
