@@ -35,7 +35,7 @@ Sí. El Hero dice «Productos digitales / impulsados por IA» con subtítulo «S
 | **Cookie consent (GDPR)** | ✅ | Banner con opciones Aceptar/Rechazar. GA4 solo se carga si el usuario acepta. Consentimiento guardado en localStorage. |
 | **Smooth page transitions** | ✅ | Fade-in en cada página vía `animate-fade-in` en el `<main>`. |
 | **Sticky CTA mobile** | ✅ | Botón flotante "Chat IA" (brand red) abajo a la derecha solo en mobile, abre el modal de chat. |
-| **Client logos carousel** | ✅ | Sección "Empresas que confían en INFOCOB" con 8 clientes en carrusel horizontal animado con pausa al hover. |
+| **Client logos carousel** | ✅ | Sección "Empresas que confían en INFOCOB" con 12 clientes en carrusel horizontal animado (marquee 40s, pause al hover). Solo clientes con imagen real. Orden alternado por contraste visual. |
 
 ### Pendiente (por impacto)
 
@@ -47,12 +47,12 @@ Sí. El Hero dice «Productos digitales / impulsados por IA» con subtítulo «S
 
 ## Lo que más me gusta hoy
 
-1. **Client logos carousel** — 8 logos de clientes reales en carrusel automático (pausa al hover). Prueba social visual inmediata.
+1. **Client logos carousel** — 12 logos de clientes reales en marquee continuo (pause al hover), ordenados por contraste visual. Prueba social inmediata.
 2. **Casos de éxito con métricas** — 3 fichas completas en el home con métricas destacadas (+95% consultas, +40% leads, 5+ años), desafío, solución, resultados y testimonio integrado.
-3. **Ecosistema de captura completo** — auditoría → email + nombre → Web3Forms → tu bandeja. El lead llega calificado (respondió 30 preguntas, sabe su score, quiere mejorar).
+3. **Ecosistema de captura completo** — auditoría → email + nombre → Web3Forms → tu bandeja. El lead llega calificado.
 4. **Pricing page + chatbot quoting** — el usuario ve los planes, clickea "Cotizar con IA", el chatbot ya conoce los precios.
 5. **Dual-channel en formularios** — email vía Web3Forms + WhatsApp. Nadie se pierde.
-6. **Cookie consent + GDPR** — banner con Aceptar/Rechazar. GA4 condicional. Cumplimiento legal.
+6. **Cookie consent + GDPR** — banner con Aceptar/Rechazar. GA4 condicional.
 7. **Sticky CTA mobile** — botón flotante brand red en mobile que abre el chat.
 8. **Smooth page transitions** — fade-in en cada página. Se siente más premium.
 9. **SEO local** — 4 landing pages con contenido único, Schema LocalBusiness, FAQ.
@@ -80,9 +80,31 @@ Subió de 7.5/10 a 10/10. Lo que cerró el gap:
 
 ---
 
-## Próximas mejoras recomendadas
+## Próximas mejoras recomendadas (de polish, no estructura)
 
-*(No quedan pendientes estructurales. El sitio tiene embudo completo, captura, pricing, analytics, SEO local, casos de éxito y testimonios con foto. Las próximas mejoras serían contenido: fotos reales de clientes, casos de éxito adicionales, más landing pages SEO.)*
+### Contenido
+| Item | Esfuerzo | Impacto |
+|---|---|---|
+| **Fotos reales de clientes** en testimonios | Bajo (pedir a clientes) | Alto |
+| **Más artículos de blog** (de 4 a 10+) | Medio (redactar) | Alto (tráfico orgánico) |
+| **Más landing pages SEO local** | Bajo (template existente) | Medio |
+| **Casos de éxito adicionales** | Bajo (data ya existe) | Medio |
+
+### Conversión
+| Item | Esfuerzo | Impacto |
+|---|---|---|
+| **Booking calendar** (Cal.com) para agendar llamada directa | Medio | Alto |
+| **Email automation** post-lead (Web3Forms → secuencia de 3 emails) | Alto | Alto |
+| **Exit-intent popup** con lead magnet descargable | Medio | Alto |
+
+### Técnico
+| Item | Esfuerzo | Impacto |
+|---|---|---|
+| **Sitemap.xml + RSS feed** para blog | Bajo | Medio (SEO) |
+| **Microsoft Clarity** para grabaciones de sesión | Bajo | Alto |
+| **Imágenes optimizadas** (WebP, lazy loading nativo) | Medio | Alto (Core Web Vitals) |
+| **Print styles** para blog y planes | Bajo | Bajo |
+| **Accessibility audit** (aria, focus, contraste) | Medio | Medio |
 
 ---
 
