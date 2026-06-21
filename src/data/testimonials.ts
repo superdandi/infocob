@@ -2,6 +2,7 @@ export interface Testimonial {
   quote: string;
   author: string;
   role: string;
+  photo?: string;
 }
 
 export const testimonials: Testimonial[] = [

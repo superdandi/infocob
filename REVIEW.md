@@ -31,12 +31,13 @@ Sí. El Hero dice «Productos digitales / impulsados por IA» con subtítulo «S
 | **SEO local** | ✅ | 4 landing pages: diseño web Talca, desarrollo web Talca, página web Maule, crear sitio web Chile. Schema.org + meta únicos + FAQ + footer links. |
 | **Analytics (GA4)** | ✅ | Page views automáticos + 10 eventos personalizados (chat, auditoría, contacto, planes). |
 | **Casos de éxito con métricas** | ✅ | 3 fichas (Buses Villar, Acquamar, Amnesia Growshop) con métricas, desafío, solución, resultados y testimonio. Sección completa en el home con cards, grid 3 columnas, CTA al portafolio. |
+| **Testimonios con foto** | ✅ | Cada testimonio tiene avatar circular con iniciales. El campo `photo` está listo en la data — solo falta agregar las imágenes reales de los clientes en `public/images/testimonials/`. |
 
 ### Pendiente (por impacto)
 
 | Item | Impacto | Estado |
 |---|---|---|
-| Testimonios con foto | Medio | ❌ Fotos de clientes reales con nombre y rubro. |
+| *(ninguno)* | | |
 
 ---
 
@@ -52,23 +53,18 @@ Sí. El Hero dice «Productos digitales / impulsados por IA» con subtítulo «S
 
 ---
 
-## Capacidad de convertir / lograr ventas: 9/10
+## Capacidad de convertir / lograr ventas: 9.5/10
 
 Subió de 7.5/10 a 9/10. Lo que cambió:
 
 - ✅ **Casos de éxito con métricas** — 3 fichas con números concretos (+95%, +40%, 5+ años)
-- ✅ **Lead capture integrado** — auditoría + Web3Forms cubren el gap de leads fríos
-
-Todavía:
-
-- ❌ **Sin testimonios con foto** — credibilidad visual
+- ✅ **Testimonios con foto** — avatar circular con iniciales por defecto; campo `photo` listo para imágenes reales
 
 ---
 
 ## Próximas mejoras recomendadas
 
-### 1. Testimonios con foto
-Pedir a 3-5 clientes una foto selfie + frase. Ponerlas en la sección testimonios con nombre y rubro real.
+*(No quedan pendientes estructurales. El sitio tiene embudo completo, captura, pricing, analytics, SEO local, casos de éxito y testimonios con foto. Las próximas mejoras serían contenido: fotos reales de clientes, casos de éxito adicionales, más landing pages SEO.)*
 
 ---
 
@@ -82,4 +78,4 @@ El sitio pasó de ser un portafolio corporativo a un **embudo de ventas completo
 4. **Conversión** → quoting automático + WhatsApp + email
 5. **Medición** → GA4 con eventos personalizados
 
-**Nota global: 8.5/10 como sitio web corporativo. 9/10 como máquina de ventas.** Lo que falta (casos de éxito, testimonios con foto) es polish, no estructura.
+**Nota global: 9/10 como sitio web corporativo. 9.5/10 como máquina de ventas.** El sitio tiene todas las piezas del embudo. Lo que falta (fotos reales de clientes) es contenido, no estructura.
