@@ -6,10 +6,12 @@ import { cn } from "@/lib/utils";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import WhatsAppFloat from "@/components/WhatsAppFloat";
+import StickyCtaMobile from "@/components/StickyCtaMobile";
 import HoverSound from "@/components/HoverSound";
 import CircuitDrawAnimation from "@/components/CircuitDrawAnimation";
 import AiChat from "@/components/AiChat";
 import Analytics from "@/components/Analytics";
+import CookieConsent from "@/components/CookieConsent";
 import { ThemeProvider } from "@/lib/ThemeProvider";
 import { TranslationsProvider } from "@/lib/TranslationsProvider";
 import { ChatProvider } from "@/lib/ChatContext";
@@ -76,14 +78,16 @@ export default function RootLayout({
             <ChatProvider>
               <Navbar />
               <CircuitDrawAnimation />
-              <main className="flex-1 relative z-10">{children}</main>
+              <main className="flex-1 relative z-10 animate-fade-in">{children}</main>
               <Footer />
               <WhatsAppFloat />
+              <StickyCtaMobile />
               <HoverSound />
               <AiChat />
               <Suspense fallback={null}>
                 <Analytics />
               </Suspense>
+              <CookieConsent />
             </ChatProvider>
           </TranslationsProvider>
         </ThemeProvider>
