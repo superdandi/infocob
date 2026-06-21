@@ -6,6 +6,12 @@ import { useTranslation } from "@/lib/TranslationsProvider";
 import LogoImage from "@/components/LogoImage";
 import AnimateOnScroll from "@/components/AnimateOnScroll";
 
+function gaTrack(action: string, p?: Record<string, string | number | boolean>) {
+  if (typeof window !== "undefined" && typeof (window as any).gtag === "function") {
+    (window as any).gtag("event", action, p);
+  }
+}
+
 export default function ContactoPage() {
   const [sent, setSent] = useState(false);
   const [sending, setSending] = useState(false);
@@ -30,6 +36,7 @@ export default function ContactoPage() {
       });
       if (res.ok) {
         setSent(true);
+        gaTrack("contact_form_submit", { channel: "email" });
       } else {
         const text = await res.text().catch(() => "");
         setError(text || "Error al enviar. Intenta de nuevo.");
@@ -43,6 +50,7 @@ export default function ContactoPage() {
 
   function handleWhatsApp(e: React.MouseEvent) {
     e.preventDefault();
+    gaTrack("contact_form_submit", { channel: "whatsapp" });
     const form = document.getElementById("contacto-form") as HTMLFormElement;
     const data = new FormData(form);
     const name = (data.get("name") as string) || "";

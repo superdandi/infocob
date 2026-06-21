@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { Suspense } from "react";
 import { Inter, Plus_Jakarta_Sans, JetBrains_Mono } from "next/font/google";
 import "./globals.css";
 import { cn } from "@/lib/utils";
@@ -8,6 +9,7 @@ import WhatsAppFloat from "@/components/WhatsAppFloat";
 import HoverSound from "@/components/HoverSound";
 import CircuitDrawAnimation from "@/components/CircuitDrawAnimation";
 import AiChat from "@/components/AiChat";
+import Analytics from "@/components/Analytics";
 import { ThemeProvider } from "@/lib/ThemeProvider";
 import { TranslationsProvider } from "@/lib/TranslationsProvider";
 import { ChatProvider } from "@/lib/ChatContext";
@@ -79,6 +81,9 @@ export default function RootLayout({
               <WhatsAppFloat />
               <HoverSound />
               <AiChat />
+              <Suspense fallback={null}>
+                <Analytics />
+              </Suspense>
             </ChatProvider>
           </TranslationsProvider>
         </ThemeProvider>

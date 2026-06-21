@@ -6,6 +6,12 @@ import { cn } from "@/lib/utils";
 import { useTranslation } from "@/lib/TranslationsProvider";
 import { useChat } from "@/lib/ChatContext";
 
+function gaTrack(action: string) {
+  if (typeof window !== "undefined" && typeof (window as any).gtag === "function") {
+    (window as any).gtag("event", action);
+  }
+}
+
 export default function Hero() {
   const { t } = useTranslation();
   const { setOpen } = useChat();
@@ -38,7 +44,7 @@ export default function Hero() {
 
         <div className="flex flex-col sm:flex-row items-center justify-center gap-4 animate-fade-up">
           <button
-            onClick={() => setOpen(true)}
+            onClick={() => { setOpen(true); gaTrack("hero_chat_cta"); }}
             className="inline-flex items-center gap-2 px-8 py-3.5 rounded-xl bg-accent text-bg font-semibold hover:brightness-110 transition-all duration-300 shadow-lg shadow-accent/20"
           >
             <MessageCircle size={18} />
@@ -46,6 +52,7 @@ export default function Hero() {
           </button>
           <Link
             href="/auditoria"
+            onClick={() => gaTrack("hero_audit_cta")}
             className="inline-flex items-center gap-2 px-8 py-3.5 rounded-xl glass border border-border text-text hover:bg-brand/10 hover:border-brand/20 transition-all duration-300"
           >
             <BarChart3 size={18} />

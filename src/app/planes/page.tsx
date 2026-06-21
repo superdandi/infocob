@@ -7,6 +7,12 @@ import { useTranslation } from "@/lib/TranslationsProvider";
 import { useChat } from "@/lib/ChatContext";
 import AnimateOnScroll from "@/components/AnimateOnScroll";
 
+function gaTrack(action: string, p?: Record<string, string | number | boolean>) {
+  if (typeof window !== "undefined" && typeof (window as any).gtag === "function") {
+    (window as any).gtag("event", action, p);
+  }
+}
+
 function formatPrice(n: number) {
   return "$" + n.toLocaleString("es-CL");
 }
@@ -64,7 +70,7 @@ function PlanCard({ plan }: { plan: Plan }) {
 
       <div className="flex flex-col gap-2">
         <button
-          onClick={() => setOpen(true)}
+          onClick={() => { setOpen(true); gaTrack("plan_chat_cta", { plan: plan.id }); }}
           className="w-full inline-flex items-center justify-center gap-2 px-5 py-3 rounded-xl bg-accent text-bg font-semibold hover:brightness-110 transition-all duration-300 text-sm"
         >
           <Sparkles size={15} />
@@ -127,7 +133,7 @@ export default function PlanesPage() {
               {t("planes.no-encuentras-desc")}
             </p>
             <button
-              onClick={() => setOpen(true)}
+              onClick={() => { setOpen(true); gaTrack("planes_personalizado_cta"); }}
               className="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-accent text-bg font-semibold hover:brightness-110 transition-all duration-300 text-sm"
             >
               {t("planes.cta-personalizado")}

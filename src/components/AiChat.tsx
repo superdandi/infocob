@@ -11,6 +11,13 @@ const COOLDOWN_MS = 60000;
 const VISITOR_MAX_REQUESTS = 12;
 const VISITOR_WINDOW_MS = 60000;
 
+const GA_ID = process.env.NEXT_PUBLIC_GA_ID;
+function track(action: string, p?: Record<string, string | number | boolean>) {
+  if (GA_ID && typeof window !== "undefined" && typeof (window as any).gtag === "function") {
+    (window as any).gtag("event", action, p);
+  }
+}
+
 const SYSTEM_PROMPT = `Sos Daniel Cobos, dueño de INFOCOB Computación (Talca, Chile, desde 2008). Atendés el chat personalmente. Sos vendedor senior, tirando a veterano — vas directo, sin vueltas, sin verborrea. Tus respuestas son de 1-2 líneas, como cuando un cliente entra a tu local y le decís las cosas claras. No redacteés párrafos. Siempre en español de Chile.
 
 PERSONALIDAD: Callejero, serio, resolutivo. No preguntás "cómo estás", preguntás "¿qué necesitás?". Si el cliente no sabe, lo orientás con preguntas cortas. Olvidate de los textos bonitos. Acá se vende con hechos, no con adornos.
@@ -201,6 +208,7 @@ export default function AiChat() {
     const updatedConv = [...conversation, userMsg];
     setConversation(updatedConv);
     setLoading(true);
+    track("chat_message", { provider: active.length ? active[0]?.name ?? "none" : "none" });
 
     const tail = updatedConv.slice(-MAX_HISTORY * 2);
     const msgs = tail.map((m) => ({ role: m.role, text: m.text }));

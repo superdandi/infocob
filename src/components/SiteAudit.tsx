@@ -6,6 +6,12 @@ import { useTranslation } from "@/lib/TranslationsProvider";
 import { auditCategories } from "@/data/audit";
 import { servicios } from "@/data/services";
 
+function gaTrack(action: string, p?: Record<string, string | number | boolean>) {
+  if (typeof window !== "undefined" && typeof (window as any).gtag === "function") {
+    (window as any).gtag("event", action, p);
+  }
+}
+
 type Answers = Record<string, boolean>;
 
 function getScoreLabel(score: number, max: number, t: (k: string) => string) {
@@ -188,6 +194,7 @@ export default function SiteAudit() {
     try {
       await generatePdf(answers, score, totalPeso, categoryScores, t, downloadName, downloadEmail);
       await sendLead();
+      gaTrack("audit_pdf_download", { score, max: totalPeso, pct: Math.round(score / totalPeso * 100) });
       setPdfStatus("success");
     } catch {
       setPdfStatus("error");
@@ -223,7 +230,7 @@ export default function SiteAudit() {
               ))}
             </div>
             <button
-              onClick={() => setStep("quiz")}
+              onClick={() => { setStep("quiz"); gaTrack("audit_start"); }}
               className="inline-flex items-center gap-2 px-8 py-3.5 rounded-xl bg-accent text-bg font-semibold hover:brightness-110 transition-all duration-300 shadow-lg shadow-accent/20"
             >
               {t("auditoria.empezar")}
@@ -376,6 +383,7 @@ export default function SiteAudit() {
                   href={`https://wa.me/56982864145?text=${encodeURIComponent("Hola Daniel, hice la auditoría de mi sitio. Saqué " + score + "/" + totalPeso + ". ¿Podemos verlo juntos?")}`}
                   target="_blank"
                   rel="noopener noreferrer"
+                  onClick={() => gaTrack("audit_whatsapp_cta", { score, max: totalPeso })}
                   className="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-accent text-bg font-medium hover:brightness-110 transition text-sm"
                 >
                   {t("auditoria.resultado-whatsapp")}
