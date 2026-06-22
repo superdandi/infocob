@@ -1,23 +1,16 @@
 "use client";
 
-import { ArrowRight, Eye, Bot } from "lucide-react";
+import { ArrowRight, MessageCircle } from "lucide-react";
 import Link from "next/link";
 import { getIcon } from "@/data/icons";
 import { servicios, type Service } from "@/data/services";
 import { useTranslation } from "@/lib/TranslationsProvider";
-import { useChat } from "@/lib/ChatContext";
 
 function ServiceCard({ service, index }: { service: Service; index: number }) {
   const { t } = useTranslation();
-  const { setOpen, setPresetMessage } = useChat();
   const Icon = getIcon(service.icon);
   const title = t(`servicio-${index}-title`);
   const desc = t(`servicio-${index}-desc`);
-
-  function handleChat() {
-    setPresetMessage(`Hola, quiero cotizar un servicio de ${title}.`);
-    setOpen(true);
-  }
 
   return (
     <div className="glass-card p-6 sm:p-8 glow-border group transition-all duration-300 hover:translate-y-[-2px] border-t-2 border-t-brand/20">
@@ -36,23 +29,15 @@ function ServiceCard({ service, index }: { service: Service; index: number }) {
           ))}
         </ul>
       )}
-      <div className="flex flex-wrap gap-3">
-        <a
-          href={`/servicios#servicio-${index}`}
-          className="inline-flex items-center gap-2 px-4 py-2 rounded-xl glass border border-border text-text hover:bg-white/10 hover:border-brand/20 transition-all duration-300 text-sm cursor-pointer"
-        >
-          <Eye size={14} />
-          {t("servicios-home.ver-detalle")}
-        </a>
-        <button
-          type="button"
-          onClick={handleChat}
-          className="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-accent text-bg font-medium hover:brightness-110 transition-all duration-300 text-sm cursor-pointer"
-        >
-          <Bot size={14} />
-          {t("servicios-home.chat-ia")}
-        </button>
-      </div>
+      <a
+        href={`https://wa.me/56982864145?text=${encodeURIComponent(t("whatsapp.cotizar", { title }))}`}
+        target="_blank"
+        rel="noopener noreferrer"
+        className="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-accent text-bg font-medium hover:brightness-110 transition-all duration-300 text-sm"
+      >
+        <MessageCircle size={14} />
+        {t("servicios-home.cotizar")}
+      </a>
     </div>
   );
 }
