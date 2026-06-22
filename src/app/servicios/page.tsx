@@ -36,6 +36,7 @@ export default function ServiciosPage() {
             return (
               <AnimateOnScroll key={service.title}>
                 <div
+                  id={`servicio-${i}`}
                   className="glass-card p-8 sm:p-10 grid grid-cols-1 md:grid-cols-5 gap-8 border-t-2 border-t-brand/20 group"
                 >
                   <div className="md:col-span-2">

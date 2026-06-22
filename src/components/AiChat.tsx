@@ -125,7 +125,7 @@ async function callOpenRouter(messages: { role: string; text: string }[], key: s
 const providerCalls: Record<string, typeof callGemini> = { Gemini: callGemini, Groq: callGroq, OpenRouter: callOpenRouter };
 
 export default function AiChat() {
-  const { open, setOpen } = useChat();
+  const { open, setOpen, presetMessage, setPresetMessage } = useChat();
   const [conversation, setConversation] = useState<Message[]>([]);
   const [loaded, setLoaded] = useState(false);
   const [input, setInput] = useState("");
@@ -137,6 +137,11 @@ export default function AiChat() {
   const endRef = useRef<HTMLDivElement>(null);
   const visitorTimestamps = useRef<number[]>([]);
   const panelRef = useRef<HTMLDivElement>(null);
+  const sentPreset = useRef(false);
+  const conversationRef = useRef(conversation);
+  const loadingRef = useRef(loading);
+  useEffect(() => { conversationRef.current = conversation; }, [conversation]);
+  useEffect(() => { loadingRef.current = loading; }, [loading]);
 
   useEffect(() => {
     const tick = setInterval(() => {
@@ -173,6 +178,17 @@ export default function AiChat() {
   }, [open]);
 
   useEffect(() => {
+    if (!open || !presetMessage || sentPreset.current) return;
+    sentPreset.current = true;
+    const msg = presetMessage;
+    setPresetMessage(null);
+    const userMsg: Message = { role: "user", text: msg };
+    setConversation((prev) => [...prev, userMsg]);
+    setInput("");
+    setTimeout(() => sendMessage(msg), 50);
+  }, [open, presetMessage, setPresetMessage, sendMessage]);
+
+  useEffect(() => {
     function handleKey(e: KeyboardEvent) {
       if (e.key === "Escape" && open) setOpen(false);
     }
@@ -185,9 +201,9 @@ export default function AiChat() {
     try { localStorage.removeItem(STORAGE_KEY); } catch { /* ignore */ }
   }
 
-  const sendMessage = useCallback(async () => {
-    const text = input.trim();
-    if (!text || loading) return;
+  const sendMessage = useCallback(async (overrideText?: string) => {
+    const text = (overrideText ?? input).trim();
+    if (!text || loadingRef.current) return;
     if (Date.now() - lastReq.current < RATE_LIMIT_MS) {
       setError("Esperá un momento antes de enviar otro mensaje.");
       return;
@@ -205,7 +221,7 @@ export default function AiChat() {
     setError(null);
     setActiveProvider(null);
     const userMsg: Message = { role: "user", text };
-    const updatedConv = [...conversation, userMsg];
+    const updatedConv = [...conversationRef.current, userMsg];
     setConversation(updatedConv);
     setLoading(true);
 

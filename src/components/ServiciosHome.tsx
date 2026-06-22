@@ -1,18 +1,24 @@
 "use client";
 
-import { ArrowRight, MessageCircle } from "lucide-react";
+import { ArrowRight, Eye, Bot } from "lucide-react";
 import Link from "next/link";
 import { getIcon } from "@/data/icons";
 import { servicios, type Service } from "@/data/services";
 import { useTranslation } from "@/lib/TranslationsProvider";
+import { useChat } from "@/lib/ChatContext";
 
 function ServiceCard({ service, index }: { service: Service; index: number }) {
   const { t } = useTranslation();
+  const { setOpen, setPresetMessage } = useChat();
   const Icon = getIcon(service.icon);
   const title = t(`servicio-${index}-title`);
   const desc = t(`servicio-${index}-desc`);
-  const msg = t("whatsapp.cotizar", { title });
-  const whatsappUrl = `https://wa.me/56982864145?text=${encodeURIComponent(msg)}`;
+
+  function handleChat() {
+    setPresetMessage(`Hola, quiero cotizar un servicio de ${title}.`);
+    setOpen(true);
+  }
+
   return (
     <div className="glass-card p-6 sm:p-8 glow-border group transition-all duration-300 hover:translate-y-[-2px] border-t-2 border-t-brand/20">
       <div className="w-12 h-12 rounded-xl bg-accent/10 group-hover:bg-brand/10 flex items-center justify-center mb-5 transition-colors duration-300">
@@ -30,15 +36,22 @@ function ServiceCard({ service, index }: { service: Service; index: number }) {
           ))}
         </ul>
       )}
-      <a
-        href={whatsappUrl}
-        target="_blank"
-        rel="noopener noreferrer"
-        className="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-accent/10 text-accent font-medium hover:bg-accent hover:text-white transition-all duration-300 text-sm"
-      >
-        <MessageCircle size={14} />
-        {t("servicios-home.cotizar")}
-      </a>
+      <div className="flex flex-wrap gap-3">
+        <Link
+          href={`/servicios#servicio-${index}`}
+          className="inline-flex items-center gap-2 px-4 py-2 rounded-xl glass border border-border text-text hover:bg-white/10 hover:border-brand/20 transition-all duration-300 text-sm cursor-pointer"
+        >
+          <Eye size={14} />
+          {t("servicios-home.ver-detalle")}
+        </Link>
+        <button
+          onClick={handleChat}
+          className="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-accent text-bg font-medium hover:brightness-110 transition-all duration-300 text-sm cursor-pointer"
+        >
+          <Bot size={14} />
+          {t("servicios-home.chat-ia")}
+        </button>
+      </div>
     </div>
   );
 }
