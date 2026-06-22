@@ -123,40 +123,49 @@ Línea horizontal tenue que barre la pantalla en 8s, al 5% de opacidad blanca
 
 ### Cards de servicios
 - Glass card con ícono grande (lucide) y título
-- Efecto hover: glow sutil en borde
-- CTA "Cotizar" o "Ver más"
+- Efecto hover: glow sutil en borde (`::before` con `pointer-events: none`)
+- 2 CTAs: WhatsApp (cotizar) + Ver detalle (navegar a servicio específico)
 
 ## Arquitectura del Sitio
 
 | Ruta | Página | Propósito |
 |---|---|---|
-| `/` | Inicio | Hero + servicios principales + CTA contacto |
-| `/servicios` | Servicios | Desarrollo web, IA, productos digitales |
-| `/portafolio` | Portafolio | Proyectos (se llena cuando haya casos) |
-| `/sobre-mi` | Sobre mí | Historia, valores, misión, visión (contenido original) |
-| `/contacto` | Contacto | Formulario + WhatsApp + email + ubicación |
+| `/` | Inicio | Hero + ClientesCarousel + Servicios (4 cards) + CasosExito + Testimonios + CTA |
+| `/servicios` | Servicios | Desarrollo web, IA, productos digitales, consultoría, soporte |
+| `/planes` | Planes | Precios (Básico $250K, Profesional $450K, E-commerce $700K) |
+| `/portafolio` | Portafolio | Galería de proyectos |
+| `/auditoria` | Auditoría | SiteAudit interactivo 30 preguntas |
+| `/blog` | Blog | 4 artículos SEO con listado + detalle |
+| `/contacto` | Contacto | Formulario dual (Web3Forms + WhatsApp) |
+| `/sobre-mi` | Sobre mí | Historia, valores, misión, visión (desde 2008) |
+| `/zona/[slug]` | SEO Local | Landing pages SEO con Schema LocalBusiness |
 
 ## Stack Tecnológico
 
 | Tecnología | Versión | Propósito |
 |---|---|---|
-| Next.js | ^15.2.0 | SSG (output: export) |
-| React | ^19.0.0 | UI |
-| TypeScript | ^5.7.0 | Tipado |
-| Tailwind CSS | ^4.1.0 | Estilos |
-| shadcn/ui | ^4.11.0 | Componentes base |
-| lucide-react | ^1.18.0 | Iconos |
-| GitHub Pages | — | Hosting |
-| GitHub Actions | — | CI/CD |
+| Next.js | 16.2.9 | Framework React, SSG (output: export) |
+| React | 19.2.4 | UI |
+| TypeScript | ^5 | Tipado |
+| Tailwind CSS | ^4 | Estilos utilitarios |
+| lucide-react | ^1.20.0 | Iconos |
+| class-variance-authority | ^0.7.1 | Variantes de componentes |
+| tailwind-merge | ^3.6.0 | Fusión de clases Tailwind |
+| GitHub Pages | — | Hosting estático |
+| GitHub Actions | — | CI/CD (deploy automático) |
 
 ## Estrategia Revenue
 
-1. **Lead magnets**: Cada servicio tiene CTA directo a WhatsApp
-2. **WhatsApp flotante**: Siempre visible, botón verde fijo
-3. **Formulario de contacto**: Con captura de datos básicos
-4. **Contenido de autoridad**: Sección Sobre Mí con historia real (desde 2008)
-5. **SEO**: Meta tags por página, Open Graph, estructura semántica
-6. **Velocidad**: SSG → carga instantánea, mejora conversión
+1. **Lead magnets**: Auditoría de sitio web (30 preguntas) captura email + nombre → Web3Forms
+2. **Chatbot IA multi-proveedor**: Prompt de ventas senior con quoting integrado
+3. **WhatsApp flotante**: Siempre visible, botón verde fijo
+4. **Formulario dual**: Web3Forms (email) + WhatsApp
+5. **CTA agresivo**: Hero dual (chat + auditoría) + cada servicio con WhatsApp + cada plan con CTA a chat
+6. **Pricing page**: Planes visibles con desglose ($250K–$700K)
+7. **Contenido de autoridad**: Sobre Mí con historia real (desde 2008), blog SEO
+8. **SEO**: Meta tags, Open Graph, Schema local, landing pages, blog
+9. **Velocidad**: SSG → carga instantánea, mejora conversión
+10. **GDPR compliance**: Cookie consent banner + GA4 condicional
 
 ---
 

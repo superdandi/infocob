@@ -36,6 +36,9 @@ Sí. El Hero dice «Productos digitales / impulsados por IA» con subtítulo «S
 | **Smooth page transitions** | ✅ | Fade-in en cada página vía `animate-fade-in` en el `<main>`. |
 | **Sticky CTA mobile** | ✅ | Botón flotante "Chat IA" (brand red) abajo a la derecha solo en mobile, abre el modal de chat. |
 | **Client logos carousel** | ✅ | Sección "Empresas que confían en INFOCOB" con 12 clientes en carrusel horizontal animado (marquee 40s, pause al hover). Solo clientes con imagen real. Orden alternado por contraste visual. |
+| **Service card buttons home** | ✅ | 2 botones por tarjeta: WhatsApp (`window.open()`) + Ver detalle (Link a `/servicios#servicio-{index}`). Fix raíz: `pointer-events: none` en `.glow-border::before`. |
+| **AnimationToggle localStorage** | ✅ | `try/catch` en acceso a localStorage para evitar crash en modos privados. |
+| **Testimonios con foto** | ✅ | Campo `photo` listo en la data. Solo falta agregar imágenes reales en `public/images/testimonials/`. |
 
 ### Pendiente (por impacto)
 
