@@ -178,17 +178,6 @@ export default function AiChat() {
   }, [open]);
 
   useEffect(() => {
-    if (!open || !presetMessage || sentPreset.current) return;
-    sentPreset.current = true;
-    const msg = presetMessage;
-    setPresetMessage(null);
-    const userMsg: Message = { role: "user", text: msg };
-    setConversation((prev) => [...prev, userMsg]);
-    setInput("");
-    setTimeout(() => sendMessage(msg), 50);
-  }, [open, presetMessage, setPresetMessage, sendMessage]);
-
-  useEffect(() => {
     function handleKey(e: KeyboardEvent) {
       if (e.key === "Escape" && open) setOpen(false);
     }
@@ -278,6 +267,17 @@ export default function AiChat() {
     setActiveProvider(null);
     setLoading(false);
   }, [input, loading, conversation]);
+
+  useEffect(() => {
+    if (!open || !presetMessage || sentPreset.current) return;
+    sentPreset.current = true;
+    const msg = presetMessage;
+    setPresetMessage(null);
+    const userMsg: Message = { role: "user", text: msg };
+    setConversation((prev) => [...prev, userMsg]);
+    setInput("");
+    setTimeout(() => sendMessage(msg), 50);
+  }, [open, presetMessage, setPresetMessage, sendMessage]);
 
   const displayMessages: Message[] = [
     { role: "model", text: "👋 ¡Hola! Soy el asistente virtual de INFOCOB. Preguntame sobre desarrollo web, chatbots con IA, productos digitales o cualquier servicio." },
