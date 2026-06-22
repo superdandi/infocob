@@ -41,7 +41,7 @@ export default function CasosExito() {
               <div className="grid grid-cols-3 gap-3 mb-6">
                 {caso.metricas.map((m) => (
                   <div key={m.label} className="text-center">
-                    <p className="text-lg sm:text-xl font-bold text-brand">
+                    <p className="text-lg sm:text-xl font-bold text-brand truncate">
                       {m.valor}
                     </p>
                     <p className="text-[10px] sm:text-xs text-text-muted leading-tight mt-0.5">
