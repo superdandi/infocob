@@ -11,6 +11,7 @@ function ServiceCard({ service, index }: { service: Service; index: number }) {
   const Icon = getIcon(service.icon);
   const title = t(`servicio-${index}-title`);
   const desc = t(`servicio-${index}-desc`);
+  const whatsappUrl = `https://wa.me/56982864145?text=${encodeURIComponent(t("whatsapp.cotizar", { title }))}`;
 
   return (
     <div className="glass-card p-6 sm:p-8 glow-border group transition-all duration-300 hover:translate-y-[-2px] border-t-2 border-t-brand/20">
@@ -29,15 +30,16 @@ function ServiceCard({ service, index }: { service: Service; index: number }) {
           ))}
         </ul>
       )}
-      <a
-        href={`https://wa.me/56982864145?text=${encodeURIComponent(t("whatsapp.cotizar", { title }))}`}
-        target="_blank"
-        rel="noopener noreferrer"
-        className="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-accent text-bg font-medium hover:brightness-110 transition-all duration-300 text-sm"
+      <button
+        type="button"
+        onClick={() => {
+          window.open(whatsappUrl, '_blank', 'noopener,noreferrer');
+        }}
+        className="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-accent text-bg font-medium hover:brightness-110 transition-all duration-300 text-sm cursor-pointer"
       >
         <MessageCircle size={14} />
         {t("servicios-home.cotizar")}
-      </a>
+      </button>
     </div>
   );
 }
