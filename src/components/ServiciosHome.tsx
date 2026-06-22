@@ -1,6 +1,6 @@
 "use client";
 
-import { ArrowRight, MessageCircle } from "lucide-react";
+import { ArrowRight, Eye, MessageCircle } from "lucide-react";
 import Link from "next/link";
 import { getIcon } from "@/data/icons";
 import { servicios, type Service } from "@/data/services";
@@ -30,16 +30,25 @@ function ServiceCard({ service, index }: { service: Service; index: number }) {
           ))}
         </ul>
       )}
-      <button
-        type="button"
-        onClick={() => {
-          window.open(whatsappUrl, '_blank', 'noopener,noreferrer');
-        }}
-        className="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-accent text-bg font-medium hover:brightness-110 transition-all duration-300 text-sm cursor-pointer"
-      >
-        <MessageCircle size={14} />
-        {t("servicios-home.cotizar")}
-      </button>
+      <div className="flex flex-wrap gap-3">
+        <button
+          type="button"
+          onClick={() => {
+            window.open(whatsappUrl, '_blank', 'noopener,noreferrer');
+          }}
+          className="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-accent text-bg font-medium hover:brightness-110 transition-all duration-300 text-sm cursor-pointer"
+        >
+          <MessageCircle size={14} />
+          {t("servicios-home.cotizar")}
+        </button>
+        <Link
+          href={`/servicios#servicio-${index}`}
+          className="inline-flex items-center gap-2 px-4 py-2 rounded-xl glass border border-border text-text hover:bg-white/10 hover:border-brand/20 transition-all duration-300 text-sm font-medium cursor-pointer"
+        >
+          <Eye size={14} />
+          {t("servicios-home.ver-detalle")}
+        </Link>
+      </div>
     </div>
   );
 }
