@@ -37,7 +37,7 @@ export default function ServiciosPage() {
               <AnimateOnScroll key={service.title}>
                 <div
                   id={`servicio-${i}`}
-                  className="glass-card p-8 sm:p-10 grid grid-cols-1 md:grid-cols-5 gap-8 border-t-2 border-t-brand/20 group"
+                  className="glass-card p-8 sm:p-10 grid grid-cols-1 md:grid-cols-5 gap-8 border-t-2 border-t-brand/20 group scroll-mt-20"
                 >
                   <div className="md:col-span-2">
                     <div className="w-14 h-14 rounded-xl bg-accent/10 group-hover:bg-brand/10 flex items-center justify-center mb-5 transition-colors duration-300">

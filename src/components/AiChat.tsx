@@ -273,10 +273,7 @@ export default function AiChat() {
     sentPreset.current = true;
     const msg = presetMessage;
     setPresetMessage(null);
-    const userMsg: Message = { role: "user", text: msg };
-    setConversation((prev) => [...prev, userMsg]);
-    setInput("");
-    setTimeout(() => sendMessage(msg), 50);
+    sendMessage(msg);
   }, [open, presetMessage, setPresetMessage, sendMessage]);
 
   const displayMessages: Message[] = [

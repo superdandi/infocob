@@ -1,7 +1,6 @@
 "use client";
 
 import { ArrowRight, Eye, Bot } from "lucide-react";
-import Link from "next/link";
 import { getIcon } from "@/data/icons";
 import { servicios, type Service } from "@/data/services";
 import { useTranslation } from "@/lib/TranslationsProvider";
@@ -37,14 +36,15 @@ function ServiceCard({ service, index }: { service: Service; index: number }) {
         </ul>
       )}
       <div className="flex flex-wrap gap-3">
-        <Link
+        <a
           href={`/servicios#servicio-${index}`}
           className="inline-flex items-center gap-2 px-4 py-2 rounded-xl glass border border-border text-text hover:bg-white/10 hover:border-brand/20 transition-all duration-300 text-sm cursor-pointer"
         >
           <Eye size={14} />
           {t("servicios-home.ver-detalle")}
-        </Link>
+        </a>
         <button
+          type="button"
           onClick={handleChat}
           className="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-accent text-bg font-medium hover:brightness-110 transition-all duration-300 text-sm cursor-pointer"
         >
