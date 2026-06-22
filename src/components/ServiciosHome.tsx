@@ -1,6 +1,7 @@
 "use client";
 
 import { ArrowRight, Eye, Bot } from "lucide-react";
+import Link from "next/link";
 import { getIcon } from "@/data/icons";
 import { servicios, type Service } from "@/data/services";
 import { useTranslation } from "@/lib/TranslationsProvider";
