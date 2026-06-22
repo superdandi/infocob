@@ -9,15 +9,16 @@ export default function AnimationToggle() {
   const [motion, setMotion] = useState<MotionState>("auto");
 
   useEffect(() => {
-    const stored = localStorage.getItem("infocob-motion") as MotionState | null;
-    if (stored === "disabled" || stored === "enabled") {
-      setMotion(stored);
-      document.documentElement.setAttribute("data-motion", stored);
-    } else {
-      setMotion("enabled");
-      localStorage.setItem("infocob-motion", "enabled");
-      document.documentElement.setAttribute("data-motion", "enabled");
-    }
+    try {
+      const stored = localStorage.getItem("infocob-motion") as MotionState | null;
+      if (stored === "disabled" || stored === "enabled") {
+        setMotion(stored);
+        document.documentElement.setAttribute("data-motion", stored);
+        return;
+      }
+    } catch {}
+    setMotion("enabled");
+    document.documentElement.setAttribute("data-motion", "enabled");
   }, []);
 
   function toggle() {
@@ -25,11 +26,16 @@ export default function AnimationToggle() {
     const idx = motion === "auto" ? 2 : motion === "disabled" ? 1 : 0;
     const next = cycle[(idx + 1) % cycle.length];
     setMotion(next);
+    try {
+      if (next === "auto") {
+        localStorage.removeItem("infocob-motion");
+      } else {
+        localStorage.setItem("infocob-motion", next);
+      }
+    } catch {}
     if (next === "auto") {
-      localStorage.removeItem("infocob-motion");
       document.documentElement.removeAttribute("data-motion");
     } else {
-      localStorage.setItem("infocob-motion", next);
       document.documentElement.setAttribute("data-motion", next);
     }
   }

@@ -171,6 +171,7 @@ body {
   animation: rotate-glow 4s linear infinite;
   opacity: 0;
   transition: opacity 0.3s ease;
+  pointer-events: none;
 }
 
 .glow-border:hover::before {
