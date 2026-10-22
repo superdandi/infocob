@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useRef, useEffect, useCallback } from "react";
-import { X, Send, Sparkles, Trash2 } from "lucide-react";
+import { X, Send, Sparkles, Trash2, ExternalLink } from "lucide-react";
 import { useChat } from "@/lib/ChatContext";
 
 const STORAGE_KEY = "infocob-chat";
@@ -16,6 +16,31 @@ function track(action: string, p?: Record<string, string | number | boolean>) {
   if (GA_ID && typeof window !== "undefined" && typeof (window as any).gtag === "function") {
     (window as any).gtag("event", action, p);
   }
+}
+
+function linkify(text: string): React.ReactNode {
+  const urlRegex = /(https?:\/\/[^\s<>{}\[\]()'"\u00A0]+|www\.[^\s<>{}\[\]()'"\u00A0]+)/gi;
+  const parts = text.split(urlRegex);
+  const urls: string[] = text.match(urlRegex) || [];
+  
+  return parts.map((part, i) => {
+    if (urls.includes(part)) {
+      const href = part.startsWith("http") ? part : `https://${part}`;
+      return (
+        <a
+          key={i}
+          href={href}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="text-accent underline hover:text-accent/80 inline-flex items-center gap-1"
+        >
+          {part}
+          <ExternalLink size={10} className="opacity-60" />
+        </a>
+      );
+    }
+    return <span key={i}>{part}</span>;
+  });
 }
 
 const SYSTEM_PROMPT = `Sos Daniel Cobos, dueño de INFOCOB Computación (Talca, Chile, desde 2008). Atendés el chat personalmente. Sos vendedor senior, tirando a veterano — vas directo, sin vueltas, sin verborrea. Tus respuestas son de 1-2 líneas, como cuando un cliente entra a tu local y le decís las cosas claras. No redacteés párrafos. Siempre en español de Chile.
@@ -66,7 +91,7 @@ type ProviderDef = {
 
 const providers: ProviderDef[] = [
   { name: "Gemini", key: process.env.NEXT_PUBLIC_GEMINI_API_KEY, model: "gemini-3.8-flash", cooldownUntil: 0 },
-  { name: "Groq", key: process.env.NEXT_PUBLIC_GROQ_API_KEY, model: "llama-3.1-8b-instant", cooldownUntil: 0 },
+  { name: "Groq", key: process.env.NEXT_PUBLIC_GROQ_API_KEY, model: "openai/gpt-oss-20b", cooldownUntil: 0 },
   { name: "OpenRouter", key: process.env.NEXT_PUBLIC_OPENROUTER_API_KEY, model: "openrouter/free", cooldownUntil: 0 },
 ];
 
@@ -84,9 +109,14 @@ async function callGemini(messages: { role: string; text: string }[], key: strin
       }),
     }
   );
+  const responseText = await res.text();
   if (res.status === 429) return { ok: false as const, rateLimited: true };
-  if (!res.ok) return { ok: false as const, error: `Error ${res.status}: ${(await res.text()).slice(0, 200)}` };
-  const data = await res.json();
+  if (!res.ok) {
+    console.error("[Gemini API Error]", res.status, responseText);
+    return { ok: false as const, error: `Gemini ${res.status}: ${responseText.slice(0, 300)}` };
+  }
+  let data;
+  try { data = JSON.parse(responseText); } catch { return { ok: false as const, error: "Respuesta inválida de Gemini" }; }
   const text = data?.candidates?.[0]?.content?.parts?.[0]?.text;
   if (!text) return { ok: false as const, error: "Respuesta vacía de Gemini" };
   return { ok: true as const, text };
@@ -99,9 +129,14 @@ async function callGroq(messages: { role: string; text: string }[], key: string,
     headers: { "Authorization": `Bearer ${key}`, "Content-Type": "application/json" },
     body: JSON.stringify({ model, messages: msgs, temperature: 0.7, max_tokens: 512 }),
   });
+  const responseText = await res.text();
   if (res.status === 429) return { ok: false as const, rateLimited: true };
-  if (!res.ok) return { ok: false as const, error: `Error ${res.status}: ${(await res.text()).slice(0, 200)}` };
-  const data = await res.json();
+  if (!res.ok) {
+    console.error("[Groq API Error]", res.status, responseText);
+    return { ok: false as const, error: `Groq ${res.status}: ${responseText.slice(0, 300)}` };
+  }
+  let data;
+  try { data = JSON.parse(responseText); } catch { return { ok: false as const, error: "Respuesta inválida de Groq" }; }
   const text = data?.choices?.[0]?.message?.content;
   if (!text) return { ok: false as const, error: "Respuesta vacía de Groq" };
   return { ok: true as const, text };
@@ -114,9 +149,14 @@ async function callOpenRouter(messages: { role: string; text: string }[], key: s
     headers: { "Authorization": `Bearer ${key}`, "Content-Type": "application/json", "HTTP-Referer": "https://superdandi.github.io", "X-Title": "INFOCOB" },
     body: JSON.stringify({ model, messages: msgs, temperature: 0.7, max_tokens: 512 }),
   });
+  const responseText = await res.text();
   if (res.status === 429) return { ok: false as const, rateLimited: true };
-  if (!res.ok) return { ok: false as const, error: `Error ${res.status}: ${(await res.text()).slice(0, 200)}` };
-  const data = await res.json();
+  if (!res.ok) {
+    console.error("[OpenRouter API Error]", res.status, responseText);
+    return { ok: false as const, error: `OpenRouter ${res.status}: ${responseText.slice(0, 300)}` };
+  }
+  let data;
+  try { data = JSON.parse(responseText); } catch { return { ok: false as const, error: "Respuesta inválida de OpenRouter" }; }
   const text = data?.choices?.[0]?.message?.content;
   if (!text) return { ok: false as const, error: "Respuesta vacía de OpenRouter" };
   return { ok: true as const, text };
@@ -336,7 +376,7 @@ export default function AiChat() {
           {displayMessages.map((msg, i) => (
             <div key={i} className={`flex ${msg.role === "user" ? "justify-end" : "justify-start"}`}>
               <div className={`max-w-[75%] px-4 py-2.5 rounded-2xl text-sm leading-relaxed ${msg.role === "user" ? "bg-accent text-bg" : "bg-white/5 text-text border border-border/30"}`}>
-                {msg.text}
+                {linkify(msg.text)}
               </div>
             </div>
           ))}
