@@ -95,74 +95,112 @@ const providers: ProviderDef[] = [
   { name: "OpenRouter", key: process.env.NEXT_PUBLIC_OPENROUTER_API_KEY, model: "openrouter/free", cooldownUntil: 0 },
 ];
 
-async function callGemini(messages: { role: string; text: string }[], key: string, model: string) {
+async function callGemini(messages: { role: string; text: string }[], key: string, model: string): Promise<{ ok: boolean; text?: string; rateLimited?: boolean; error?: string; retryable?: boolean }> {
   const contents = messages.map((m) => ({ role: m.role, parts: [{ text: m.text }] }));
-  const res = await fetch(
-    `https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent?key=${encodeURIComponent(key)}`,
-    {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        system_instruction: { parts: [{ text: SYSTEM_PROMPT }] },
-        contents,
-        generationConfig: { temperature: 0.7, maxOutputTokens: 512 },
-      }),
+  const controller = new AbortController();
+  const timeout = setTimeout(() => controller.abort(), 30000);
+  try {
+    const res = await fetch(
+      `https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent?key=${encodeURIComponent(key)}`,
+      {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          system_instruction: { parts: [{ text: SYSTEM_PROMPT }] },
+          contents,
+          generationConfig: { temperature: 0.7, maxOutputTokens: 1024 },
+        }),
+        signal: controller.signal,
+      }
+    );
+    clearTimeout(timeout);
+    const responseText = await res.text();
+    if (res.status === 429) return { ok: false, rateLimited: true };
+    if (res.status === 503) return { ok: false, error: "Gemini 503: alta demanda", retryable: true };
+    if (!res.ok) {
+      console.error("[Gemini API Error]", res.status, responseText);
+      return { ok: false, error: `Gemini ${res.status}: ${responseText.slice(0, 300)}` };
     }
-  );
-  const responseText = await res.text();
-  if (res.status === 429) return { ok: false as const, rateLimited: true };
-  if (!res.ok) {
-    console.error("[Gemini API Error]", res.status, responseText);
-    return { ok: false as const, error: `Gemini ${res.status}: ${responseText.slice(0, 300)}` };
+    let data;
+    try { data = JSON.parse(responseText); } catch { return { ok: false, error: "Respuesta inválida de Gemini" }; }
+    const text = data?.candidates?.[0]?.content?.parts?.[0]?.text;
+    if (!text) return { ok: false, error: "Respuesta vacía de Gemini" };
+    return { ok: true, text };
+  } catch (e) {
+    clearTimeout(timeout);
+    if (e instanceof Error && e.name === "AbortError") return { ok: false, error: "Gemini timeout (30s)" };
+    console.error("[Gemini API Error]", e);
+    return { ok: false, error: `Gemini error: ${e instanceof Error ? e.message : String(e)}` };
   }
-  let data;
-  try { data = JSON.parse(responseText); } catch { return { ok: false as const, error: "Respuesta inválida de Gemini" }; }
-  const text = data?.candidates?.[0]?.content?.parts?.[0]?.text;
-  if (!text) return { ok: false as const, error: "Respuesta vacía de Gemini" };
-  return { ok: true as const, text };
 }
 
-async function callGroq(messages: { role: string; text: string }[], key: string, model: string) {
+async function callGroq(messages: { role: string; text: string }[], key: string, model: string): Promise<{ ok: boolean; text?: string; rateLimited?: boolean; error?: string; retryable?: boolean }> {
   const msgs = [{ role: "system" as const, content: SYSTEM_PROMPT }, ...messages.map((m) => ({ role: m.role === "model" ? "assistant" : "user", content: m.text }))];
-  const res = await fetch("https://api.groq.com/openai/v1/chat/completions", {
-    method: "POST",
-    headers: { "Authorization": `Bearer ${key}`, "Content-Type": "application/json" },
-    body: JSON.stringify({ model, messages: msgs, temperature: 0.7, max_tokens: 512 }),
-  });
-  const responseText = await res.text();
-  if (res.status === 429) return { ok: false as const, rateLimited: true };
-  if (!res.ok) {
-    console.error("[Groq API Error]", res.status, responseText);
-    return { ok: false as const, error: `Groq ${res.status}: ${responseText.slice(0, 300)}` };
+  const controller = new AbortController();
+  const timeout = setTimeout(() => controller.abort(), 30000);
+  try {
+    const res = await fetch("https://api.groq.com/openai/v1/chat/completions", {
+      method: "POST",
+      headers: { "Authorization": `Bearer ${key}`, "Content-Type": "application/json" },
+      body: JSON.stringify({ model, messages: msgs, temperature: 0.7, max_tokens: 1024 }),
+      signal: controller.signal,
+    });
+    clearTimeout(timeout);
+    const responseText = await res.text();
+    if (res.status === 429) return { ok: false, rateLimited: true };
+    if (res.status === 503) return { ok: false, error: "Groq 503", retryable: true };
+    if (!res.ok) {
+      console.error("[Groq API Error]", res.status, responseText);
+      return { ok: false, error: `Groq ${res.status}: ${responseText.slice(0, 300)}` };
+    }
+    let data;
+    try { data = JSON.parse(responseText); } catch { return { ok: false, error: "Respuesta inválida de Groq" }; }
+    const text = data?.choices?.[0]?.message?.content;
+    if (!text) return { ok: false, error: "Respuesta vacía de Groq" };
+    return { ok: true, text };
+  } catch (e) {
+    clearTimeout(timeout);
+    if (e instanceof Error && e.name === "AbortError") return { ok: false, error: "Groq timeout (30s)" };
+    console.error("[Groq API Error]", e);
+    return { ok: false, error: `Groq error: ${e instanceof Error ? e.message : String(e)}` };
   }
-  let data;
-  try { data = JSON.parse(responseText); } catch { return { ok: false as const, error: "Respuesta inválida de Groq" }; }
-  const text = data?.choices?.[0]?.message?.content;
-  if (!text) return { ok: false as const, error: "Respuesta vacía de Groq" };
-  return { ok: true as const, text };
 }
 
-async function callOpenRouter(messages: { role: string; text: string }[], key: string, model: string) {
+async function callOpenRouter(messages: { role: string; text: string }[], key: string, model: string): Promise<{ ok: boolean; text?: string; rateLimited?: boolean; error?: string; retryable?: boolean }> {
   const msgs = [{ role: "system" as const, content: SYSTEM_PROMPT }, ...messages.map((m) => ({ role: m.role === "model" ? "assistant" : "user", content: m.text }))];
-  const res = await fetch("https://openrouter.ai/api/v1/chat/completions", {
-    method: "POST",
-    headers: { "Authorization": `Bearer ${key}`, "Content-Type": "application/json", "HTTP-Referer": "https://superdandi.github.io", "X-Title": "INFOCOB" },
-    body: JSON.stringify({ model, messages: msgs, temperature: 0.7, max_tokens: 512 }),
-  });
-  const responseText = await res.text();
-  if (res.status === 429) return { ok: false as const, rateLimited: true };
-  if (!res.ok) {
-    console.error("[OpenRouter API Error]", res.status, responseText);
-    return { ok: false as const, error: `OpenRouter ${res.status}: ${responseText.slice(0, 300)}` };
+  const controller = new AbortController();
+  const timeout = setTimeout(() => controller.abort(), 30000);
+  try {
+    const res = await fetch("https://openrouter.ai/api/v1/chat/completions", {
+      method: "POST",
+      headers: { "Authorization": `Bearer ${key}`, "Content-Type": "application/json", "HTTP-Referer": "https://superdandi.github.io", "X-Title": "INFOCOB" },
+      body: JSON.stringify({ model, messages: msgs, temperature: 0.7, max_tokens: 1024 }),
+      signal: controller.signal,
+    });
+    clearTimeout(timeout);
+    const responseText = await res.text();
+    if (res.status === 429) return { ok: false, rateLimited: true };
+    if (res.status === 503) return { ok: false, error: "OpenRouter 503", retryable: true };
+    if (!res.ok) {
+      console.error("[OpenRouter API Error]", res.status, responseText);
+      return { ok: false, error: `OpenRouter ${res.status}: ${responseText.slice(0, 300)}` };
+    }
+    let data;
+    try { data = JSON.parse(responseText); } catch { return { ok: false, error: "Respuesta inválida de OpenRouter" }; }
+    const text = data?.choices?.[0]?.message?.content;
+    if (!text) return { ok: false, error: "Respuesta vacía de OpenRouter" };
+    return { ok: true, text };
+  } catch (e) {
+    clearTimeout(timeout);
+    if (e instanceof Error && e.name === "AbortError") return { ok: false, error: "OpenRouter timeout (30s)" };
+    console.error("[OpenRouter API Error]", e);
+    return { ok: false, error: `OpenRouter error: ${e instanceof Error ? e.message : String(e)}` };
   }
-  let data;
-  try { data = JSON.parse(responseText); } catch { return { ok: false as const, error: "Respuesta inválida de OpenRouter" }; }
-  const text = data?.choices?.[0]?.message?.content;
-  if (!text) return { ok: false as const, error: "Respuesta vacía de OpenRouter" };
-  return { ok: true as const, text };
 }
 
-const providerCalls: Record<string, typeof callGemini> = { Gemini: callGemini, Groq: callGroq, OpenRouter: callOpenRouter };
+// type ProviderResult = { ok: boolean; text?: string; rateLimited?: boolean; error?: string; retryable?: boolean };
+
+const providerCalls = { Gemini: callGemini, Groq: callGroq, OpenRouter: callOpenRouter };
 
 export default function AiChat() {
   const { open, setOpen, presetMessage, setPresetMessage } = useChat();
@@ -274,9 +312,14 @@ export default function AiChat() {
       setActiveProvider(prov.name);
       const call = providerCalls[prov.name];
       const result = await call(msgs, prov.key!, prov.model);
-      if (result.ok) { reply = result.text; break; }
+      if (result.ok) { reply = result.text ?? ""; break; }
       if (result.rateLimited) {
         prov.cooldownUntil = now + COOLDOWN_MS;
+        continue;
+      }
+      // 503 / retryable = skip cooldown, try next provider immediately
+      if (result.retryable) {
+        console.warn(`[${prov.name}] ${result.error} - trying next provider`);
         continue;
       }
       setError(result.error ?? `Error en ${prov.name}`);

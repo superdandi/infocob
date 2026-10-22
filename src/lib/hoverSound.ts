@@ -4,9 +4,14 @@ import { useEffect } from "react";
 
 let ctx: AudioContext | null = null;
 
+function initCtx() {
+  if (!ctx) ctx = new AudioContext();
+}
+
 function play() {
   try {
-    if (!ctx) ctx = new AudioContext();
+    initCtx();
+    if (ctx.state === "suspended") ctx.resume();
     const osc = ctx.createOscillator();
     const gain = ctx.createGain();
     osc.type = "sine";
