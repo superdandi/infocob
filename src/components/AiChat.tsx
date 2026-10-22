@@ -200,7 +200,7 @@ async function callOpenRouter(messages: { role: string; text: string }[], key: s
 
 // type ProviderResult = { ok: boolean; text?: string; rateLimited?: boolean; error?: string; retryable?: boolean };
 
-const providerCalls = { Gemini: callGemini, Groq: callGroq, OpenRouter: callOpenRouter };
+const providerCalls: Record<string, (messages: { role: string; text: string }[], key: string, model: string) => Promise<{ ok: boolean; text?: string; rateLimited?: boolean; error?: string; retryable?: boolean }>> = { Gemini: callGemini, Groq: callGroq, OpenRouter: callOpenRouter };
 
 export default function AiChat() {
   const { open, setOpen, presetMessage, setPresetMessage } = useChat();
