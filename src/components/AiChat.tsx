@@ -65,9 +65,9 @@ type ProviderDef = {
 };
 
 const providers: ProviderDef[] = [
-  { name: "Gemini", key: process.env.NEXT_PUBLIC_GEMINI_API_KEY, model: "gemini-2.0-flash", cooldownUntil: 0 },
-  { name: "Groq", key: process.env.NEXT_PUBLIC_GROQ_API_KEY, model: "llama-3.3-70b-versatile", cooldownUntil: 0 },
-  { name: "OpenRouter", key: process.env.NEXT_PUBLIC_OPENROUTER_API_KEY, model: "meta-llama/llama-3.1-8b-instruct:free", cooldownUntil: 0 },
+  { name: "Gemini", key: process.env.NEXT_PUBLIC_GEMINI_API_KEY, model: "gemini-3.8-flash", cooldownUntil: 0 },
+  { name: "Groq", key: process.env.NEXT_PUBLIC_GROQ_API_KEY, model: "llama-3.1-8b-instant", cooldownUntil: 0 },
+  { name: "OpenRouter", key: process.env.NEXT_PUBLIC_OPENROUTER_API_KEY, model: "openrouter/free", cooldownUntil: 0 },
 ];
 
 async function callGemini(messages: { role: string; text: string }[], key: string, model: string) {
